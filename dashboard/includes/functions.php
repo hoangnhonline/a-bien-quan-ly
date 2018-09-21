@@ -1087,8 +1087,19 @@ function makeBdsList($sql_query,$block)
 			'show_action'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'])?"":"display:none;",
 			'show_del'		=>  ($_SESSION['is_admin'])?"":"display:none;",
 			'show_flag'		=>  ($sql_query_rows['flag']=="hot")?"":"display:none;",
+			'update_time'			=>  checkExpired($sql_query_rows['update_time']),
 		));
 	}
 }
 
+function checkExpired($update_time){
+	$stringExpired = '';
+	$diff = abs(time() - strtotime($update_time));
+	$days = floor($diff/(60*60*24));
+	if($days >= 30){
+		$stringExpired = '<span style="color:#FFF;background-color:#000;padding:3px">Hết hạn</span>';
+	}
+
+	return $stringExpired;
+}
 ?>

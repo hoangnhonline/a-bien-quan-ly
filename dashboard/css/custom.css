@@ -6400,7 +6400,7 @@ td:hover .cat-hover-link {visibility: visible;}
 .bds-table tr.data td {max-width:600px;border-left: 1px solid #565656 !important;}
 .bds-table tr td.admin_name {max-width:100px;}
 .bds-table tr td.kh_name {max-width:70px;}
-.bds-table tr td.bds_code {max-width:90px;cursor: pointer;}
+.bds-table tr td.bds_code {max-width:110px;cursor: pointer;}
 .bds-table tr td.bds_dt {min-width:80px;max-width:80px;}
 .bds-table tr td.bds_tt {min-width:55px;max-width:55px;width:55px;}
 .bds-table tr td.cat_name {max-width:110px;width:110px;}
