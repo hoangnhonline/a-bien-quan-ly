@@ -1092,14 +1092,16 @@ function makeBdsList($sql_query,$block)
 	}
 }
 
-function checkExpired($update_time){
+function checkExpired($update_time, $type = 'string'){
 	$stringExpired = '';
+	$check = false;
 	$diff = abs(time() - strtotime($update_time));
 	$days = floor($diff/(60*60*24));
 	if($days >= 30){
 		$stringExpired = '<span style="color:#FFF;background-color:#000;padding:3px">Hết hạn</span>';
+		$check = true;
 	}
 
-	return $stringExpired;
+	return $type == 'string' ? $stringExpired : $check;
 }
 ?>
