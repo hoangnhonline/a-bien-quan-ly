@@ -1,0 +1,14 @@
+<form class="form-horizontal form-label-lef" action="" method="post" novalidate>
+<input type="text" required="required" name="bds_name" value="{txt_cat_name}" class="form-control" style="width:200px;float:left;margin-right:10px;" placeholder="Tên khu vực...">
+<select style="width: 200px;padding: 7px;margin-right:10px;float:left;" name="bds_parent">
+<option value="0">Thuộc khu vực</option>
+<!-- BEGIN MENULIST -->
+<option value="{MENULIST.id}" {MENULIST.selected}>{MENULIST.title1}</option>
+<!-- END MENULIST -->
+</select>
+<input type="text" name="bds_des" value="{txt_cat_des}" class="form-control" style="width:410px;float:left;margin-top:10px;margin-right:10px;" placeholder="Ghi chú...">
+<input type="hidden" name="cid" value="{txt_cat_id}">
+<input type="hidden" name="cmd" value="update">
+<button type="submit" class="btn btn-success">Cập nhật</button>
+<button type="button" class="btn btn-danger" onclick="$('.catbox-id').html('');">Hủy</button>
+</form>

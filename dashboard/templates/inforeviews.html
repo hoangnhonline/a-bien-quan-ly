@@ -1,0 +1,150 @@
+								<td width="100%">
+									<table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+                               		   <tr width="100%">
+                                  			<td>
+                                  			  <div id="title_panel">
+                                  					<div id="title" class="header icon-48-REVLIST">{txt_lang_inforeviewmanager}</div>
+
+                                                    <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=place_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                                                    <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                                                    
+                                                    <div style="display: {txt_button_law_add};" id="toolbar_button"><a onclick="goPage('./?act=place_modify');" title="{txt_cms_addnew}"><span class="icon-32-new"></span>{txt_cms_addnew}</a></div>
+                                                    <div style="display: {txt_button_law_del};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{ if(Question_del()) submitbutton('{txt_cms_delete}');}" href="#" title="{txt_cms_delete}"><span class="icon-32-delete"></span>{txt_cms_delete}</a></div>
+                                                    <div style="display: none;" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_one} [{txt_change}]');}else{ submitbutton('{txt_cms_edit}');}" {txt_links_update} title="{txt_change}"><span class="icon-32-edit"></span>{txt_change}</a></div>
+                                                    <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript: submitbutton('{txt_cms_update}');" href="#" title="{txt_cms_update}"><span class="icon-32-update"></span>{txt_cms_update}</a></div>
+                                                    <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_unpublish}]');}else{ submitbutton('{txt_cms_unpublish}');}" href="#" title="{txt_cms_unpublish}"><span class="icon-32-unpublish"></span>{txt_cms_unpublish}</a></div>
+                                                    <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_publish}]');}else{ submitbutton('{txt_cms_publish}');}" href="#" title="{txt_cms_publish}"><span class="icon-32-publish"></span>{txt_cms_publish}</a></div>
+                                  			  </div>
+                                              <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                                                       {txt_msg_error}
+                                              </div>
+                                              <div id="header_box_behind">
+                                              </div>
+                                  			</td>
+                                  		</tr>
+                                        <script language="JAVASCRIPT">
+                                          //Question when place lick delete
+                                          function Question_del()
+                                          {
+                                               return confirm("{txt_question_delete}");
+                                          }
+
+                                          //Error when place click icon action
+                                          function Error_law(e)
+                                          {
+                                              if (e=='del')
+                                               { alert("{txt_error_law_del}");
+                                                return false;
+                                               }
+                                              if (e=='mod')
+                                               { alert("{txt_error_law_mod}");
+                                                 return false;
+                                               }
+                                          }
+
+                                          //Effect for Search
+                                          function focus_search(e)
+                                          {
+                                          	if ( e.value == "{txt_enter_key}" )
+                                          	{
+                                          		e.value = '';
+                                          		return false;
+                                          	}
+                                          }
+                                          function moveout_search(e)
+                                          {
+                                          	if ( e.value == '')
+                                          	{
+                                          		e.value = "{txt_enter_key}";
+                                          		return false;
+                                          	}
+                                          }
+                                         //call error
+
+                                        </script>
+
+                                		<tr width="909">
+                                                <!-- THE BEGIN BODY LEFT  -->
+                                        		<td height="360" valign="top">
+                                                    <div id="cpanel">
+                                                         <form method="post" name="adminForm">
+                                                                <table class="adminlist" id="table6" cellspacing="1">
+                                            						<!-- Bat dau dieu de -->
+                                            						<thead>
+                                            						   <tr style="height: 23px;">
+                                            								<th width="2%" height="23px;">  # </th>
+                                            								<th width="2%">
+                                                                                <input name="toggle" onclick="checkAll({txt_sophantu});" type="checkbox">
+                                                                            </th>
+                                            								<th width="15%" title="{txt_order}">
+                                            									Người gửi
+                                            								</th>
+                                            								<th class="{txt_class_title_name}">
+                                            									Bài viết/Nội dung đánh giá
+                                            								</th>
+                                            								<th class="{txt_class_title_status}" width="10%" title="{txt_order}">
+                                            									Trạng thái
+                                                                                {order_status}
+                                            								</th>
+                                            								<th width="6%">
+                                            									{txt_clear}
+                                            								</th>
+                                            								<th class="{txt_class_title_id}" title="{txt_order}" width="6%">
+                                            									id
+                                            								</th>
+                                            							</tr>
+                                            						</thead>
+                                                                    <!-- KET THUC TIEU DE -->
+
+
+
+                                              						<tbody>
+                                                                              <!-- BEGIN REVLIST -->
+                                              								<tr class="{REVLIST.background}">
+                                              									<td style="text-align: center;" title="center">  {REVLIST.stt1}  </td>
+                                              									<td align="center">
+                                              										<input id="cb{REVLIST.stt}" type="checkbox" name="cid[]" onclick="isChecked(this.checked);" value="{REVLIST.id}"/>
+                                              									</td>
+                                                                                <td align="left">
+                                                                                	<a href="./?act=users&id=0&dir=asc&trash=1&addnew={REVLIST.uid}">{REVLIST.uname}</a>
+																					<input type="hidden" style="margin-right: 20px;" name="strOrder[]" size="10" value="{REVLIST.uname}" class="textForm_define icon-16-ui">
+                                                                                </td>
+                                              									<td>
+                                                                                    <input type="hidden" name="itemID[]" value="{REVLIST.id}" size="6">
+                                              										<p style="padding-left:5px;">{REVLIST.pname}</p>
+																					<textarea  rows="3" name="strName_en[]" class="textForm_define" style="padding-left:5px; height:50px; width:92%;">{REVLIST.content}</textarea>
+                                              									</td>
+                                              									<td align="center">
+                                              										<a style="cursor:pointer;" {REVLIST.linkStatus} onclick="{REVLIST.checkMod}"><img src="{REVLIST.imgStatus}" width="16" height="16"/></a>
+                                              									</td>
+                                              									<td align="center">
+                                              										<a style="cursor:pointer;" {REVLIST.linkDel}><img  onclick="{REVLIST.checkDel}" src="images/icon-16/icon-16-del.png" width="16" height="16"/></a>
+                                              									</td>
+                                              									<td class="id_item" align="center">
+                                              										{REVLIST.id}
+                                              									</td>
+                                              								</tr>
+                                                                              <!-- END REVLIST -->
+                                                                      </tbody>
+                                                                      <!-- Hien thi phan trang -->
+                                                                      <tfoot>
+                                                                            <tr>
+                                                                                <td style="background-color:#F3F3F3; border-top:1px solid #999999; border-right:1px solid #e7e7e7; border-left:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; text-align:center;" colspan="9">
+                                                                                    <del class="container">
+                                                                                       <div style="margin: 2px auto 2px auto;" class="pagination">
+                                                                                              {link_page}
+                                                                                       </div>
+                                                                                    </del>
+                                                                                </td>
+                                                                            </tr>
+                                                                      </tfoot>
+                                                                </table>
+		<input type="hidden" name="cmd" value="" />
+		<input type="hidden" name="boxchecked" value="0" />
+                                                         </form>
+                                                    </div>
+                                                </td>
+                                                <!-- THE END BODY LEFT -->
+                                    		</tr>
+									</table>
+								</td>

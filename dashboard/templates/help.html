@@ -1,0 +1,55 @@
+  <!--[if IE 6]>
+    <script> var HeightE = 220;</script>
+  <![endif]-->
+
+  <!--[if IE 7]>
+    <script> var HeightE = 220;</script>
+  <![endif]-->
+
+  <!--[if IE 8]>
+    <script> var HeightE = 220;</script>
+  <![endif]-->
+
+  <!--[if FF]><!-->
+    <script> var HeightE = 300;</script>
+  <!--<![endif]-->
+
+ <td valign="top">
+    <table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+	   <tr width="909">
+  			<td colspan="2">
+  			  <div id="title_panel">
+  					<div id="title" class="header icon-48-project">Hướng dẫn quản trị trang web</div>
+                    <div id="toolbar_button"><a onclick="goPage('./?act=help');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                    <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                    
+                    <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="goPage('./?act=help_list');" href="#" title="{txt_cms_update}"><span class="icon-32-edit"></span>{txt_change}</a></div>
+  			  </div>
+             <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                     {txt_msg_error}
+             </div>
+  			</td>
+  		</tr>
+
+  		<tr width="909" valign="top">
+            <td>
+    			  <link rel="stylesheet" href="css/help.css">
+				  <div id="body_setting" style="text-align:center; width:995px; height:auto; background:#fff; ">
+					<div  class="divhelp_content" style="margin-bottom:-31px;">
+					<!-- BEGIN HELP -->
+						<h1 style="text-align:left; color:#000; font-size:15px;">{HELP.title}</h1>
+						<div style="margin-top:20px; margin-bottom:20px; border-bottom:#ddd solid 1px; color:#000;">{HELP.content}</div>
+					<!-- END HELP -->
+				   </div>
+                  </div>
+            </td>
+        </tr>
+        <!--[if IE 7]>
+            <tr width="909"><td colspan="2" style="height: 5px;"></td></tr>
+        <![endif]-->
+
+        <!--[if IE 8]>
+            <tr width="909"><td colspan="2" style="height: 5px;"></td></tr>
+        <![endif]-->
+    </table>
+  </td>

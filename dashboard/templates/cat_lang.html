@@ -1,0 +1,162 @@
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="" style="display:{txt_hide_list};">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Language manager</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act={txt_action}&edit=0';">Add New</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>Add, edit or delete your language!</p>
+
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title">ID </th>
+                                                <th class="column-title">Flag</th>
+                                                <th class="column-title">Name</th>
+                                                <th class="column-title">Symbol</th>
+                                                <th class="column-title">Status</th>
+                                                <th class="column-title">Order</th>
+                                                <th class="column-title last"><span class="nobr">Action</span>
+                                                </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- BEGIN MENULIST -->
+								<tr class="even pointer">
+                                    <td class=" ">{MENULIST.id}</td>
+                                    <td class=" "><img src="{MENULIST.flag}" height="10"></td>
+                                    <td class=" ">{MENULIST.name}</td>
+                                    <td class=" ">{MENULIST.symbol}</td>
+                                    <td class=" ">
+										<label>
+											<input type="checkbox" class="js-switch" {MENULIST.status} />
+										</label>
+									</td>
+                                    <td class="a-right a-right ">{MENULIST.priority_order}</td>
+                                    <td class=" last">
+									<a href="./?act={txt_action}&edit={MENULIST.id}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+									<a href="./?act={txt_action}&del={MENULIST.id}" onclick="return Question_del();" class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Delete </a>
+									</td>
+                                </tr>
+								<!-- END MENULIST -->
+                            </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display:{txt_hide_edit};">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Language manager [{txt_doaction}]</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<!-- BEGIN ERROR -->
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{ERROR.info}
+					</div>
+					<!-- END ERROR -->
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                           <div class="x_content">
+                                    <form action="" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Name <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input value="{txt_lang_name}" type="text" id="lname" name="name" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Flag image <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input value="{txt_lang_flag}" type="text" id="lflag" name="flag" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Location <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input value="{txt_lang_location}" type="text" id="llocation" name="location" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Prefix <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input value="{txt_lang_pre}" type="text" id="lprefix" name="pre" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lsymbol">Symbol <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input value="{txt_lang_symbol}" type="text" id="lsymbol" name="symbol" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lorder">Order <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input value="{txt_lang_order}" type="text" id="lorder" name="order" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display:none{txt_show_copy};">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lorder">Copy data from<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												  <select class="combo_select_group" name="cbCopy" id="cbCopy" size="1" style="margin-left: 4px; width: 309px;  width: 275px; padding-top:0px; margin:0px; height:27px; font-size:18px; ">
+													  <!-- BEGIN MENULIST -->
+														  <option value="{MENULIST.id}">{MENULIST.name}</option>
+													  <!-- END MENULIST -->
+												  </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12" style="padding-top:8px;">
+												<label>
+                                                        <input class="flat" type="radio" value="1" id="optionsRadios1" name="status" checked > Publish &nbsp;&nbsp;
+                                                </label>
+												<label>
+                                                        <input class="flat" type="radio" value="0" id="optionsRadios0" name="status" {txt_lang_status}> Unpublish
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='./?act=cat_lang';">Cancel</button>
+                                                <input type="hidden" name="cmd" value="{txt_cmdaction}">
+												<button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

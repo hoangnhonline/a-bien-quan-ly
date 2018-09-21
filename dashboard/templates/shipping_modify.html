@@ -1,0 +1,198 @@
+            <div class="right_col" role="main">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Quản lý phí chuyển hàng [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{txt_msg_error}
+					</div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_content">
+									<form enctype="multipart/form-data" name="admintable" action="" method="post" onsubmit="return Check_input_Define();" data-parsley-validate class="form-horizontal form-label-left">
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Tên gói<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input value="{ship_name}" type="text" name="ship_name" required="required" class="form-control col-md-7 col-xs-12" >
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Kiểu tính phí<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="ship_type" id="ship_type" class="form-control">
+														  <option value="cd">Cố định</option>
+														  <option value="pt" {ship_type_pt}>Phần trăm</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Mức phí
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{ship_fee}" name="ship_fee" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Miễn phí cho đơn hàng lớn hơn<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{ship_free_total}" name="ship_free_total" class="form-control col-md-7 col-xs-12" style="width:50%;"/>&nbsp;&nbsp;đ
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Miễn phí cho đơn hàng nhiều hơn<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{ship_free_pro}" name="ship_free_pro" class="form-control col-md-7 col-xs-12" style="width:50%;"/>&nbsp;&nbsp;sản phẩm
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Trạng thái<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="ship_status" id="ship_status" class="form-control">
+														  <option value="1">Kích hoạt</option>
+														  <option value="0" {ship_status_0}>Dừng kích hoạt</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Phương thức thanh toán<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<div>
+																	   <table class="zone_table" width="100%">
+																	<tr class="title"><td width="45%">Tên phương thức</td><td>Áp dụng</td><td width="120">Phí ship</td></tr>
+																	<tr>
+																		<td width="45%">
+																			Thanh toán COD
+																		</td>
+																		<td>
+																			<input type="checkbox" name="payment_cod_status" class="js-switch" {payment_cod_checked} />														
+																		</td>
+																		<td width="100">
+																			<input type="text" value="{payment_cod_fee}" name="payment_cod_fee" class="form-control col-md-4" style="width:80px;"/>&nbsp;&nbsp;đ
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="45%">
+																			Thanh toán chuyển khoản
+																		</td>
+																		<td>
+																			<input type="checkbox" name="payment_bank_status" class="js-switch" {payment_bank_checked} />													
+																		</td>
+																		<td width="100">
+																			<input type="text" value="{payment_bank_fee}" name="payment_bank_fee" class="form-control col-md-4" style="width:80px;"/>&nbsp;&nbsp;đ
+																		</td>
+																	</tr>
+																	<tr>
+																		<td width="45%">
+																			Thanh toán Ngân lượng
+																		</td>
+																		<td>
+																			<input type="checkbox" name="payment_nl_status" class="js-switch" {payment_nl_checked} />													
+																		</td>
+																		<td width="100">
+																			<input type="text" value="{payment_nl_fee}" name="payment_nl_fee" class="form-control col-md-4" style="width:80px;"/>&nbsp;&nbsp;đ
+																		</td>
+																	</tr>
+																	
+															   </table>
+														</div>
+													
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation"> 
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="hidden" name="cmd" value="{cmd}">
+														<input type="hidden" name="cid" value="{cid}">
+														<button type="button" class="btn btn-primary" onclick="if (confirm('A you sure to cancel?')) window.location.href='./?act=shipping';">Cancel</button>
+														<button type="submit" class="btn btn-success">Submit</button>
+													</div>
+												</div>
+												<div class="ln_solid"></div>
+											   <div class="x_title">
+														<h2>Địa phương áp dụng</h2>
+														<div class="clearfix"></div>
+											   </div>
+												<script>
+													function load_huyen(tinh_id,row_id) {
+													jQuery.ajax({
+														   type: "GET",
+														   url: "./ajax_action.php?act=gethuyen&tinhid=" + tinh_id,
+														   success: function(data)
+														   {
+																jQuery("#" + row_id).html(data);
+														   }
+														 });
+													}
+													function addRow(){
+														row_id = makeRandomString();
+														jQuery("#shipping_row").append('\
+														<tr id="row_' + row_id + '">\
+															<td width="45%">\
+															<select name="ship_tinh[]" onchange="load_huyen(this.value,\'huyen_' + row_id + '\');">\
+																<!-- BEGIN DSTINH -->
+																<option value="{DSTINH.id}" {DSTINH.selected}>{DSTINH.name}</option>\
+																<!-- END DSTINH -->
+															</select>\
+															</td>\
+															<td>\
+															<select name="ship_huyen[]" id="huyen_' + row_id +'"></select>\											
+															</td>\
+															<td width="100">\
+															<button class="btn btn-primary" type="button" onclick="dellRow(\'' + row_id + '\');">Xóa</button>\
+															</td>\
+														</tr>\
+														');
+													}
+													function dellRow(row_id){
+														jQuery("#row_" + row_id).html("");
+														jQuery("#row_" + row_id).hide();
+													}
+												</script>
+											   <table class="zone_table" width="100%">
+													<tr class="title"><td width="45%">Tỉnh:</td><td>Huyện:</td><td width="100">Thao tác</td></tr>
+													<tbody id="shipping_row">
+													<!-- BEGIN ZONE -->
+													<tr id="row_{ZONE.stt}">
+														<td width="45%">
+														<select name="ship_tinh[]" onchange="load_huyen(this.value,'huyen_{ZONE.stt}');">
+															<!-- BEGIN DSTINH -->
+															<option value="{ZONE.DSTINH.id}" {ZONE.DSTINH.selected}>{ZONE.DSTINH.name}</option>
+															<!-- END DSTINH -->
+														</select>
+														</td>
+														<td>
+														<select name="ship_huyen[]" id="huyen_{ZONE.stt}">
+															<option value="0">Tất cả các huyện</option>
+															<!-- BEGIN DSHUYEN -->
+															<option value="{ZONE.DSHUYEN.id}" {ZONE.DSHUYEN.selected}>{ZONE.DSHUYEN.name}</option>
+															<!-- END DSHUYEN -->
+														</select>														
+														</td>
+														<td width="100">
+															<button class="btn btn-primary" type="button" onclick="dellRow('{ZONE.stt}');">Xóa</button>
+														</td>
+													</tr>
+													<!-- END ZONE -->
+													</tbody>
+													<tr><td colspan="2"></td><td><button class="btn btn-success" type="button" onclick="addRow();">Thêm dòng</button></td></tr>
+											   </table>
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				

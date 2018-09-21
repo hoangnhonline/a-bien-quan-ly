@@ -1,0 +1,879 @@
+<script src="js/accounting.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/easyTab/vendor/jquery.hashchange.min.js" type="text/javascript"></script>
+<script src="js/easyTab/lib/jquery.easytabs.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../ckfinder/ckfinder.js"></script>
+	<script type="text/javascript">
+	select_img="";
+	sub_folder="";
+		function BrowseServer( startupPath, functionData )
+		{
+			// You can use the "CKFinder" class to render CKFinder in a page:
+			finder = new CKFinder();
+
+			// The path for the installation of CKFinder (default = "/ckfinder/").
+			finder.basePath = '../';
+
+			//Startup path in a form: "Type:/path/to/directory/"
+			finder.StartupFolderExpanded   = true;
+			finder.RememberLastFolder  = true;
+			if (sub_folder=="/") finder.startupPath = startupPath
+			else finder.startupPath = startupPath + $.cookie('sub_folder') + "/";
+
+			// Name of a function which is called when a file is selected in CKFinder.
+			finder.selectActionFunction = SetFileField;
+
+			// Additional data to be passed to the selectActionFunction in a second argument.
+			// We'll use this feature to pass the Id of a field that will be updated.
+			finder.selectActionData = functionData;
+
+			// Name of a function which is called when a thumbnail is selected in CKFinder.
+			finder.selectThumbnailActionFunction = ShowThumbnails;
+
+			// Launch CKFinder
+			finder.popup();
+		}
+
+		// This is a sample function which is called when a file is selected in CKFinder.
+		function SetFileField( fileUrl, data )
+		{
+			n = fileUrl.indexOf("/images_upload/");
+			last = fileUrl.lastIndexOf("/");
+			file_name = fileUrl.substring(n + 15);
+			sub_folder = fileUrl.substring(n + 15,last);
+			$.cookie('sub_folder',sub_folder);
+			document.getElementById( data["selectActionData"] ).value = file_name;
+			document.getElementById(select_img).src = fileUrl;
+			
+		}
+
+		// This is a sample function which is called when a thumbnail is selected in CKFinder.
+		function ShowThumbnails( fileUrl, data )
+		{
+			// this = CKFinderAPI
+			var sFileName = this.getSelectedFile().name;
+			document.getElementById( 'thumbnails' ).innerHTML +=
+					'<div class="thumb">' +
+						'<img src="' + fileUrl + '" />' +
+						'<div class="caption">' +
+							'<a href="' + data["fileUrl"] + '" target="_blank">' + sFileName + '</a> (' + data["fileSize"] + 'KB)' +
+						'</div>' +
+					'</div>';
+
+			document.getElementById( 'preview' ).style.display = "";
+			// It is not required to return any value.
+			// When false is returned, CKFinder will not close automatically.
+			return false;
+		}
+	</script>
+	
+<style>
+.etabs { margin: 0; padding: 0; }
+.tab { display: inline-block; zoom:1; *display:inline; background: #eee; border: solid 1px #999; border-bottom: none; -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; }
+.tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; }
+.tab a:hover { text-decoration: underline; }
+.tab.active { background: #fff; padding-top: 6px; position: relative; top: 1px; border-color: #666; }
+.tab a.active { font-weight: bold; }
+.tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; }
+.panel-container { margin-bottom: 10px; }
+</style>
+<script>
+/*
+var myEvent = window.attachEvent || window.addEventListener;
+var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'; /// make IE7, IE8 compatible
+
+myEvent(chkevent, function(e) { // For >=IE7, Chrome, Firefox
+var confirmationMessage = ' ';  // a space
+(e || window.event).returnValue = confirmationMessage;
+return confirmationMessage;
+});
+*/
+</script>
+<script language=JavaScript src="../editor/editor/innovaeditor/scripts/innovaeditor.js"></script>
+<script language="JAVASCRIPT">
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = 0, len = this.length; i < len; i++) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
+function makeRand()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 9; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+  function Check_input()
+  {
+	return true;
+  }
+function fileclick(v) 
+    {
+    v1 = v.replace("/images_upload/",""); 
+    document.getElementById("fileSmallImage").value = v1;
+	document.getElementById("imgSmallImage").src = "../images_upload/" + v1;
+    }
+function mfileclick(v,target) 
+    {
+	v1 = v.replace("/images_upload/",""); 
+    document.getElementById('SubImageFile-' + target).value = v1;
+	document.getElementById('SubImageSrc-' + target).src = "../images_upload/" + v1;
+    }
+function addSub(addSub) 
+    {
+	var v1 = $('#SubFileForm').html();
+	r = makeRand();
+	v3 = v1.replace("random",r);
+	v4 = v3.replace("random",r);
+	v5 = v4.replace("random",r);
+	v6 = v5.replace("random",r);
+	v7 = v6.replace("random",r);
+	v2 = document.getElementById('SubFile').innerHTML;
+	$('#SubFile').append(v7);
+    }
+
+</script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>{txt_lang_content_manager} [{txt_type_update}]</small></h2>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+                                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">{txt_lang_general}</a></li>
+                                            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab"  aria-expanded="false">{txt_lang_datalink}</a></li>
+                                            <li role="presentation" class="" style="display:none;"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">{txt_lang_priceoption}</a></li>
+                                            <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">{txt_lang_image}</a></li>
+                                        </ul>
+                                        <form  enctype="multipart/form-data" action="./?act={sbj_act}{txt_curent_link_info}" method="post" name="admintable" data-parsley-validate class="form-horizontal form-label-left">
+										<div id="myTabContent" class="tab-content" style="padding-top:20px;">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+											
+											<script type="text/javascript">
+											$(document).ready( function() {
+											  $('#tab-lang').easytabs({animate:false});
+											});
+											</script>
+												<div id="tab-lang" class='tab-container'>
+												<div class='panel-containers'>
+													<div>
+														<div class="form-group">
+															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_title}<span class="required">*</span>
+															</label>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																<input type="text" name="txtName" id="txtName" value="{type_name}" required="required" class="form-control col-md-7 col-xs-12" onchange="getVlink(this.value,'txtLink_Vn','{txt_ID}','link_vn','pro');">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">SEO link
+															</label>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																<input type="text" name="txtLink_Vn" id="txtLink_Vn" value="{type_link_vn}" class="form-control col-md-7 col-xs-12">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_subject}<span class="required"></span>
+															</label>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																<input type="text" name="txtSub" id="txtSub" value="{type_sub}" class="form-control col-md-7 col-xs-12">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_des}<span class="required">*</span>
+															</label>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+                                                            <textarea rows="12" id="txtDes" name="txtDes" cols="60">{type_des}</textarea>
+															<script>
+																	var oEdit1 = new InnovaEditor("oEdit1");
+																	oEdit1.width = 583;
+																	oEdit1.height = 500;
+																	oEdit1.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+																	oEdit1.groups = [
+																		["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+																		["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+																		["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+																		["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+																		["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+																		];
+																	oEdit1.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+																	oEdit1.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+																	oEdit1.fileBrowser = "../../../assetmanager/assetmanager.php";
+																	oEdit1.arrCustomTag = [["First Name", "{%first_name%}"],
+																		["Last Name", "{%last_name%}"],
+																		["Email", "{%email%}"]];
+																	oEdit1.css = "styles/default.css";
+																	oEdit1.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,500)";
+																	oEdit1.REPLACE("txtDes");
+                                                              </script>
+															</div>
+														</div>
+														
+													</div>
+												</div>
+												</div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_catalog}<span class="required"></span></label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select multiple="multiple" class="form-control" name="txtgroup[]" style="height:200px;">
+															<option value="0">{txt_lang_no_catalog}</option>
+															<!-- BEGIN GROUP -->
+															<option value="{GROUP.group_id}" title="{GROUP.group}" {GROUP._selected}>{GROUP.group}</option>
+															<!-- END GROUP -->
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">{txt_lang_dealinfo_product}?</label>
+													<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top:8px;">
+														<label>
+																<input class="flat" type="radio" value="1" id="optionsRadios1" name="txtdealinfo" checked > {txt_lang_yes} &nbsp;&nbsp;
+														</label>
+														<label>
+																<input class="flat" type="radio" value="0" id="optionsRadios0" name="txtdealinfo" {txt_noshow_check}> {txt_lang_no}
+														</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Mới và Hot</label>
+													<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top:8px;">
+														<label>
+																<input class="flat" type="radio" value="1" id="optionsRadios1" name="txthotdeal" checked > {txt_lang_yes} &nbsp;&nbsp;
+														</label>
+														<label>
+																<input class="flat" type="radio" value="0" id="optionsRadios0" name="txthotdeal" {txt_nohotdeal_check}> {txt_lang_no}
+														</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Hiện trang chủ?</label>
+													<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top:8px;">
+														<label>
+																<input class="flat" type="radio" value="0" id="optionsRadios0" name="txtfancy" checked > Không &nbsp;&nbsp;
+														</label>
+														<label>
+																<input class="flat" type="radio" value="5" id="optionsRadios5" name="txtfancy" {txt_fancy5_checked}> Vị trí 1 &nbsp;&nbsp;
+														</label>
+														<label>
+																<input class="flat" type="radio" value="2" id="optionsRadios2" name="txtfancy" {txt_fancy2_checked}> Vị trí 2 &nbsp;&nbsp;
+														</label>
+														<label>
+																<input class="flat" type="radio" value="3" id="optionsRadios3" name="txtfancy" {txt_fancy3_checked}> Vị trí 3 &nbsp;&nbsp;
+														</label>
+														<label>
+																<input class="flat" type="radio" value="4" id="optionsRadios4" name="txtfancy" {txt_fancy4_checked}> Vị trí 4 &nbsp;&nbsp;
+														</label>
+
+													</div>
+												</div>
+												<div class="form-group" style="display:none;"">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_linkto_content}<span class="required"></span></label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select class="form-control" name="txtlinkgroup">
+															<option value="0">{txt_lang_no_content_select}</option>
+															<!-- BEGIN LINKGROUP -->
+															<option value="{LINKGROUP.group_id}"{LINKGROUP._selected}>{LINKGROUP.group}</option>
+															<!-- END LINKGROUP -->
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Phân loại tin<span class="required"></span></label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select class="form-control" name="txtfilter">
+															<!-- BEGIN FILTER -->
+															<option value="{FILTER.id}" {FILTER.selected}>{FILTER.name}</option>
+															<!-- END FILTER -->
+														</select>
+													</div>
+												</div>
+
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_product_year}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtManufac_year" id="txtManufac_year" value="{type_manufac_year}" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_product_country}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtManufac_country" id="txtManufac_country" value="{type_manufac_country}" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_brand}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														  <select name="txtmanufac" class="form-control" style="width: 400px;">
+                                                          <option value="0">---{txt_lang_no_brand}---</option>
+														  <!-- BEGIN MANUFAC -->
+                                                            <option value="{MANUFAC.id}" {MANUFAC.selected}>{MANUFAC.name}</option>
+                                                          <!-- END MANUFAC -->
+														  </select>
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Action<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														  <select name="txtaction" class="form-control" style="width: 400px;">
+                                                          <option value="0">---Select a action---</option>
+														  <!-- BEGIN ACTION -->
+                                                            <option value="{ACTION.id}" {ACTION.selected}>{ACTION.name}</option>
+                                                          <!-- END ACTION -->
+														  </select>
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_quantity}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtquantity" id="txtquantity" value="{type_quantity}" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">ID youtube (nếu là youtube video)<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtModel" id="txtModel"  value="{type_model}" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Link video (nếu không phải youtube)<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtSerial" id="txtSerial" value="{type_serial}" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_order}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtPriority_Order" id="txtPriority_Order" value="{priority_order}" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_tag_list}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input id="tags_1" type="text" class="tags form-control" value="{txt_tag}" name="txtTag" />
+														<div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+														<script>
+															function onAddTag(tag) {
+																alert("Added a tag: " + tag);
+															}
+
+															function onRemoveTag(tag) {
+																alert("Removed a tag: " + tag);
+															}
+
+															function onChangeTag(input, tag) {
+																alert("Changed a tag: " + tag);
+															}
+
+															$(function () {
+																$('#tags_1').tagsInput({
+																	width: 'auto'
+																});
+															});
+														</script>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">{txt_lang_status} <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select name="cbStatus" id="cbStatus" class="form-control">
+														  <option value="1" {ActivitySelected}>{txt_lang_publich}</option>
+														  <option value="0" {WaitingSelected}>{txt_lang_unpublich}</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Ngày xuất bản<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtCreate_date" id="txtCreate_date" value="{type_create_date}" class="form-control col-md-7 col-xs-12">
+													</div>
+												</div>
+												
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab" style="display:none;">
+
+
+												<div class="form-group">
+													<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">{txt_lang_bestsell_product}?</label>
+													<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top:8px;">
+														<label>
+																<input class="flat" type="radio" value="1" id="bestselRadios1" name="txtbestsell" checked > {txt_lang_yes} &nbsp;&nbsp;
+														</label>
+														<label>
+																<input class="flat" type="radio" value="0" id="bestselRadios0" name="txtbestsell" {txt_nobestsell_check}> {txt_lang_no}
+														</label>
+													</div>
+												</div>
+			
+												
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_oldprice}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtPriceold_vn" id="txtPriceold_vn" value="{txt_priceold_vn}" class="form-control col-md-7 col-xs-12" style="width:100px;">&nbsp; $
+														<input type="text" name="txtPriceold_en" id="txtPriceold_en" value="{txt_priceold_en}" class="form-control col-md-7 col-xs-12" style="display:none;">
+														<input type="text" name="txtPriceold_cn" id="txtPriceold_cn" value="{txt_priceold_cn}" class="form-control col-md-7 col-xs-12" style="display:none;">
+														<input type="text" name="txtPriceold_jp" id="txtPriceold_jp" value="{txt_priceold_jp}" class="form-control col-md-7 col-xs-12" style="display:none;">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_price}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtPrice_vn" id="txtPrice_vn" value="{txt_price_vn}" class="form-control col-md-7 col-xs-12" style="width:100px;">&nbsp; đ
+														<input type="text" name="txtPrice_cn" id="txtPrice_cn" value="{txt_price_cn}" class="form-control col-md-7 col-xs-12" style="display:none;">
+														<input type="text" name="txtPrice_jp" id="txtPrice_jp" value="{txt_price_jp}" class="form-control col-md-7 col-xs-12" style="display:none;">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Giá hotdeal<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtPrice_en" id="txtPrice_en" value="{txt_price_en}" class="form-control col-md-7 col-xs-12" style="width:100px;">&nbsp; đ
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Số lượng hotdeal<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtdealnum" id="txtdealnum" value="{txt_dealnum}" class="form-control col-md-7 col-xs-12" style="width:100px;">
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_expired_date}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtExpired" id="txtExpired" value="{txt_time_format}" class="form-control col-md-7 col-xs-12" style="width:200px;">
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_size}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" name="txtSize_title" id="txtSize_title" value="{type_size_title}" class="form-control col-md-7 col-xs-12" placeholder="Tên tham số">
+														<input type="hidden" name="txtSize" value="">
+														<table class="border" cellpadding="0" cellspacing="0" width="100%">
+															<thead>
+															<tr class="headings" style="background:#FFF5CA;">
+																<th class="type-title" width="150" style="text-align:center;">{txt_lang_title}<span class="required">*</span></th>
+																<th class="type-price" width="150" style="text-align:center;">{txt_lang_price}</th>
+																<th class="type-order" width="70" style="text-align:center;">{txt_lang_order}</th>
+																<th class="type-butt last" width="20">&nbsp;</th>
+															</tr>
+															</thead>
+															<tbody id="select_size_option">
+															<tr><td colspan="5" style="border-bottom:none 0px;"> </td></tr>
+															<!-- BEGIN SIZE -->
+															<tr id="select_size_option_{SIZE.stt}">
+																<td align="center">
+																	<input type="hidden" name="size_option_id[]" value="{SIZE.id}">
+																	<input type="hidden" name="size_option_del[]" id="size_option_del_{SIZE.stt}" value="0">
+																	<input id="" name="size_option_title[]" value="{SIZE.title}" type="text">
+																</td>
+																<td align="center">
+																<input id="" name="size_option_price[]" value="{SIZE.price}" type="text">
+																<select name="size_option_pricetype[]" id="" style="display:none;"><option value="fixed">{txt_lang_codinh}</option></select>
+																</td>
+																<td align="center"><input id="" name="size_option_sort[]" value="{SIZE.order}" type="text" style="width:40px; text-align:center;"></td>
+																<td><a title="Remove" href="javascript:del_size_Option_Row({SIZE.stt});"><img src="./images/icon-16-del.png"></a></td>
+															</tr>
+															<!-- END SIZE -->
+															</tbody>
+															<tfoot>
+															<tr>
+																<td colspan="5" align="right" style="padding:3px;"><button id="add_select_row_button" title="Add new row" type="button" onclick="add_size_Option_Row();" style=""><span><span><span>{txt_lang_addrow}</span></span></span></button></td>
+															</tr>
+															</tfoot>
+														</table>
+														<script type="text/javascript">
+														opt_id = {txt_opt_id};
+														function add_size_Option_Row(){
+														opt_id = opt_id + 1;
+														jQuery("#select_size_option").append('\
+															<tr id="select_size_option_' + opt_id + '">\
+																<td align="center"><input id="" name="size_option_title[]" value="" type="text"><input type="hidden" name="size_option_id[]" value="0"><input type="hidden" name="size_option_del[]" id="size_option_del_' + opt_id + '" value="0"></td>\
+																<td align="center"><input id="" name="size_option_price[]" value="" type="text"></td>\
+																<td align="center" style="display:none;"><select name="size_option_pricetype[]" id=""><option value="fixed">Add</option></select></td>\
+																<td align="center"><input id="" name="size_option_sort[]" value="' + opt_id + '" type="text" style="width:40px; text-align:center;"></td>\
+																<td><a title="Remove" href="javascript:del_size_Option_Row(' + opt_id + ');"><img src="./images/icon-16-del.png"></a></td>\
+															</tr>\
+														');
+														}
+														function del_size_Option_Row(rid) {
+															jQuery("#size_option_del_" + rid).val('1');
+															jQuery("#select_size_option_" + rid).hide();
+														}
+														</script>
+														
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_color}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="hidden" name="txtColor" value="">
+														<input type="text" name="txtColor_title" id="txtColor_title" value="{type_color_title}" class="form-control col-md-7 col-xs-12" placeholder="Tên tham số">
+														<table class="border" cellpadding="0" cellspacing="0" width="100%">
+															<thead>
+															<tr class="headings" style="background:#FFF5CA;">
+																<th class="type-title" width="150" style="text-align:center;">{txt_lang_title}<span class="required">*</span></th>
+																<th class="type-price" width="150" style="text-align:center;">{txt_lang_price}</th>
+																<th class="type-order" width="70" style="text-align:center;">{txt_lang_order}</th>
+																<th class="type-butt last" width="20">&nbsp;</th>
+															</tr>
+															</thead>
+															<tbody id="select_color_option">
+															<tr><td colspan="5" style="border-bottom:none 0px;"> </td></tr>
+															<!-- BEGIN COLOR -->
+															<tr id="select_color_option_{COLOR.stt}">
+																<td align="center">
+																	<input type="hidden" name="color_option_image[]" value="{COLOR.image}">
+																	<input type="hidden" name="color_option_id[]" value="{COLOR.id}">
+																	<input type="hidden" name="color_option_del[]" id="color_option_del_{COLOR.stt}" value="0">
+																	<input id="" name="color_option_title[]" value="{COLOR.title}" type="text">
+																</td>
+																<td align="center">
+																<input id="" name="color_option_price[]" value="{COLOR.price}" type="text">
+																<select name="color_option_pricetype[]" id="" style="display:none;"><option value="fixed">{txt_lang_codinh}</option></select>
+																</td>
+																<td align="center"><input id="" name="color_option_sort[]" value="{COLOR.order}" type="text" style="width:40px; text-align:center;"></td>
+																<td><a title="Remove" href="javascript:del_color_Option_Row({COLOR.stt});"><img src="./images/icon-16-del.png"></a></td>
+															</tr>
+															<!-- END COLOR -->
+															</tbody>
+															<tfoot>
+															<tr>
+																<td colspan="5" align="right" style="padding:3px;"><button id="add_color_select_row_button" title="{txt_lang_addrow}" type="button" onclick="add_color_Option_Row();" style=""><span><span><span>{txt_lang_addrow}</span></span></span></button></td>
+															</tr>
+															</tfoot>
+														</table>
+														<style>
+														.border td, .border th {border:#F5F7FA solid 1px; padding:5px;}
+														</style>
+														<script type="text/javascript">
+														opt_color_id = {txt_opt_color_id};
+														function add_color_Option_Row(){
+														opt_color_id = opt_color_id + 1;
+														jQuery("#select_color_option").append('\
+															<tr id="select_color_option_' + opt_color_id + '">\
+																<td align="center"><input id="" name="color_option_title[]" value="" type="text"><input type="hidden" name="color_option_id[]" value="0"><input type="hidden" name="color_option_image[]" value=""><input type="hidden" name="color_option_del[]" id="color_option_del_' + opt_color_id + '" value="0"></td>\
+																<td align="center"><input id="" name="color_option_price[]" value="" type="text"></td>\
+																<td align="center" style="display:none;"><select name="color_option_pricetype[]" id=""><option value="fixed">Add</option></select></td>\
+																<td align="center"><input id="" name="color_option_sort[]" value="' + opt_color_id + '" type="text" style="width:40px; text-align:center;"></td>\
+																<td><a title="Remove" href="javascript:del_color_Option_Row(' + opt_color_id + ');"><img src="./images/icon-16-del.png"></a></td>\
+															</tr>\
+														');
+														}
+														function del_color_Option_Row(rid) {
+															jQuery("#color_option_del_" + rid).val('1');
+															jQuery("#select_color_option_" + rid).hide();
+														}
+														</script>
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_attr}<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<table class="border" cellpadding="0" cellspacing="0">
+															<thead>
+															<tr class="headings" style="background:#FFF5CA;">
+																<th class="type-title" width="250">{txt_lang_attr}<span class="required">*</span></th>
+																<th class="type-price" width="150">{txt_lang_value}</th>
+																<th class="type-order" width="70">{txt_lang_order}</th>
+																<th class="type-butt last" width="20">&nbsp;</th>
+															</tr>
+															</thead>
+															<tbody id="select_attr">
+															<tr><td colspan="4" style="border-bottom:none 0px;"> </td></tr>
+														
+															<!-- BEGIN CATATTR -->
+															<tr class="add_row" style="background:#FFF5CA; display:none;">
+																<td colspan="4"><b>{CATATTR.name}</b></td>
+															</tr>
+															<!-- BEGIN PROATTR -->
+															<tr id="select_attr_{CATATTR.PROATTR.stt}">
+																<td class="add_row" align="left">
+																<select name="attr_title[]" style="width:90%;">
+																<!-- BEGIN ATTR -->
+																<option value="{CATATTR.PROATTR.ATTR.id}" {CATATTR.PROATTR.ATTR.selected}>{CATATTR.name}/{CATATTR.PROATTR.ATTR.name}</option>
+																<!-- END ATTR -->
+																</select>
+																</td>
+																<td class="add_row"><input id="" name="attr_value[]" size="50" value="{CATATTR.PROATTR.value}" type="text"></td>
+																<td class="add_row"><input id="" name="attr_sort[]" value="{CATATTR.PROATTR.order}" type="text" style="width:50px;"></td>
+																<td class="add_row"><a title="{txt_lang_delete}" href="javascript:del_attr_Row({CATATTR.PROATTR.stt});"><img src="./images/icon-16-del.png"></a></td>
+															</tr>
+															<!-- END PROATTR -->
+															<!-- END CATATTR -->
+															</tbody>
+															<tfoot>
+															<tr>
+																<td colspan="4" align="right" style="padding:3px;"><button title="{txt_lang_addrow}" type="button" onclick="add_attr_Row();" style=""><span><span><span>{txt_lang_addrow}</span></span></span></button></td>
+															</tr>
+															</tfoot>
+														</table>
+														<script type="text/javascript">
+														attr_max_id = {attr_max_id};
+														function add_attr_Row(){
+														attr_max_id = attr_max_id + 1;
+														jQuery("#select_attr").append('\
+															<tr id="select_attr_' + attr_max_id + '">\
+																<td align="left" class="add_row">\
+																{txt_select_html}\
+																<td class="add_row"><input name="attr_value[]" size="40" value="" type="text"></td>\
+																<td class="add_row"><input id="" name="attr_sort[]" value="' + attr_max_id + '" type="text" style="width:40px;"></td>\
+																<td class="add_row"><a title="{txt_lang_delete}" href="javascript:del_attr_Row(' + attr_max_id + ');"><img src="./images/icon-16-del.png"></a></td>\
+															</tr>\
+														');
+														}
+														function del_attr_Row(rid) {
+															jQuery("#select_attr_" + rid).html('');
+															jQuery("#select_attr_" + rid).hide();
+														}
+														</script>
+													</div>
+												</div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+												<table width="100%" border="0" cellpadding="0" cellspacing="10">
+												<tr>
+														<td width="200" height="10" style="height: 5px;" align="left" valign="top">{txt_lang_image}</td>
+														<td align="left" valign="middle">
+														<div style="width:200px; height:220px; border:#A7A6AA dotted 1px;">
+														<div style="width:195px; height:195px;">
+														<img id="imgSmallImage" src="../images_upload/{type_proimage}" style="max-width:100%; max-height:100%;"/>
+														</div>
+														<input type="hidden" id="fileSmallImage" name="fileSmallImage" value="{type_proimage}" />
+														<input type="button" onclick="select_img='imgSmallImage'; BrowseServer( 'Images:/', 'fileSmallImage' );" value="Browse">
+														<input type="button" onclick="fileclick('');" value="{txt_lang_delete}">
+														</div>
+														</td>
+												</tr>
+												<tr>
+														<td width="200" height="10" style="height: 5px;" align="left" valign="top">{txt_lang_otherimage}</td>
+														<td align="left" valign="middle" height="1">
+														<div id="SubFileForm" style="visibility:hidden; height:1px; overflow:hidden;">
+														<div id="row-random" style="width:190px; height:245px; float:left; border:#A7A6AA dotted 1px; margin-right:5px; margin-bottom:5px;">
+														<div style="width:185px; height:185px;">
+														<img id="SubImageSrc-random" src="" style="max-width:100%; max-height:100%;"/><br/>
+														</div>
+														<input type="hidden" id="SubImageFile-random" name="SubImageFile[]" value="" style="width:200px;" />
+														<input type="button" onclick="select_img='SubImageSrc-random'; BrowseServer( 'Images:/', 'SubImageFile-random' );" value="Browse"> 
+														<input type="button" onclick="document.getElementById('row-random').remove();" value="{txt_lang_del}">
+														{txt_lang_order}: <input type="text" name="SubImageOrder[]" value="0" style="width:25px;" />
+														<br/>
+														<input type="text" placeholder="{txt_lang_title}" name="SubImageTitle[]" value="{txt_lang_image_title}" style="width:190px;" />
+														</div>
+														</div>
+														<div style="width:635px; overflow:auto; border:#A7A6AA dotted 0px;">
+														<div id="SubFile" style="width:100%;">
+														<!-- BEGIN ALBUM -->
+														<div id="row-{ALBUM.random}" style="width:190px; height:245px; float:left; border:#A7A6AA dotted 1px; margin-right:5px;">
+														<div style="width:185px; height:185px;">
+														<img id="SubImageSrc-{ALBUM.random}" src="../images_upload/{ALBUM.image}" style="max-width:100%; max-height:100%;"/>
+														</div>
+														<input type="hidden" id="SubImageFile-{ALBUM.random}" name="SubImageFile[]" value="{ALBUM.image}" style="width:200px;" />
+														<input type="button" onclick="select_img='SubImageSrc-{ALBUM.random}'; BrowseServer( 'Images:/', 'SubImageFile-{ALBUM.random}' );" value=" Browse "> 
+														<input type="button" onclick="document.getElementById('row-{ALBUM.random}').remove();" value="{txt_lang_del}">
+														{txt_lang_order}: <input type="text" name="SubImageOrder[]" value="{ALBUM.priority_order}" style="width:25px;" />
+														<br/>
+														<input type="text" placeholder="{txt_lang_title}" name="SubImageTitle[]" value="{ALBUM.title}" style="width:190px;" />
+														</div>
+														<!-- END ALBUM -->
+														</div>
+														<div id="row-random" style="text-align:center; width:200px; height:245px; float:left; border:#FFCBB2 dotted 1px;">
+														<a onclick="addSub();" title="Chọn ảnh" style="display:block; margin-top:100px; font-size:14px; text-decoration: underline; cursor: pointer"/>Chọn ảnh</a><br><i>Hoặc</i><br>
+														<label for="m_multiFiles" class="btn" style="color: #04997c;"><u>Upload ảnh</u></label>
+														<input style="visibility:hidden;" type="file" id="m_multiFiles" name="files[]" multiple="multiple"/>	
+														</div>
+														</div>
+														</div>
+														<p id="error_msg"></p>
+														<script type="text/javascript">
+																	document.getElementById("m_multiFiles").onchange = function() {
+																		var form_data = new FormData();
+																		var ins = document.getElementById('m_multiFiles').files.length;
+																		for (var x = 0; x < ins; x++) {
+																			form_data.append("files[]", document.getElementById('m_multiFiles').files[x]);
+																		}
+																		$.ajax({
+																			url: 'multi_uploads.php', // point to server-side PHP script 
+																			dataType: 'text', // what to expect back from the PHP script
+																			cache: false,
+																			contentType: false,
+																			processData: false,
+																			data: form_data,
+																			type: 'post',
+																			success: function (response) {
+																				$('#SubFile').append(response); // display success response from the PHP script
+																			},
+																			error: function (response) {
+																				$('#error_msg').append(response); // display error response from the PHP script
+																			}
+																		});
+																	};
+														</script>
+														</td>
+													</tr>
+												</table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+
+                                            </div>
+											<div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="profile-tab">
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Quiz timer<span class="required"></span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<input type="text" name="txtweight" id="txtweight" value="{type_weight}" class="form-control col-md-7 col-xs-12" style="width:50px;">&nbsp;<span style="line-height: 33px;">second (0 to disable timer)</span>
+												</div>
+											</div>
+
+											
+											<div class="ln_solid"></div>
+											<table width="100%">
+												<tr>
+													<td width="300" valign="top">
+													<select onchange="getQuizList(this.value);" class="form-control">
+														<option value="0">Please select a quiz catalog</option>
+														<!-- BEGIN CATQUIZ -->
+														<option value="{CATQUIZ.id}">{CATQUIZ.name}</option>
+														<!-- END CATQUIZ -->
+													</select>
+													<select multiple="multiple" class="form-control" id="quiz_list" style="height:300px;">
+
+													</select>
+													<button type="button" onclick="addQuiz();" style="float:right;margin-top:10px;">Add quiz to list</button>
+													</td>
+													<td valign="top" style="padding-left:20px;">
+														<table width="100%" id="quiz_table" class="table">
+															<thead>
+															<tr>
+																<th class="type-title">Quiz</th>
+																<th class="type-title" width="100" style="text-align:center;">Order</th>
+																<th class="type-order" width="100" style="text-align:center;">score</th>
+																<th class="type-butt last" width="20">&nbsp;</th>
+															</tr>
+															</thead>
+															<tbody id="quiz_body">
+															<!-- BEGIN CONTENT_QUIZ -->
+															<tr id="quiz_row_{CONTENT_QUIZ.quiz_id}">
+																<td>
+																	<input type="hidden" class="quiz_id" name="quiz_id[]" value="{CONTENT_QUIZ.quiz_id}">
+																	{CONTENT_QUIZ.name}
+																</td>
+																<td align="center"><input style="width:60px; text-align:center;" name="quiz_order[]" value="{CONTENT_QUIZ.order}" type="text"></td>
+																<td align="center"><input style="width:60px; text-align:center;" name="quiz_score[]" value="{CONTENT_QUIZ.score}" type="text"></td>
+																<td align="center"><a title="Remove" href="javascript:del_quiz({CONTENT_QUIZ.stt});"><img src="./images/icon-16-del.png"></a></td>
+															</tr>
+															<!-- END CONTENT_QUIZ -->
+															</tbody>
+														</table>
+														<script>
+														function getQuizList(cat_id) {
+															jQuery.ajax({
+																   type: "GET",
+																   url: "./getquiz.php?cat_id=" + cat_id,
+																   success: function(data)
+																   {
+																			jQuery("#quiz_list").html(data);
+																	}
+																 });
+														}
+														function del_quiz(id) {
+															jQuery('#quiz_row_' + id).remove();
+														}
+														
+														function addQuiz() {
+															count=0;
+															$('#quiz_list option:selected').each(function(){
+																count++;
+																quiz_id=jQuery(this).val();
+																exit=false;
+																jQuery('.quiz_id').each(function(){
+																	if ($(this).val()==quiz_id) {
+																		alert("This question already exists in the list!");
+																		exit=true;
+																	}
+																});
+																if (exit==true) return false;
+																jQuery("#quiz_body").append('\
+																	<tr id="quiz_row_' + jQuery(this).val() + '">\
+																		<td>\
+																			<input type="hidden" class="quiz_id" name="quiz_id[]" value="' + jQuery(this).val() + '">\
+																			' + jQuery(this).text() + '\
+																		</td>\
+																		<td align="center"><input style="width:60px; text-align:center;" name="quiz_order[]" value="0" type="text"></td>\
+																		<td align="center"><input style="width:60px; text-align:center;" name="quiz_score[]" value="1" type="text"></td>\
+																		<td align="center"><a title="Remove" href="javascript:del_quiz(\'' + jQuery(this).val() + '\');"><img src="./images/icon-16-del.png"></a></td>\
+																	</tr>\
+																');
+															});
+															if (count==0) alert("Please select question from quiz bank!");
+														}
+														
+														</script>
+													</td>
+												</tr>
+											
+											
+											</table>
+											
+											
+											</div>
+										
+                                        </div>
+										
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                
+                                                <input type="hidden" name="id_item" value="{txt_ID}" size="6">
+												<input type="hidden" name="cmdfF" value="{txt_type_button}"/>
+												<button type="submit" class="btn btn-success">{txt_lang_save}</button>
+												<button type="button" class="btn btn-primary" onclick="if (confirm('{txt_lang_cancel_confirm}?')) window.location.href='./?act=content{txt_curent_link_info}';">{txt_lang_cancel}</button>
+                                            </div>
+                                        </div>
+										</form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

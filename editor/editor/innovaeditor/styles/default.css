@@ -1,0 +1,21 @@
+@import url(../scripts/style/innova.css);
+/* ezg */
+body,td,p{vertical-align:top;}
+body{background: #FFFFFF;font: 13px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#000000;}
+a,a:link,a:visited{font: 13px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#0078b2;}
+.sub{font: 11px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#000000;}
+.L{font: 15px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#000000;}
+.XL{font: 16px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#000000;}
+.XXL{font: 19px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#000000;}
+.XXXLWhite{font: 24px Arial, Helvetica, sans-serif;color:#ffffff;}
+.Font Style{font: 16px 'Times New Roman', Times, serif;color:#000000;}
+.small_yellow{font: 16px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#ffff00;}
+.L-Blue{font: 16px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#0078b2;}
+.L-BlueItalics{font: 28px 'Comic Sans MS', comic sans MS, verdana, sans-serif;color:#0078b2;}
+.MicaBlue{font: 14px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#00a4f2;}
+.MicaBlue{font: 13px Verdana, Geneva, Arial, Helvetica, sans-serif;color:#ffffff;}
+.multibox{}
+/* ezg-end */
+
+
+      

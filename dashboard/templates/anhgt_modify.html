@@ -1,0 +1,80 @@
+<td width="100%">
+        <table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+            <!-- TOOLBAR -->
+            <tr width="100%">
+                <td>
+                      <div id="title_panel" style="display: {show_all}">
+                            <div id="title" class="header icon-48-info{trash_icon}">{txt_Article_Manager} <small><small>[{txt_type_update}]</small></small></div>
+
+                                <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                                <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                                
+                                <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?act=album{txt_curent_link_info}');" title="{txt_cancel}"><span class="icon-32-cancel"></span>{txt_cancel}</a></div>
+                                <div style="display: {txt_button_law_save};" id="toolbar_button"><a onclick="javascript: submitForm_NN();" title="{txt_save}"><span class="icon-32-save"></span>{txt_save}</a></div>
+                      </div>
+                     <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                             {txt_msg_error}
+                     </div>              
+                </td>
+            </tr>
+
+            <!-- VIEW UPDATE -->
+            <tr>
+                    <td height="400" valign="top">
+                        <div id="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="width: 100%; margin: 0 auto;">
+                                     <form  enctype="multipart/form-data" action="./?act={sbj_act}{txt_curent_link_info}{txt_local}" method="post" name="adminForm" onsubmit="return Check_input();">
+                                        <div style="overflow:hidden; width: 1px; height: 1px;">
+                                            <input type="submit" value="{txt_type_button}" name="cmd"/>
+                                        </div>                                                                                              
+
+                                         <table width="100%" border="0" cellpadding="0" cellspacing="1" style="padding-right:20px;">
+                                                <tr>
+                                                    <td height="22" width="180"" class="key" align="right">Chú thích:[Tiếng Việt]</td>
+                                                    <td align="left">
+                                                        <input type="hidden" name="id_item" value="{txt_id_item}" size="6">
+                                                        <input type="text" value="{txt_info_namevn}" class="textForm" name="txtNamevn" style=" width: 579px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="22" class="key" align="right">Chú thích:[Tiếng Anh]</td>
+                                                    <td align="left">
+                                                    <input type="text" value="{txt_info_nameen}" class="textForm" name="txtNameen" style=" width: 579px;"/>
+                                                    </td> 
+                                                </tr>
+											    <tr>
+                                                    <td align="right" valign="top">{txt_chooseimg}:
+                                                    </td>
+													<td align="left">
+                                                    <input type="file" name="fileSmallImage" size="50" style="height: 20px; font: 9px Tahoma, Arial, sans-serif;" class="textForm"/>
+													<!-- BEGIN SMALLIMAGE_PREVIEW -->
+														<a id="thumb1" href="{SMALLIMAGE_PREVIEW.small_image}" class="highslide" onclick="return hs.expand(this, {captionId: 'caption1'})">
+															<img border="0" src="{SMALLIMAGE_PREVIEW.small_image}" title="{txt_preview_to_large}" width="60" height="55"  style="margin-left: 5px;"> 
+														</a><br><br>
+														<input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"/><label for="remove small image">{txt_tick_remove}</label>
+														<input type="hidden" name="txt_img_name" value="{txt_image_name}" size="12">
+													<!-- END SMALLIMAGE_PREVIEW -->  
+													</td>
+												</tr>
+												<tr>
+													<td align="right">Thứ tự hiển thị:</td>
+													<td align="left">
+													 <input type="text" value="{txt_order_info}" name="txtOrder"/></td>
+												</tr>                 
+												<tr>
+													<td align="right">{txt_title_status}:</td>
+													<td align="left">
+														  <select size="1" name="cbStatus" id="cbStatus" class="combo_select_group" style="width: 184px;">
+															<option value="1"{ActivitySelected}>Có</option>
+															<option value="0"{WaitingSelected}>Không</option>
+														  </select>                    
+													</td>
+												</tr>
+                                         </table>                                                                              
+                                     </form>
+                                </div>
+                        </div>
+                    </td>
+            </tr>
+        </table> 
+</td>

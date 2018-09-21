@@ -1,0 +1,319 @@
+<td width="100%">
+          <!-- 1. VIEW INFOMATION -->
+          <table border="0" style="display: {txt_chedo1}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+          <!-- TOOLBAR -->
+          <tr width="100%">
+          	<td>
+          	  <div id="title_panel">
+          			<div id="title" class="header icon-48-menu{trash_icon}">Quản lý liên kết</div>
+
+                          <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                          <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                          
+                          <div style="display: {txt_button_law_del};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{if(Question_del()) submitbutton('xoa');}" href="#" title="{txt_cms_delete}"><span class="icon-32-delete"></span>{txt_cms_delete}</a></div>
+                          <div style="display: {txt_button_law_restore};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{submitbutton('restore');}" href="#" title="{txt_cms_restore}"><span class="icon-32-save"></span>{txt_cms_restore}</a></div>
+
+                          <div style="display: {txt_button_law_add};" id="toolbar_button"><a onclick="goPage('./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}&addnew=0');" title="{txt_cms_addnew}"><span class="icon-32-new"></span>{txt_cms_addnew}</a></div>
+                          <div style="display: {txt_button_law_trash};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_send_trash}]');}else{submitbutton('MoveTrash');}" href="#" title="{txt_go_trash}"><span class="icon-32-trash"></span>{txt_go_trash}</a></div>
+                          <div style="display: none;" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_one} [{txt_change}]');}else{ submitbutton('{txt_cms_edit}');}" {txt_links_update} title="{txt_change}"><span class="icon-32-edit"></span>{txt_change}</a></div>
+                          <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript: submitbutton('update');" href="#" title="{txt_cms_update}"><span class="icon-32-update"></span>{txt_cms_update}</a></div>
+                          <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_unpublish}]');}else{ submitbutton('OFF');}" href="#" title="{txt_cms_unpublish}"><span class="icon-32-unpublish"></span>{txt_cms_unpublish}</a></div>
+                          <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_publish}]');}else{ submitbutton('ON');}" href="#" title="{txt_cms_publish}"><span class="icon-32-publish"></span>{txt_cms_publish}</a></div>
+
+
+          	  </div>
+                <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                         {txt_msg_error}
+                </div>
+                <div id="header_box_behind">
+                      <div id="search">
+                          <form method="POST" action="./?act={sbj_act}{txt_oder_fun}&trash={trash_act}" name="frmSearch">
+                              <input type="text" name="txtInfo_Search" value="{txt_enter_key_search}" id="txtInfo_Search" class="textSearch" size="20">
+                              <input class="button"  type="submit" value="{txt_public_search}" name="cmd">
+                              <input class="button" type="reset"  value="{txt_public_search_reset}" onclick="goPage('./?act={sbj_act}');" >
+                          </form>
+                      </div>
+                      {txt_resul_search}
+                </div>
+          	</td>
+          </tr>
+          
+          <!-- GRID VIEW -->
+          <tr width="909">
+                      <!-- THE BEGIN BODY LEFT  -->
+              		<td height="360" valign="top">
+                          <div id="cpanel">
+                               <form method="post" name="adminForm">
+                                      <table class="adminlist" id="table6" cellspacing="1">
+                  						<!-- Bat dau dieu de -->
+                  						<thead>
+                  						   <tr style="height: 23px;">
+                  								<th width="3%" height="23px;">  # </th>
+                  								<th width="2%">
+                                                      <input name="toggle" onclick="checkAll({txt_sophantu});" type="checkbox">
+                                                  </th>
+                                                  <th width="10%" height="23px;">Hình ảnh</th>
+                  								<th class="{txt_class_title_name}" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=name{dir}{txt_other_links_title}');">
+                  									Tiêu đề
+                                                      {order_name}
+                  								</th>
+                  								<th width="17%">
+                  									{txt_links}
+                  								</th>
+                  								<th class="{txt_class_title_order}" width="8%" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=pri_order{dir}{txt_other_links_title}');">
+                  									{txt_title_order}
+                                                      {order_pri_order}
+                  								</th>
+                  								<th class="{txt_class_title_status}" width="9%" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=status{dir}{txt_other_links_title}');">
+                  									{txt_title_status}
+                                                      {order_status}
+                  								</th>
+                  								<th width="4%">
+                  									{txt_change}
+                  								</th>
+                  								<th width="4%">
+                  									{txt_clear}
+                  								</th>
+                  								<th class="{txt_class_title_id}" title="{txt_order}" width="4%"  onclick="goPage('./?act={sbj_act}&order=id{dir}{txt_other_links_title}');">
+                  									id
+                                                      {order_id}
+                  								</th>
+                  							</tr>
+                  						</thead>
+                                          <!-- KET THUC TIEU DE -->
+
+
+
+                    						<tbody>
+                                                    <!-- BEGIN MENULIST -->
+                    								<tr class="{MENULIST.background}">
+                    									<td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" title="center">  {MENULIST.order}  </td>
+                    									<td align="center" bgcolor="#EEEEEE">
+                    										<input id="cb{MENULIST.stt}" type="checkbox" name="cid[]" onclick="isChecked(this.checked);" value="{MENULIST.id}"/>
+                    									</td>
+                                                      <td align="center" bgcolor="#EEEEEE">
+                                                         {MENULIST.images}
+                                                      </td>
+                                                      <td>
+                                                          <input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+                    										<input  style="margin: 1px 0; background-color: #FFFFFF;" name="strName_vn[]" class="textForm_define icon-16-vn" value="{MENULIST.name_vn}"/>
+                    										<input style="{txt_lang_en_display} margin: 1px 0; background-color: #FFFFFF;" name="strName_en[]" class="textForm_define icon-16-en" value="{MENULIST.name_en}"/>
+                                                      </td>
+                                                      <td>
+                    										<input class="textForm" type="text" name="strLinks[]" value="{MENULIST.links}"/>
+                                                      </td>
+                    									<td align="center">
+                                                          <input class="textForm" type="text" name="order[]" style="text-align: center;" value="{MENULIST.pri_order}" size="5"/>
+                    									</td>
+                    									<td align="center">
+                    										<a style="cursor:pointer;" {MENULIST.linkStatus} onclick="{MENULIST.checkMod}"><img src="{MENULIST.imgStatus}" width="16" height="16"/></a>
+                    									</td>
+                    									<td align="center">
+                    										<a style="cursor:pointer;" {MENULIST.linkEdit} onclick="{MENULIST.checkMod}"><img src="{MENULIST.imgEdit}" width="16" height="16"/></a>
+                    									</td>
+                                                      <td align="center">
+                    										<a style="cursor:pointer;" {MENULIST.linkDel}><img  onclick="{MENULIST.checkDel}" src="{MENULIST.imgDel}" width="16" height="16"/></a>
+                    									</td>
+                    									<td class="id_item" align="center">
+                    										{MENULIST.id}
+                    									</td>
+                    								</tr>
+                                                    <!-- END MENULIST -->
+                                            </tbody>
+                                            <!-- Hien thi phan trang -->
+                                            <tfoot>
+                                                  <tr>
+                                                      <td style="background-color:#F3F3F3; border-top:1px solid #999999; border-right:1px solid #e7e7e7; border-left:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; text-align:center;" colspan="12">
+                                                          <del class="container">
+                                                             <div style="margin: 2px auto 2px auto;" class="pagination">
+                                                                    {link_page}
+                                                             </div>
+                                                          </del>
+                                                      </td>
+                                                  </tr>
+                                            </tfoot>
+                                      </table>
+          <input type="hidden" name="cmd" value="" />
+          <input type="hidden" name="boxchecked" value="0" />
+                               </form>
+                          </div>
+                      </td>
+                      <!-- THE END BODY LEFT -->
+          		</tr>
+          </table>
+
+
+          <script language="JAVASCRIPT">
+                                          //Catch error when user lick submit
+                                          function Check_input()
+                                          {
+                                          	var txtTitle_vn = document.admintable.txtType_Vn.value;
+                                          	var txtStatus   = document.admintable.txtPriority_Order.value;
+
+                                          	if(txtTitle_vn == '')
+                                          	{
+                                          		    alert("{txt_error_input_text} ({txt_title_string} (VN))!");
+                                          			document.admintable.txtType_Vn.focus();
+                                          		    return false;
+                                          	}
+
+                                          	if(txtStatus == '')
+                                          	{
+                                          		    alert("{txt_error_input_text} ({txt_ordertext})!");
+                                          			document.admintable.txtPriority_Order.focus();
+                                          		    return false;
+                                          	}
+                                            return true;
+
+                                          }
+
+                                          //Question when user lick delete
+                                          function Question_del()
+                                          {
+                                               return confirm("{txt_question_delete}");
+                                          }
+
+                                          //Error when user click icon action
+                                          function Error_law(e)
+                                          {
+                                              if (e=='del')
+                                               { alert("{txt_error_law_del}");
+                                                return false;
+                                               }
+                                              if (e=='mod')
+                                               { alert("{txt_error_law_mod}");
+                                                 return false;
+                                               }
+                                          }
+
+                                          //Effect for Search
+                                          function focus_search(e)
+                                          {
+                                          	if ( e.value == "{txt_enter_key}" )
+                                          	{
+                                          		e.value = '';
+                                          		return false;
+                                          	}
+                                          }
+                                          function moveout_search(e)
+                                          {
+                                          	if ( e.value == '')
+                                          	{
+                                          		e.value = "{txt_enter_key}";
+                                          		return false;
+                                          	}
+                                          }
+
+                                        </script>
+
+
+        <!-- 2. UPDATE INFOMATION -->
+        <table border="0"  style="display: {txt_chedo0}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+        <!-- TOOLBAR -->
+        <tr width="909">
+        	<td>
+        	  <div id="title_panel" style="display: {show_all}">
+        			<div id="title" class="header icon-48-menu">Quản lý liên kết <small><small>[{txt_type_update}]</small></small></div>
+
+                        <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                        <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                        
+                        <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}');" title="{txt_cancel}"><span class="icon-32-cancel"></span>{txt_cancel}</a></div>
+                        <div style="display: {txt_button_law_save};" id="toolbar_button"><a onclick="javascript: if(Check_input()) submitB('{txt_type_button}');" title="{txt_save}"><span class="icon-32-save"></span>{txt_save}</a></div>
+        	  </div>
+        	</td>
+        </tr>
+
+        <!-- VIEW UPDATE -->
+        <tr width="909">
+            		<td height="360" valign="top">
+                        <div id="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="width: 450px; height: 380px; margin: 0 auto;">
+                                    <!--  -->
+                                     <form  enctype="multipart/form-data" action="./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}" method="post" name="admintable" onsubmit="return Check_input();">
+                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                                                <tr>
+                                                    <td height="22" style="height: 10px;" colspan="2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="23" class="key" align="right">{txt_minhhoa}:</td>
+                                                    <td align="left">
+                                                        <input type="file" name="fileSmallImage" size="53" style="margin-left: 7px; height: 20px;" class="textForm">
+                                                    </td>
+                                                </tr>
+												<!-- BEGIN SMALLIMAGE_PREVIEW -->
+												<tr>
+													<td></td>
+													<td align="left">
+                                                    <img border="0" src="{SMALLIMAGE_PREVIEW.small_image}" width="55" height="40"  style="margin-left: 8px;">
+													<input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"><label for="remove small image">{txt_tick_remove}</label></td>
+												</tr>
+												<!-- END SMALLIMAGE_PREVIEW -->
+                                                <tr>
+                                                    <td height="22" class="key" align="right">{txt_title_string} (VN):</td>
+                                                    <td>
+                                                        <input type="hidden" name="id_menu" value="{txt_idMenu}" size="6">
+                                                        <input type="text" value="{type_name_vn}" class="textForm" name="txtType_Vn"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="22" class="key" align="right">{txt_title_string} (EN):</td>
+                                                    <td>
+                                                        <input type="text" value="{type_name_en}" class="textForm" name="txtType_En"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="22" class="key" align="right">{txt_links}:</td>
+                                                    <td>
+                                                        <input type="text" value="{link}" class="textForm" name="txtLink"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="22" class="key" align="right">Nội dung (VN):</td>
+                                                    <td align="left">
+                                                        <textarea rows="3" name="txtType_Des_Vn" cols="63" class="FormItem" style="margin-left: 8px; width: 350">{type_des}</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="22" class="key" align="right">Nội dung (EN):</td>
+                                                    <td align="left">
+                                                        <textarea rows="3" name="txtType_Des_En" cols="63" class="FormItem" style=" margin-left: 8px; width: 350">{type_des_en}</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="20" class="key" align="right">{txt_ordertext}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{priority_order}" style="width: 50px; margin-left: 8px;" class="textForm" name="txtPriority_Order"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="20" class="key" align="right">{txt_title_status}:</td>
+                                                    <td align="left">
+                                                          <select size="1" name="cbStatus" id="cbStatus" class="combo_select_group" style=" margin-left: 8px; width: 200px;">
+                                                            <option value="1"{ActivitySelected}>{txt_cms_active}</option>
+                                                            <option value="0"{WaitingSelected}>{txt_cms_unactive}</option>
+                                                          </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <input type="hidden" name="cmdf" value=""/>
+                                                        <div style="overflow:hidden; width: 1px; height: 1px;">
+                                                            <input type="submit" name="cmdfF" value="{txt_type_button}"/>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                         </table>
+
+                                     </form>
+                                </div>
+                        </div>
+                    </td>
+        </tr>
+        </table>
+
+
+
+</td>

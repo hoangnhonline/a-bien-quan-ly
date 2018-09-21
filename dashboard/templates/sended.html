@@ -1,0 +1,204 @@
+
+	<td width="100%">
+          <!-- 1. PREVIEW INPUTBOX -->
+          <table border="0" style="display: {txt_chedo1}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+              <!-- TOOLBAR -->
+              <tr>
+          	    <td width="800">
+          	      <div id="title_panel">
+          			    <div id="title" class="header icon-48-sended">{txt_sended}</div>
+
+                              <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                              <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>                              
+                              <div id="toolbar_button" style="display: {txt_button_law_del};"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{ if({checkDel_anyfile}) submitbutton('xoa');}" href="#" title="{txt_cms_delete}"><span class="icon-32-delete"></span>{txt_cms_delete}</a></div>
+                              <div id="toolbar_button" style="display: {txt_button_law_add}"><a class="group_title" onclick="goPage('./?act=create_email&send=0&type=1');" title="{txt_soantin}"><span class="icon-32-send"></span>{txt_soantin}</a></div>  
+                              
+                              <div id="toolbar_button" style="display: {txt_button_law_pre}"><a class="group_title" onclick="goPage('./?act=contact');" title="{txt_thuden}"><span class="icon-32-create"></span>{txt_thuden}</a></div>                                                            
+          	      </div>
+                    <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                             {txt_msg_error}
+                    </div>
+                    <div id="header_box_behind">
+                          <div id="search">
+                              <form method="POST" action="./?act={sbj_act}{txt_oder_fun}" name="frmSearch">
+                                  <input type="text" name="txtInfo_Search" value="{txt_enter_key_search}" id="txtInfo_Search" class="textSearch" size="20">
+                                  <input class="button"  type="submit" value="{txt_public_search}" name="cmd">
+                                  <input class="button" type="reset"  value="{txt_public_search_reset}" onclick="goPage('./?act={sbj_act}');" >
+                              </form> 
+                          </div>
+                          {txt_resul_search}
+                    </div>
+          	    </td>
+              </tr>
+              
+              <!-- GRID PREVIEW  -->
+              <tr width="100%">
+                          <!-- THE BEGIN BODY LEFT  -->
+              		    <td height="360" valign="top">
+                              <div id="cpanel">
+                                   <form method="post" name="adminForm">
+                                          <table class="adminlist" id="table6" cellspacing="1">
+                  						    <!-- Bat dau dieu de -->
+                  						    <thead>
+                  						       <tr style="height: 23px;">
+                  								    <th width="3%" height="23px;">  # </th>
+                  								    <th width="2%">
+                                                          <input name="toggle" onclick="checkAll({txt_sophantu});" type="checkbox">
+                                                    </th>
+                                                    <th class="{txt_class_title}" title="{txt_order}" 
+                                                    onclick="goPage('./?act={sbj_act}&order=title{dir}{txt_other_links_title}');">
+                                                        {txt_chude}
+                                                        {order_title}
+                                                    </th>
+                                                      <th class="{txt_class_email}" width="15%" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=email{dir}{txt_other_links_title}');">
+                                                        {txt_email}
+                                                        {order_email}
+                                                      </th>                                                    
+                                                      <th class="{txt_class_date}" width="15%" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=date{dir}{txt_other_links_title}');">
+                                                        {txt_from_send}
+                                                        {order_date}
+                                                      </th>                                                    
+                  								    <th class="{txt_class_id}" title="{txt_order}" width="4%"  onclick="goPage('./?act={sbj_act}&order=id{dir}{txt_other_links_title}');">
+                  									    id
+                                                          {order_id}
+                  								    </th>
+                  							    </tr>
+                  						    </thead>
+                                              <!-- KET THUC TIEU DE -->
+
+<!--    <script type="text/javascript">
+        var GB_ROOT_DIR = "../Home/js/greybox/";
+    </script>
+
+    <script type="text/javascript" src="../Home/js/greybox/AJS.js"></script>
+    <script type="text/javascript" src="../Home/js/greybox/AJS_fx.js"></script>
+    <script type="text/javascript" src="../Home/js/greybox/gb_scripts.js"></script>
+    <link href="../Home/js/greybox/gb_styles.css" rel="stylesheet" type="text/css" media="all" />-->
+
+                    						    <tbody>
+                                                        <!-- BEGIN MENULIST -->
+                    								    <tr class="{MENULIST.background}">
+                                                            <input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+                                                            
+                                                            <td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" title="center">  {MENULIST.order}  </td>
+                                                            
+                                                            <td align="center" bgcolor="#EEEEEE">
+                                                                <input id="cb{MENULIST.stt}" type="checkbox" name="cid[]" onclick="isChecked(this.checked);" value="{MENULIST.id}"/>
+                                                            </td>
+                                                                      
+                                                            <td style="padding-left: 5px;">
+                                                                <a class="visited" title="{MENULIST.titleF}" href="./?act=sended&id={MENULIST.id}{txt_oder_fun}"><img src="./images/{MENULIST.visited}.gif" border="0"/> {MENULIST.title}</a>
+                                                            </td>
+
+                                                            <td style="padding-left: 5px;">
+                                                                {MENULIST.email}
+                                                            </td>
+                                                            
+                                                            <td align="center">
+                                                                {MENULIST.date}
+                                                            </td>
+                                                            <td class="id_item" align="center">
+                                                                {MENULIST.id}
+                                                            </td>
+                    								    </tr>
+                                                        <!-- END MENULIST -->
+                                                </tbody>
+                                                <!-- Hien thi phan trang -->
+                                                <tfoot>
+                                                      <tr>
+                                                          <td colspan="7" style="background-color:#F3F3F3; border-top:1px solid #999999; border-right:1px solid #e7e7e7; border-left:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; text-align:center;">
+                                                              <del class="container">
+                                                                 <div style="margin: 2px auto 2px auto;" class="pagination">
+                                                                        {link_page}
+                                                                 </div>
+                                                              </del>
+                                                          </td>
+                                                      </tr>
+                                                </tfoot>
+                                          </table>
+              <input type="hidden" name="cmd" value="" />
+              <input type="hidden" name="boxchecked" value="0" />
+                                   </form>
+                              </div>
+                          </td>
+                          <!-- THE END BODY LEFT -->
+          		    </tr>
+          </table>
+
+
+          <script language="JAVASCRIPT">
+
+                                          //Question when user lick delete
+                                          function Question_del()
+                                          {
+                                               return confirm('{txt_question_delete}');
+                                          }
+                                          //Error when user click icon action
+                                          function Error_law(e)
+                                          {
+                                              if (e=='del')
+                                               { alert('{txt_error_law_del}');
+                                                return false;
+                                               }
+                                              if (e=='mod')
+                                               { alert('{txt_error_law_mod}');
+                                                 return false;
+                                               }
+                                          }
+                                          //Effect for Search
+                                          function focus_search(e)
+                                          {
+                                          	if ( e.value == "{txt_enter_key}" )
+                                          	{
+                                          		e.value = '';
+                                          		return false;
+                                          	}
+                                          }
+                                          
+                                          function moveout_search(e)
+                                          {
+                                          	if ( e.value == '')
+                                          	{
+                                          		e.value = '{txt_enter_key}';
+                                          		return false;
+                                          	}
+                                          }
+
+                                        </script>
+
+
+        <!-- 2. PREVIEW EMAIL  -->
+        <table border="0"  style="display: {txt_chedo0}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+            <!-- TOOLBAR -->
+            <tr width="100%">
+        	<td>
+        	  <div id="title_panel" style="display: {show_all}">
+        			<div id="title" class="header icon-48-sended" title="{dspl_titleF}">{dspl_title}</div>
+
+                        <div id="toolbar_button"><a onclick="goPage('./?act=help');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                        <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?act={sbj_act}{txt_oder_fun}');" title="{txt_cancel}"><span class="icon-32-cancel"></span>{txt_cancel}</a></div>
+                              <div id="toolbar_button" style="display: {txt_button_law_add}"><a class="group_title" onclick="goPage('./?act=create_email&send={dspl_id}&type=1');" title="{txt_forward}"><span class="icon-32-send"></span>{txt_forward}</a></div> 
+        	  </div>
+        	</td>
+        </tr>
+            
+
+            <!-- VIEW CONTENT -->
+            <tr>
+            		<td  valign="top">
+                        <div id="cpanel" style="float: left; height: auto; width: 902px;">
+                            <div id="title" style=""><span>{dspl_titleF}</span></div>                          
+                            <div id="title">
+                                <span class="sp0">{txt_to}: </span><span style="margin-left: 5px;" class="sp1">{dspl_email}</span>
+                            </div>                              
+                            <div id="title">
+                                <span class="sp0">{txt_from_send}: </span><span style="margin-left: 5px;" class="sp1">{dspl_date}</span>
+                            </div>                              
+                            <div id="content_email">
+                                {dspl_content}
+                            </div>                                                   
+                        </div>
+                    </td>
+        </tr>
+        </table> 
+</td>

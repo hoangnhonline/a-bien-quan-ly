@@ -1,0 +1,346 @@
+    <script language="JAVASCRIPT">
+
+      //Question when user lick delete
+      function Question_del()
+      {
+           return confirm('Are you sure you want to delete this row?');
+      }
+	</script>
+            <div class="right_col" role="main">
+                <div class=""  style="display: {txt_chedo0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Thống kê lượt view và download</small></h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+									<div style="clear:both;">
+									<form action="./" method="GET">
+									<input type="hidden" name="act" value="download" />
+									<table width="100%">
+									<tr>
+										<td width="30%"><b>KẾT QUẢ TÌM KIẾM</b></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>Tổng số bài viết:<b> {txt_bv_count}</b></td>
+										<td>Tổng số lượt xem:<b> {txt_bv_view}</b></td>
+										<td>Tổng số download:<b> {txt_bv_download}</b></td>
+									</tr>
+									<tr>
+										<td><br/><b>TÙY CHỌN TÌM KIẾM</b></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>
+										Từ ngày:<br/>
+										<input type="text" value="{txt_begin_date}" name="begin_date" id="begin_date" class="form-control" style="width:150px;"/>
+										<script type="text/javascript">
+											$(document).ready(function () {
+												$('#begin_date').daterangepicker({
+													format: "YYYY-MM-DD",
+													singleDatePicker: true,
+													calender_style: "picker_4"
+												}, function (start, end, label) {
+													console.log(start.toISOString(), end.toISOString(), label);
+												});
+											});
+										</script>
+										</td>
+										<td colspan="2">
+										Đến ngày:<br/>
+											<input type="text" value="{txt_end_date}" id="end_date" name="end_date" class="form-control" style="width:150px; display: inline-block;"/>
+											<script type="text/javascript">
+												$(document).ready(function () {
+													$('#end_date').daterangepicker({
+														format: "YYYY-MM-DD",
+														singleDatePicker: true,
+														calender_style: "picker_4"
+													}, function (start, end, label) {
+														console.log(start.toISOString(), end.toISOString(), label);
+													});
+												});
+											</script>
+											<button type="submit" class="btn btn-success">Tìm kiếm</button>
+										</td>
+									</tr>
+									</table>
+									</form>
+									<br/><br/>
+									</div>
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="150">Người đăng</th>
+                                                <th width="350">Bài viết</th>
+                                                <th class="column-title">Lượt view</th>
+                                                <th class="column-title">Download</th>
+                                                <th class="column-title">Thời gian</th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- BEGIN MENULIST -->
+											<tr class="even pointer">
+												<td class="a-center ">
+													<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+												</td>
+												<td class=" ">
+													<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+													<a href="./?act=users&addnew={MENULIST.uid}" target="_blank">{MENULIST.u_name}</a>
+												</td>
+												<td class=" " align="left">
+													<a href="../download/{MENULIST.c_link}.html" target="_blank">{MENULIST.c_name}</a>
+												</td>
+												<td class=" " align="left">
+													{MENULIST.hits}
+												</td>
+												<td class=" " align="left">
+													{MENULIST.download}
+												</td>
+												<td class=" " align="left">
+													{MENULIST.time}
+												</td>
+												<td class=" ">{MENULIST.id}</td>
+											</tr>
+											<!-- END MENULIST -->
+										</tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+
+									<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+									{link_page}
+									</div>
+									<script>
+									function publich(){
+										if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+										else {
+										document.adminForm.cmd.value="ON";
+										document.adminForm.submit();
+										}
+									}
+									function unpublish(){
+										if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+										else {
+										if (confirm('Are you sure want to action?')) {
+											document.adminForm.cmd.value="OFF";
+											document.adminForm.submit();
+											}
+										}
+									}
+									</script>
+									</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="" style="display:{txt_chedo1};">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Quản lý tuyển dụng [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+					<!-- BEGIN ERROR -->
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{ERROR.info}
+					</div>
+					<!-- END ERROR -->
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_content">
+                                    <form enctype="multipart/form-data" name="admintable" action="" method="post" onsubmit="return Check_input_Define();" data-parsley-validate class="form-horizontal form-label-left">
+										<div class="" role="tabpanel" data-example-id="togglable-tabs">
+											<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+												<li role="presentation" class="active"><a href="#tab_content1" id="tab-1" role="tab" data-toggle="tab" aria-expanded="true">Thông tin tuyển dụng</a></li>
+											</ul>
+											<div id="myTabContent" class="tab-content" style="padding-top:20px;">
+												<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="tab-1">
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Vị trí cần tuyển dụng<span class="required">*</span>
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<input id="td_title" name="td_title" value="{txt_td_title}" type="text" required="required" class="form-control col-md-7 col-xs-12" >
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Trạng thái tuyển dụng<span class="required">*</span>
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select name="td_trangthai" class="form-control" style="width:100%;">
+																<option value="1" {txt_td_trangthai1_selected} >Đang nhận hồ sơ</option>
+																<option value="2" {txt_td_trangthai2_selected} >Dừng nhận hồ sơ</option>
+																<option value="3" {txt_td_trangthai3_selected} >Đang thử việc</option>
+																<option value="4" {txt_td_trangthai4_selected} >Đã tuyển được người</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Số lượng<span class="required">*</span>
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<input type="text" id="td_soluong" name="td_soluong" value="{txt_td_soluong}" class="form-control col-md-7 col-xs-12" style="" />
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Mức lương<span class="required">*</span>
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select name="td_mucluong" class="form-control" style="width:100%;">
+																<option value="0" {txt_td_mucluong0_selected} >Thỏa thuận</option>
+																<option value="1" {txt_td_mucluong1_selected} >1 triệu - 2 triệu</option>
+																<option value="2" {txt_td_mucluong2_selected} >2 triệu - 3 triệu</option>
+																<option value="3" {txt_td_mucluong3_selected} >3 triệu - 5 triệu</option>
+																<option value="4" {txt_td_mucluong4_selected} >5 triệu - 7 triệu</option>
+																<option value="5" {txt_td_mucluong5_selected} >7 triệu - 10 triệu</option>
+																<option value="6" {txt_td_mucluong6_selected} >Trên 10 triệu</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Loại hình công việc<span class="required"></span>
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select name="td_loaihinh" class="form-control">
+																<!-- BEGIN LOAIHINH -->
+																<option value="{LOAIHINH.id}" {LOAIHINH.selected}>{LOAIHINH.title}</option>
+																<!-- END LOAIHINH -->
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Kinh nghiệm<span class="required"></span>
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select name="td_kinhnghiem" class="form-control" style="width:100%;">
+																<!-- BEGIN KINHNGHIEM -->
+																<option value="{KINHNGHIEM.id}" {KINHNGHIEM.selected}>{KINHNGHIEM.title}</option>
+																<!-- END KINHNGHIEM -->
+															</select>	
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Bằng cấp
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select name="td_bangcap" class="form-control" style="width:100%;">
+																<!-- BEGIN BANGCAP -->
+																<option value="{BANGCAP.id}" {BANGCAP.selected}>{BANGCAP.title}</option>
+																<!-- END BANGCAP -->
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Giới tính
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select name="td_goitinh" class="form-control" style="width:100%;">
+																<option value="0" {txt_td_goitinh0_selected} >Không yêu cầu</option>
+																<option value="1" {txt_td_goitinh1_selected} >Nam</option>
+																<option value="2" {txt_td_goitinh2_selected} >Nữ</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Nơi làm việc
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select id="td_diadiem" name="td_diadiem" class="form-control">
+																<!-- BEGIN DIADIEM -->
+																<option value="{DIADIEM.id}" {DIADIEM.selected}>{DIADIEM.name}</option>
+																<!-- END DIADIEM -->
+															</select>	
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Ngành nghề
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select name="td_nganhnghe" class="form-control" style="width:100%;">
+																<!-- BEGIN NGANHNGHE -->
+																<option value="{NGANHNGHE.id}" {NGANHNGHE.selected}>{NGANHNGHE.title}</option>
+																<!-- END NGANHNGHE -->
+															</select>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Mô tả công việc
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<textarea name="td_content" class="form-control" style="height:200px;">{txt_td_content}</textarea>
+														</div>
+													</div>
+													<div class="form-group" style="display:none;">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Quyền lợi được hưởng
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<textarea name="td_quyenloi" class="form-control" style="height:200px;">{txt_td_quyenloi}</textarea>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Thông tin liên hệ<span class="required"></span>
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<textarea name="td_lienhe" class="form-control" style="height:200px;">{txt_td_lienhe}</textarea>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Trạng thái bài viết
+														</label>
+														<div class="col-md-6 col-sm-6 col-xs-12">
+															<select size="1" name="status" id="status" class="form-control">
+															  <option value="1" {td_status1_checked}>Xuất bản</option>
+															  <option value="0" {td_status0_checked}>Dừng xuất bản</option>
+															</select>
+														</div>
+													</div>
+													<link rel="stylesheet" href="../js/SCEditor/minified/themes/default.min.css" type="text/css" media="all" />
+													<script src="../js/SCEditor/minified/jquery.sceditor.bbcode.min.js"></script>
+													<script>
+														var initEditor = function() {
+															$("textarea").sceditor({
+																toolbar: "bold,italic,underline",
+																locale: "no-NB"
+															});
+														};
+														initEditor();
+													</script>
+												</div>
+		
+											</div>
+										
+
+											<div class="ln_solid"></div>
+											<div class="form-group">
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<button type="button" class="btn btn-primary" onclick="window.location.href='./?act=tuyendung';">Hủy</button>
+													<input type="hidden" name="id_item" value="{id_item}" />
+													<input type="hidden" name="cmdfF" value="{txt_type_button}"/>
+													<button type="submit" class="btn btn-success">Cập nhật</button>
+													</div>
+											</div>
+										</div>
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

@@ -1,0 +1,253 @@
+<script language=JavaScript src="../editor/editor/innovaeditor/scripts/innovaeditor.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+select_img="";
+sub_folder="";
+	function BrowseServer( startupPath, functionData )
+	{
+		// You can use the "CKFinder" class to render CKFinder in a page:
+		finder = new CKFinder();
+
+		// The path for the installation of CKFinder (default = "/ckfinder/").
+		finder.basePath = '../';
+
+		//Startup path in a form: "Type:/path/to/directory/"
+		finder.StartupFolderExpanded   = true;
+		finder.RememberLastFolder  = true;
+		if (sub_folder=="/") finder.startupPath = startupPath
+		else finder.startupPath = startupPath + $.cookie('sub_folder') + "/";
+
+		// Name of a function which is called when a file is selected in CKFinder.
+		finder.selectActionFunction = SetFileField;
+
+		// Additional data to be passed to the selectActionFunction in a second argument.
+		// We'll use this feature to pass the Id of a field that will be updated.
+		finder.selectActionData = functionData;
+
+		// Name of a function which is called when a thumbnail is selected in CKFinder.
+		finder.selectThumbnailActionFunction = ShowThumbnails;
+
+		// Launch CKFinder
+		finder.popup();
+	}
+
+	// This is a sample function which is called when a file is selected in CKFinder.
+	function SetFileField( fileUrl, data )
+	{
+		n = fileUrl.indexOf("/images_upload/");
+		last = fileUrl.lastIndexOf("/");
+		file_name = fileUrl.substring(n + 15);
+		sub_folder = fileUrl.substring(n + 15,last);
+		$.cookie('sub_folder',sub_folder);
+		document.getElementById( data["selectActionData"] ).value = file_name;
+		document.getElementById(select_img).src = fileUrl;
+		
+	}
+
+	// This is a sample function which is called when a thumbnail is selected in CKFinder.
+	function ShowThumbnails( fileUrl, data )
+	{
+		// this = CKFinderAPI
+		var sFileName = this.getSelectedFile().name;
+		document.getElementById( 'thumbnails' ).innerHTML +=
+				'<div class="thumb">' +
+					'<img src="' + fileUrl + '" />' +
+					'<div class="caption">' +
+						'<a href="' + data["fileUrl"] + '" target="_blank">' + sFileName + '</a> (' + data["fileSize"] + 'KB)' +
+					'</div>' +
+				'</div>';
+
+		document.getElementById( 'preview' ).style.display = "";
+		// It is not required to return any value.
+		// When false is returned, CKFinder will not close automatically.
+		return false;
+	}
+</script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý câu hỏi [{txt_type_update}]</small></h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                        <form  enctype="multipart/form-data" action="" method="post" name="admintable" data-parsley-validate class="form-horizontal form-label-left">
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Tiêu đề<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtName" id="txtName" value="{txt_quiz_name}" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Hình ảnh<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+												<table width="100%" border="0" cellpadding="0" cellspacing="10">
+												<tr>
+														<td align="left" valign="middle">
+														<div style="width:200px; height:220px; border:#A7A6AA dotted 1px;">
+														<div style="width:195px; height:195px;">
+														<img id="imgSmallImage" src="../images_upload/{type_proimage}" style="max-width:100%; max-height:100%;"/>
+														</div>
+														<input type="hidden" id="fileSmallImage" name="fileSmallImage" value="{type_proimage}" />
+														<input type="button" onclick="select_img='imgSmallImage'; BrowseServer( 'Images:/', 'fileSmallImage' );" value="Browse">
+														<input type="button" onclick="fileclick('');" value="{txt_lang_delete}">
+														</div>
+														</td>
+												</tr>
+												</table>												
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Kiểu trả lời <span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<select name="txtType" id="txtType" class="form-control" style="width:150px;">
+													  <option value="1" {txt_type_1_selected}>Một đáp án</option>
+													  <option value="2" {txt_type_2_selected}>Nhiều đáp án</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Câu hỏi<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+												<textarea rows="12" id="txtQuestion" name="txtQuestion" cols="60">{txt_question}</textarea>
+												<script>
+														var oEdit1 = new InnovaEditor("oEdit1");
+														oEdit1.width = 670;
+														oEdit1.height = 300;
+														oEdit1.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+														oEdit1.groups = [
+															["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+															["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+															["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+															["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+															["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+															];
+														oEdit1.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+														oEdit1.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+														oEdit1.fileBrowser = "../../../assetmanager/assetmanager.php";
+														oEdit1.arrCustomTag = [["First Name", "{%first_name%}"],
+															["Last Name", "{%last_name%}"],
+															["Email", "{%email%}"]];
+														oEdit1.css = "styles/default.css";
+														oEdit1.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,500)";
+														oEdit1.REPLACE("txtQuestion");
+												  </script>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Giới thiệu thêm<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+												<textarea rows="12" id="txtQuestionDes" name="txtQuestionDes" cols="60">{txt_question_des}</textarea>
+												<script>
+														var oEdit2 = new InnovaEditor("oEdit2");
+														oEdit2.width = 670;
+														oEdit2.height = 500;
+														oEdit2.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+														oEdit2.groups = [
+															["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+															["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+															["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+															["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+															["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+															];
+														oEdit2.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+														oEdit2.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+														oEdit2.fileBrowser = "../../../assetmanager/assetmanager.php";
+														oEdit2.arrCustomTag = [["First Name", "{%first_name%}"],
+															["Last Name", "{%last_name%}"],
+															["Email", "{%email%}"]];
+														oEdit2.css = "styles/default.css";
+														oEdit2.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,500)";
+														oEdit2.REPLACE("txtQuestionDes");
+												  </script>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Answer 1
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtAnswer1" id="txtAnswer1" value="{txt_answer1}" class="form-control" style="width:500px; display: inline-block;">
+                                                    <label>
+                                                        <input value="1" type="checkbox" class="" name="txtAnswer1_check" {txt_answer1_checked}> Correct
+                                                    </label>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Answer 2
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtAnswer2" id="txtAnswer2" value="{txt_answer2}" class="form-control" style="width:500px; display: inline-block;">
+                                                    <label>
+                                                        <input value="1" type="checkbox" class="" name="txtAnswer2_check" {txt_answer2_checked}> Correct
+                                                    </label>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Answer 3
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtAnswer3" id="txtAnswer3" value="{txt_answer3}" class="form-control" style="width:500px; display: inline-block;">
+                                                    <label>
+                                                        <input value="1" type="checkbox" class="" name="txtAnswer3_check" {txt_answer3_checked}> Correct
+                                                    </label>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Answer 4
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtAnswer4" id="txtAnswer4" value="{txt_answer4}" class="form-control" style="width:500px; display: inline-block;">
+                                                    <label>
+                                                        <input value="1" type="checkbox" class="" name="txtAnswer4_check" {txt_answer4_checked}> Correct
+                                                    </label>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Answer 5
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtAnswer5" id="txtAnswer5" value="{txt_answer5}" class="form-control" style="width:500px; display: inline-block;">
+                                                    <label>
+                                                        <input value="1" type="checkbox" class="" name="txtAnswer5_check" {txt_answer5_checked}> Correct
+                                                    </label>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Answer 6
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtAnswer6" id="txtAnswer6" value="{txt_answer6}" class="form-control" style="width:500px; display: inline-block;">
+                                                    <label>
+                                                        <input value="1" type="checkbox" class="" name="txtAnswer6_check" {txt_answer6_checked}> Correct
+                                                    </label>
+												</div>
+											</div>
+										
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-3">
+                                                
+                                                <input type="hidden" name="id_item" value="{txt_id_item}" size="6">
+												<input type="hidden" name="cmdfF" value="{txt_type_button}"/>
+												<button type="submit" class="btn btn-success">Save</button>
+												<button type="button" class="btn btn-primary" onclick="if (confirm('Are you sure want to cancel?')) window.location.href='./?act=content{txt_curent_link_info}';">Cancel</button>
+                                            </div>
+                                        </div>
+										</form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

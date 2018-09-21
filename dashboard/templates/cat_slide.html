@@ -1,0 +1,255 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class=""  style="display: {txt_chedo1}" >
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý Slider</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}&addnew=0';">Thêm mới</button></a>
+                                        <li><button type="button" class="btn btn-primary" onclick="publich();">Xuất bản</button></a>
+                                        <li><button type="button" class="btn btn-warning" onclick="unpublish();">Ngừng xuất bản</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>Thêm, sửa, xóa slide ảnh!</p>
+									<p style="clear:both;"> </p>
+									<form action="./?act={sbj_act}{txt_other_links}" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="120" class="column-title">Ảnh</th>
+                                                <th width="340"  class="column-title">Tiêu đề</th>
+                                                <th class="column-title">Sắp xếp</th>
+                                                <th class="column-title">Trạng thái</th>
+                                                <th class="column-title no-link last"><span class="nobr">Thao tác</span>
+                                                </th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN MENULIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+									</td>
+                                    <td class="a-center ">
+										{MENULIST.images}
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6">
+										{MENULIST.name}
+									</td>
+                                    <td class=" ">
+										<input class="form-control" type="text" name="order[]" value="{MENULIST.pri_order}" style="width:40px; padding: 6px 2px; text-align:center;"/>
+									</td>
+                                    <td class=" ">
+										<a {MENULIST.linkStatus}>
+										<label>
+											<input type="checkbox" class="js-switch" {MENULIST.publish} {MENULIST.disable} />
+										</label>
+										</a>
+									</td>
+                                    <td class=" ">
+									<a {MENULIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Sửa </a>
+									<a {MENULIST.linkDel} onclick="{MENULIST.checkDel}"  class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Xóa </a>
+									</td>
+                                    <td class=" ">{MENULIST.id}</td>
+                                </tr>
+								<!-- END MENULIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page_info}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="ON";
+	document.adminForm.submit();
+	}
+}
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="OFF";
+		document.adminForm.submit();
+		}
+	}
+}
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display: {txt_chedo0};">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Quản lý slider [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<!-- BEGIN ERROR -->
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{ERROR.info}
+					</div>
+					<!-- END ERROR -->
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                           <div class="x_content">
+                                    <form enctype="multipart/form-data" name="admintable" action="./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}" method="post" onsubmit="return Check_input_Define();" data-parsley-validate class="form-horizontal form-label-left">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Ảnh<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="file" name="fileSmallImage" size="53">
+                                                <table>
+												<!-- BEGIN SMALLIMAGE_PREVIEW -->
+                                                <tr>
+                                                    <td></td>
+                                                    <td align="left">
+                                                    <a id="thumb1" href="{SMALLIMAGE_PREVIEW.small_image}" class="highslide" onclick="return hs.expand(this, {captionId: 'caption1'})">
+                                                        <img border="0" src="{SMALLIMAGE_PREVIEW.small_image}" title="{txt_preview_to_large}" height="100"  style="margin-left: 8px;"> 
+                                                    </a>
+                                                     <br/>
+                                                    <input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"/><label for="remove small image"> Xóa ảnh hiện tại</label>
+                                                    <input type="hidden" name="txt_img_name" value="{txt_image_name}" size="12"/>
+                                                    </td>
+                                                </tr>
+                                                <!-- END SMALLIMAGE_PREVIEW -->
+												</table>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Tiêu đề<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <!-- BEGIN VALUE -->
+												<span style="text-transform:uppercase; display:block;">{VALUE.lang}</span>
+												<input value="{VALUE.name}" type="text" name="txtTitle[{VALUE.lang_id}]" required="required" class="form-control col-md-7 col-xs-12" {VALUE.change} >
+												 <!-- END VALUE -->
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Liên kết (nếu có)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<input value="{type_link}" type="text" name="txtLink" class="form-control col-md-7 col-xs-12" >
+											</div>
+                                        </div>
+                                        <div class="form-group" style="display:none;">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Group <span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="cbGroup" class="form-control"/>
+    														<option value="0">----------- Select a group -----------</option>
+    														<!-- BEGIN GROUP -->
+    														<option value="{GROUP.group_id}"{GROUP._selected}>{GROUP.group}</option>
+    														<!-- END GROUP -->
+														</select> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Trạng thái <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<select size="1" name="cbStatus" id="cbStatus" class="form-control">
+												  <option value="1" {ActivitySelected}>Xuất bản</option>
+												  <option value="0" {WaitingSelected}>Ngừng xuất bản</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Thông tin<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <!-- BEGIN VALUE -->
+												<span style="text-transform:uppercase; display:block;">{VALUE.lang}</span>
+												<textarea class="form-control" name="txtType_Des[{VALUE.lang_id}]">{VALUE.des}</textarea>
+												<!-- END VALUE -->
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Sắp xếp<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="txtPriority_Order" id="txtPriority_Order" value="{priority_order}" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}';">Hủy</button>
+                                                <input type="hidden" name="id_item" value="{txt_ID}" size="6"/>
+												<input type="hidden" name="cmdf" value="{txt_type_button}"/>
+												<button type="submit" class="btn btn-success"> Cập nhật </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

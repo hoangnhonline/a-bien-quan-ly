@@ -1,0 +1,167 @@
+            <script>$(".main_container").addClass("showleft");</script>
+			<div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="clearfix"></div>
+                    <div id="left-tree">
+						<div class="ql-bds" style="position: relative;">
+						<button type="button" class="btn btn-success" onclick="window.open('./?act=cat_bds');">Quản lý khu vực</button>
+						</div>
+						<div class="clearfix"></div>
+						<input type="text" name="bds_name" class="form-control" style="display:none;width:200px;" placeholder="Tìm kiếm khu vực...">
+						<div class="clearfix"></div>
+						<h2>Chọn khu vực BĐS:</h2>
+						<div id="html" class="demo">
+							<ul>
+								<li><span onclick="$('#catbds_id').val('0');loadBDS();">Tất cả BĐS</span></li>
+								<!-- BEGIN CAT1 -->
+								<li data-jstree='{CAT1.selected}'><span onclick="$('#catbds_id').val('{CAT1.id}');loadBDS();">{CAT1.title}</span>
+									<ul>
+										<!-- BEGIN CAT2 -->
+										<li data-jstree='{CAT1.CAT2.selected}'><span onclick="$('#catbds_id').val('{CAT1.CAT2.id}');loadBDS();">{CAT1.CAT2.title}</span>
+											<ul>
+												<!-- BEGIN CAT3 -->
+												<li data-jstree='{CAT1.CAT2.CAT3.selected}'><span onclick="$('#catbds_id').val('{CAT1.CAT2.CAT3.id}');loadBDS();">{CAT1.CAT2.CAT3.title}</span></li>
+												<!-- END CAT3 -->
+											</ul>
+										</li>
+										<!-- END CAT2 -->
+									</ul>
+								</li>
+								<!-- END CAT1 -->
+							</ul>
+						</div>
+						<script>
+						$('#html').jstree({'plugins':["_checkbox"]});
+						</script>
+                    </div>
+                </div>
+            </div>
+            <div class="right_col" role="main">
+				<div class="x_panel">
+                                <div class="x_content">
+								<div class="clearfix"></div>
+								<div class="page-title">
+									<div class="title_left">
+										<h3>Danh sách dự án BĐS</h3>
+									</div>
+								</div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+								<div class="clearfix"></div>
+								<div class="">
+									<form id="BdsFilterForm" method="POST">
+									<button type="button" id="addProjectButton" class="btn btn-success">Thêm mới dự án</button>
+									<button type="button" onclick="location.href='./?act=users';" class="btn btn-info">Truy vấn khách bán</button>
+									<label style="font-weight:normal;"><input type="checkbox" id="my_kh" name="my_kh" onchange="loadBDS();"> Chỉ KH của tôi</label>
+									<input type="hidden" name="catbds_id" id="catbds_id" value="0">
+									</form>
+								</div>
+								<form id="BdsListForm" action="" method="GET">
+								<div class="_scroll-view" style="overflow-x:auto;">
+									<table id="bds_list_table" class="display table table-striped responsive-utilities jambo_table bulk_action bds-table" style="margin-bottom: 15px;">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title bds_tt"></th>
+                                                <th class="column-title bds_tt">TT</th>
+                                                <th class="column-title">Tên KH</th>
+                                                <th class="column-title cat_name">Dự án</th>
+                                                <th class="column-title bds_code">Ký hiệu</th>
+                                                <th class="column-title bds_dt">Điện tích</th>
+                                                <th class="column-title bds_price">Giá bán</th>
+                                                <th class="column-title" width="10" style="display:none;">ĐVT</th>
+                                                <th class="column-title bds_price">Giá thuê</th>
+                                                <th class="column-title" width="10" style="display:none;">ĐVT</th>
+                                                <th class="column-title bds_huong">Hướng</th>												
+                                                <th class="column-title">Nhân viên</th>
+                                                <th class="column-title">Ghi chú</th>
+											</tr>
+											<tr style="background-color: #f9f9f9;">
+												<td class="a-center bds_tt" style="width:40px;">
+													<input type="text" name="" class="form-control" style="width:20px;visibility: hidden;">												
+												</td>
+												<td class="bds_tt"></td>
+												<td class="kh_name">
+													<input type="text" id="kh_name" name="kh_name" value="{txt_kh_name}" class="form-control" style="width:70px;">
+												</td>
+												<td class="cat_name">
+													<input type="text" id="cat_name" name="cat_name" value="{txt_cat_name}" class="form-control" style="width:95px;">
+												</td>
+												<td class="bds_code">
+													<input type="text" id="pro_code" name="pro_code" value="{txt_pro_code}" class="form-control" style="width:80px;">
+												</td>
+												<td class="bds_dt">
+													<input type="text" id="dt_min" name="dt_min" value="{txt_dt_min}" placeholder="Min" class="form-control" style="width:55px;">
+													<input type="text" id="dt_max" name="dt_max" value="{txt_dt_max}" placeholder="Max" class="form-control" style="width:55px;margin-top:2px;">
+												</td>
+												<td class="bds_price">
+													<input type="text" id="price_min" name="price_min" value="{txt_price_min}" placeholder="Min" class="form-control" style="width:55px;">
+													<input type="text" id="price_max" name="price_max" value="{txt_price_max}" placeholder="Max" class="form-control" style="width:55px;margin-top:2px;">
+												</td>
+												<td class="" style="display:none;">
+													<select id="price_dvt" name="price_dvt" class="form-control" style="width:50px;padding: 6px 2px;">
+														<option value=""> </option>
+														<option value="Tỷ" {txt_price_dvt1_selected}>Tỷ</option>
+														<option value="Triệu" {txt_price_dvt2_selected}>Triệu</option>
+													</select>
+												</td>
+												<td class="bds_price">
+													<input type="text" id="ren_min" name="ren_min" value="{txt_ren_min}" placeholder="Min" class="form-control" style="width:55px;">
+													<input type="text" id="ren_max" name="ren_max" value="{txt_ren_max}" placeholder="Max" class="form-control" style="width:55px;margin-top:2px;">												
+												</td>
+												<td class="" style="display:none;">
+													<select id="ren_dvt" name="ren_dvt" class="form-control" style="width:50px;padding: 6px 2px;">
+														<option value=""> </option>
+														<option value="Tỷ" {txt_ren_dvt1_selected}>Tỷ</option>
+														<option value="Triệu" {txt_ren_dvt2_selected}>Triệu</option>
+													</select>
+												</td>
+												<td class="bds_huong">
+													<input type="text" id="bds_huong" name="bds_huong" value="" class="form-control" style="width:70px;padding: 6px 2px;">
+												</td>
+												<td class="admin_name">
+													<input type="text" id="admin_name" name="admin_name" value="{txt_admin_name}" class="form-control" style="width:60px;">
+												</td>
+												<td class=" last">
+													<input type="text" name="" class="form-control" style="width:200px;visibility: hidden;">
+													<button type="submit" class="btn btn-success" style="display:none;float:right;width:90px;margin-top:2px;margin-right:0px;"><i class="fa fa-search"></i> Tìm </button>
+												</td>
+												
+											</tr>
+										</thead>
+										<tbody id="BdsDataTable">
+											<!-- BEGIN MENULIST -->
+											<tr class="even pointer data" style="background-color:{MENULIST.status_color}" title="Click vào ký hiệu để chỉnh sửa">
+												<td class="a-center bds_tt">
+													<a style="margin:0px;" title="Thêm dự án tương tự" onclick="dupBDS('{MENULIST.id}');" class="btn btn-primary btn-xs"><li class="fa fa-plus"></li></a>
+													<!--<a style="margin:0px;" title="Xem thông tin dự án" onclick="editBds('{MENULIST.id}');" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>-->
+													<a style="margin:0px;{MENULIST.show_del}" title="Xóa dự án" href="./?del={MENULIST.id}" onclick="return confirm('Bạn có chắc chắn muốn xóa dự án này?');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+												</td>
+												<td class="bds_tt" align="center">{MENULIST.stt}</td>
+												<td class="kh_name">{MENULIST.user}</td>
+												<td class="cat_name">{MENULIST.cat_title}</td>
+												<td class="bds_code" onclick="editBds('{MENULIST.id}');">{MENULIST.code} <img src="./images/hot.png" width="20" style="{MENULIST.show_flag}"></td>
+												<td class="bds_dt">{MENULIST.dt} m2</td>
+												<td class="a-right bds_price">{MENULIST.price} {MENULIST.price_dvt}</td>
+												<td class="bds_price_dvt" style="display:none;">{MENULIST.price_dvt}</td>
+												<td class="a-right bds_price">{MENULIST.ren} {MENULIST.ren_dvt}</td>
+												<td class="bds_ren_dvt" style="display:none;">{MENULIST.ren_dvt}</td>
+												<td class="bds_huong">{MENULIST.huong}</td>
+												<td class="admin_name">{MENULIST.admin}</td>
+												<td class=" last a-right ">
+												<span style="display:block;max-width:400px;overflow:hidden;line-height:19px;padidng:0px;margin:0px;white-space:nowrap;text-overflow:ellipsis;">{MENULIST.note}</span>
+												</td>
+											</tr>
+											<!-- END MENULIST -->
+										</tbody>
+                                    </table>
+                                </div>
+								<br>
+								<!-- BEGIN CSTATUS -->
+								<span style="background:{CSTATUS.color};padding:3px;color:#242424;">&nbsp;&nbsp;{CSTATUS.title}&nbsp;&nbsp;</span>&nbsp;&nbsp;
+								<!-- END CSTATUS -->
+								</form>
+                                </div>
+                            </div>

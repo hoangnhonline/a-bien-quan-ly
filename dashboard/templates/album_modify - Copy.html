@@ -1,0 +1,99 @@
+            <div class="right_col" role="main">
+                <div class="" style="display: {show_form0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <!-- BEGIN EDIT -->
+									<h2>Edit your image</small></h2>
+									<!-- END EDIT -->
+                                    <!-- BEGIN ADD -->
+									<h2>Upload your images</small></h2>
+									<!-- END ADD -->
+									
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <!-- BEGIN ADD -->
+									<p>Click browse to upload images!</p>
+									<!-- END ADD -->
+									
+									<p style="clear:both;"> </p>
+                                     <form  enctype="multipart/form-data" action="./?act={sbj_act}{txt_curent_link_info}{txt_local}" method="post" name="adminForm" onsubmit="return Check_input();" class="form-horizontal form-label-left">
+										<!-- BEGIN EDIT -->
+                                        <input type="hidden" value="{txt_type_edit}" name="cmd"/>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image title</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="hidden" name="id_item" value="{txt_id_item}" size="6">
+												<input type="hidden" value="{txt_info_nameen}" name="txtNameen"/>
+												<input type="text" value="{txt_info_namevn}" class="form-control col-md-7 col-xs-12" name="txtNamevn" style=" width: 500px; margin-left: 5px;"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image upload</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="file" name="fileSmallImage"/><br/>
+											<!-- BEGIN SMALLIMAGE_PREVIEW -->
+												<a id="thumb1" href="{EDIT.SMALLIMAGE_PREVIEW.small_image}" class="highslide" target="_blank">
+													<img border="0" src="{EDIT.SMALLIMAGE_PREVIEW.small_image}" title="{txt_preview_to_large}" width="500"  style="margin-left: 5px;"> 
+												</a><br><br>
+												<input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"/> <label for="remove small image"> Check hrer to remove image</label>
+												<input type="hidden" name="txt_img_name" value="{txt_image_name}" size="12">
+											<!-- END SMALLIMAGE_PREVIEW -->  
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image link</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" value="{txt_link_info}" name="txtLink" class="form-control col-md-7 col-xs-12"/><br/>
+												Ex: https://www.instagram.com/p/BBBAlZgjlbS/embed/<br/>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://www.youtube.com/embed/zC2-UPi4u8g
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Priority order</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" value="{txt_order_info}" name="txtOrder" class="form-control col-md-7 col-xs-12"/></td>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image status</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												  <select size="1" name="cbStatus" id="cbStatus" class="form-control">
+													<option value="1"{ActivitySelected}>Active</option>
+													<option value="0"{WaitingSelected}>Unactive</option>
+												  </select> 
+											</div>
+										</div>
+										<!-- END EDIT -->
+										<!-- BEGIN ADD -->
+										<input type="hidden" value="{txt_type_add}" name="cmd"/>
+                                         <table width="100%" border="0" cellpadding="0" cellspacing="1" style="padding-right:20px;">
+                                                <tr>
+												<td align="left" height="300" valign="top">
+												<link type="text/css" rel="stylesheet" href="../mutil_upload/style.css" />
+												<script type="text/javascript" src="../mutil_upload/unpacked js/jquery-1.4.2.min.js"></script>
+												<script type="text/javascript" src="../mutil_upload/unpacked js/myupload.js"></script>
+												<script type="text/javascript" src="../mutil_upload/unpacked js/upload.min.js"></script>
+												<script type="text/javascript" src="../mutil_upload/unpacked js/swfobject.js"></script>
+												<input id="uploader" type="file" fileDesc="Images (jpg, png, gif)" path="../images_upload/" fileExt="jpg,png,gif" multi="true" afterUpload="link" />
+												<div style="clear:both;"> </div>
+												</td>
+												</tr>
+                                         </table>
+										<!-- END ADD -->
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<button type="submit" class="btn btn-success">Save</button>
+                                            </div>
+                                        </div>
+                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

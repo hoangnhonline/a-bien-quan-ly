@@ -1,0 +1,307 @@
+<script src="../ckeditor/ckeditor.js"></script>
+<script src="../ckfinder/ckfinder.js"></script>
+<script>
+function fileclick(image) {
+	document.getElementById("fileSmallImage").value = image;
+	document.getElementById("imgSmallImage").src = ".." + image;
+}
+</script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Cài đặt trang web</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{txt_msg_error}
+					</div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                           <div class="x_panel">
+
+                           <div class="x_content">
+                                    <!-- BEGIN Tab0 -->
+								<form action="./?act=setting"  enctype="multipart/form-data" method="post" data-parsley-validate class="form-horizontal form-label-left">
+								   <div class="x_title">
+											<h2>Thông tin chính</h2>
+											<div class="clearfix"></div>
+								   </div>
+										<input type="hidden" name="events" value="0">
+										<input type="hidden" name="tab0_setting_id" value="{Tab0.id}" size="6">
+										<input type="hidden" value="update" name="cmd"/>
+										<input type="hidden" name="currency" value="1">
+										<input type="hidden" name="cur_ex" value="1">
+										<input type="hidden" name="mes_offline_vn" value="">
+										 <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Tên website<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" value="{Tab0.txtSite_nameVN}" class="form-control col-md-7 col-xs-12" name="txt_site_name_vn" id="txt_site_name_vn" style="width:50%;" />
+                                                <input type="hidden" value="{Tab0.txtSite_nameEN}" class="form-control col-md-7 col-xs-12" name="txt_site_name_en" id="txt_site_name_en" style="width:50%;" />
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Logo website<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" value="{Tab0.txt_site_logo}" class="form-control col-md-7 col-xs-12" name="fileSmallImage" id="fileSmallImage" style="width:50%; margin-right:10px;" />
+												<button type="button" class="btn btn-round btn-success" onclick="modalDialogShow('../editor/editor/assetmanager/assetmanager.php?ffilter=image',650,500); return false;">Browse</button>
+												<img name="imgSmallImage" id="imgSmallImage" border="0" src="..{Tab0.txt_site_logo}" style="display:block; max-height:200px; border:#ddd solid 1px;"/>  
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Ngôn ngữ mặc định<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="OfflineLang" class="form-control" style="width:250px;"/>
+    														<!-- BEGIN LANG_LIST -->
+    														<option value="{Tab0.LANG_LIST.id}" {Tab0.LANG_LIST.selected}>{Tab0.LANG_LIST.name}</option>
+    														<!-- END LANG_LIST -->
+														</select> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Tạm dừng website<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 8px;">
+												<label>
+                                                        <input class="flat" type="radio" value="1" id="optionsRadios1" name="offline" {Tab0.txt_ofline1} > Có &nbsp;&nbsp;
+                                                </label>
+												<label>
+                                                        <input class="flat" type="radio" value="0" id="optionsRadios0" name="offline" {Tab0.txt_ofline0}> Không
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Thông báo tạm dừng<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<textarea class="form-control" name="mes_offline_en">{Tab0.txt_mesoffline_en}</textarea>
+											</div>
+                                        </div>
+									   <div style="display:none;">
+									   <div class="x_title">
+												<h2>Kích thước ảnh sản phẩm</h2>
+												<div class="clearfix"></div>
+									   </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Ảnh danh sách (W x H)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="pro_w" id="pro_w" value="{Tab0.pro_w}" class="form-control col-md-7 col-xs-12" style="width:50px; margin-right:10px;">
+                                                <input type="text" name="pro_h" id="pro_h" value="{Tab0.pro_h}" class="form-control col-md-7 col-xs-12" style="width:50px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Ảnh thu gọn (W x H)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="prothumb_w" id="prothumb_w" value="{Tab0.prothumb_w}" class="form-control col-md-7 col-xs-12" style="width:50px; margin-right:10px;">
+                                                <input type="text" name="prothumb_h" id="prothumb_h" value="{Tab0.prothumb_h}" class="form-control col-md-7 col-xs-12" style="width:50px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Ảnh chi tiết (W x H)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="prodetail_w" id="prodetail_w" value="{Tab0.prodetail_w}" class="form-control col-md-7 col-xs-12" style="width:50px; margin-right:10px;">
+                                                <input type="text" name="prodetail_h" id="prodetail_h" value="{Tab0.prodetail_h}" class="form-control col-md-7 col-xs-12" style="width:50px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Ảnh phóng lớn (W x H)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="probig_w" id="probig_w" value="{Tab0.probig_w}" class="form-control col-md-7 col-xs-12" style="width:50px; margin-right:10px;">
+                                                <input type="text" name="probig_h" id="probig_h" value="{Tab0.probig_h}" class="form-control col-md-7 col-xs-12" style="width:50px;">
+                                            </div>
+                                        </div>
+									    <div class="x_title">
+												<h2>Cài đặt bán hàng</h2>
+												<div class="clearfix"></div>
+									    </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Mẫu mã đơn hàng<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="order_code" id="order_code" value="{Tab0.order_code}" class="form-control col-md-7 col-xs-12"><br/>
+												{<span>id</span>} => Tạo mã thứ tự đơn hàng 6 ký tự (ví dụ: 000123)<br/>
+												{<span>rand</span>} => Tạo mã ngẫu nhiên 6 ký tự (ví dụ: AD2gF49)
+                                            </div>
+                                        </div>
+										</div>
+									   <div class="x_title">
+												<h2>Cài đặt liên kết MXH</h2>
+												<div class="clearfix"></div>
+									   </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Facebook link<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="txt_f_link" id="txt_f_link" value="{Tab0.txtf_link}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Twitter link<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="txt_t_link" id="txt_t_link" value="{Tab0.txtt_link}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Google Plus link<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="txt_g_link" id="txt_g_link" value="{Tab0.txtg_link}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Youtube link<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="txt_copyright" id="txt_copyright" value="{Tab0.txtcopyright}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+									   <div class="x_title">
+												<h2>Cài đặt tìm kiếm</h2>
+												<div class="clearfix"></div>
+									   </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Meta description<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <textarea class="form-control" name="metaPage">{Tab0.txt_data_meta_page}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Meta keyword<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" name="metaKey" id="metaKey" value="{Tab0.txt_data_meta_key}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Meta robots<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" name="txt_site_robots" id="txt_site_robots" value="{Tab0.txtSite_robot}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Meta author<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" name="txt_site_author" id="txt_site_author" value="{Tab0.txtSite_author}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+									    <div class="x_title">
+												<h2>Cài đặt mở rộng</h2>
+												<div class="clearfix"></div>
+									    </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Email nhận thông báo đặt hàng<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="sale_email" id="sale_email" value="{Tab0.sale_email}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+										<div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Code mở rộng (trong thẻ &lt;head&gt;)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <textarea class="form-control" name="addcode[]">{Tab0_addcode_1}</textarea>
+                                            </div>
+                                        </div>
+										<div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Code mở rộng (sau thẻ &lt;body&gt;)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <textarea class="form-control" name="addcode[]">{Tab0_addcode_2}</textarea>
+                                            </div>
+                                        </div>
+										<div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Code mở rộng (trước thẻ &lt;/body&gt;)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <textarea class="form-control" name="addcode[]">{Tab0_addcode_3}</textarea>
+                                            </div>
+                                        </div>
+										<div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Lời chào (thông báo)<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <textarea class="form-control" id="addcode_4" name="addcode[]">{Tab0_addcode_4}</textarea>
+                                            </div>
+                                        </div>
+										<div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Tag nổi bật<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <textarea class="form-control" name="addcode[]" style="height:300px;">{Tab0_addcode_5}</textarea>
+                                            </div>
+                                        </div>
+										
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}';">Cancel</button>
+                                                <input type="hidden" name="id_item" value="{txt_ID}" size="6"/>
+												<input type="hidden" name="xuduyetbai" value=""/>
+												<input type="hidden" name="phantramdl_admin" value=""/>
+												<input type="hidden" name="xu1000view" value=""/>
+												<input type="hidden" name="user_fee" value=""/>
+												<input type="hidden" name="hidden_tag" value=""/>
+												<input type="hidden" name="cmdf" value="{txt_type_button}"/>
+												<button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+									<!-- END Tab0 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<script>
+	var editor1 = CKEDITOR.replace( 'addcode_4', {
+		language: 'vi',
+		htmlEncodeOutput : false,
+		entities : false,
+		toolbarGroups: [
+			{"name":"basicstyles","groups":["basicstyles"]},
+			{"name":"links","groups":["links"]},
+			{"name":"paragraph","groups":["list","blocks"]},
+			{"name":"document","groups":["mode"]},
+			{"name":"insert","groups":["insert"]},
+			{"name":"styles","groups":["styles"]},
+			{"name":"about","groups":["about"]}
+		],
+		removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+	});
+	CKFinder.setupCKEditor( editor1, '../ckfinder/' ) ;
+	// It is also possible to pass an object with selected CKFinder properties as a second argument.
+	// CKFinder.setupCKEditor( editor, { basePath : '../', skin : 'v1' } ) ;
+	CKEDITOR.on( 'dialogDefinition', function( ev )
+	   {
+		  // Take the dialog name and its definition from the event
+		  // data.
+		  var dialogName = ev.data.name;
+		  var dialogDefinition = ev.data.definition;
+
+		  // Check if the definition is from the dialog we're
+		  // interested on (the Link and Image dialog).
+		  if ( dialogName == 'link' || dialogName == 'image' )
+		  {
+			 // remove Upload tab
+			 dialogDefinition.removeContents( 'Upload' );
+		  }
+	   });
+</script>

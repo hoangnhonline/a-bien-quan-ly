@@ -1,0 +1,126 @@
+<script type="text/javascript">
+	function showCatEditForm(cid)
+		{
+			$(".catbox-id").html("");
+			$.ajax({
+				   type: "GET",
+				   url: "showCatEditForm.php?cid=" + cid,
+				   success: function(data)
+				   {
+						$("#catbox-" + cid).html(data);
+				   }
+			});
+		}
+</script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý khu vực BĐS</small></h2>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+                                   <div>
+								   <form class="form-horizontal form-label-lef" action="" method="post" novalidate>
+								   Thêm mới khu vực BĐS:<br>
+								   <input type="text" required="required" name="bds_name" class="form-control" style="width:200px;float:left;margin-right:10px;" placeholder="Tên khu vực...">
+								   <select style="width: 200px;padding: 7px;margin-right:10px;float:left;" name="bds_parent">
+									<option value="0">Thuộc khu vực</option>
+									<!-- BEGIN MENULIST -->
+									<option value="{MENULIST.id}">{MENULIST.title1}</option>
+									<!-- END MENULIST -->
+								   </select>
+								   <input type="text" name="bds_des" class="form-control" style="width:400px;float:left;margin-right:10px;" placeholder="Ghi chú...">
+								   <input type="hidden" name="cmd" value="addnew">
+								   <button type="submit" class="btn btn-success">Thêm mới</button>
+								    </form>
+									<br>
+									</div>
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title" width="20">TT </th>
+                                                <th class="column-title">Tên khu vực</th>
+                                                <th class="column-title" width="150">Người tạo</th>
+                                                <th class="column-title last" width="150"><span class="nobr">Thao tác</span></th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<!-- BEGIN MENULIST -->
+											<tr class="even pointer">
+												<td class=" ">{MENULIST.tt}</td>
+												<td class=" ">
+												{MENULIST.title1}
+												<span id="catbox-{MENULIST.id}" class="catbox-id"></span>
+												</td>
+												<td class=" ">{MENULIST.admin_name}</td>
+												<td class=" last">
+												<span style="{MENULIST.show_action}">
+												<a onclick="showCatEditForm('{MENULIST.id}');" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Sửa </a>
+												<a href="./?act=cat_bds&del={MENULIST.id}" onclick="return Question_del();" class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Xóa </a>
+												</span>
+												</td>
+											</tr>
+											<!-- END MENULIST -->
+										</tbody>
+
+                                    </table>
+									<br><br>
+<script>
+	var asInitVals = new Array();
+	$(document).ready(function () {
+		var oTable = $('#example').dataTable({
+			"oLanguage": {
+				"sSearch": "Search all columns:"
+			},
+			"aoColumnDefs": [
+				{
+					'bSortable': false,
+					'aTargets': [0,1,2,3]
+				} //disables sorting for column one
+	],
+			'iDisplayLength': 50,
+			"sPaginationType": "full_numbers"
+		});
+		$("tfoot input").keyup(function () {
+			/* Filter on the column based on the index of this element's parent <th> */
+			oTable.fnFilter(this.value, $("tfoot th").index($(this).parent()));
+		});
+		$("tfoot input").each(function (i) {
+			asInitVals[i] = this.value;
+		});
+		$("tfoot input").focus(function () {
+			if (this.className == "search_init") {
+				this.className = "";
+				this.value = "";
+			}
+		});
+		$("tfoot input").blur(function (i) {
+			if (this.value == "") {
+				this.className = "search_init";
+				this.value = asInitVals[$("tfoot input").index(this)];
+			}
+		});
+	});
+</script>
+<style>
+.dataTables_filter input {display: inline-block !important;}
+</style>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+				

@@ -1,0 +1,57 @@
+<td width="100%">
+        <table border="0"  style="display: {txt_chedo0}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+            <!-- TOOLBAR -->
+            <tr width="909">
+        	<td>
+        	  <div id="title_panel" style="display: {show_all}">
+        			<div id="title" class="header icon-48-cat-info">Quản lý flash giới thiệu.</small></small></div>
+
+                        <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                        
+                        <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}');" title="{txt_cancel}"><span class="icon-32-cancel"></span>{txt_cancel}</a></div>
+                        <div style="display: {txt_button_law_save};" id="toolbar_button"><a onclick="javascript: submitB('btupload');" title="{txt_save}"><span class="icon-32-save"></span>Upload</a></div>
+        	  </div>
+        	</td>
+        </tr>
+            <!-- VIEW UPDATE -->
+            <tr>
+            		<td height="360" valign="top">
+                        <div id="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="width: 700; height: auto; margin: 0 auto;">
+                                    
+                                     <form  enctype="multipart/form-data" action="" method="post" name="admintable">
+                                         <table width="100%" border="0" cellpadding="0" cellspacing="1">
+
+                                                <tr>
+                                                    <td height="23" class="key" align="right">Upload mới:</td>
+                                                    <td align="left">
+                                                        <input type="file" name="fileflash" size="53" style="margin-left: 7px; height: 20px;" class="textForm"/>
+                                                        <input type="hidden" name="cmdf" value="flash"/>
+                                                        <div style="overflow:hidden; width: 1px; height: 1px;">
+                                                            <input type="submit" name="cmdfF" value="btupload"/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Flash hiện tại</td>
+													<td align="left"><br/><br/>
+															<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+															codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
+															width="600"  height="450" title="7iun giới thiệu">
+															<param name="movie" value="../7iun gioi thieu.swf" />
+															<param name="quality" value="high" />
+															<param name="wmode" value="transparent" />
+															<embed src="../7iun gioi thieu.swf" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" width="600"  height="450" type="application/x-shockwave-flash"></embed>
+															</object>
+													</td>
+                                                </tr>
+
+                                         </table>    
+                                                                           
+                                     </form>
+                                </div>
+                        </div>
+                    </td>
+        </tr>
+        </table> 
+</td>

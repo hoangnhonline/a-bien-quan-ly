@@ -1,0 +1,124 @@
+<script language=JavaScript src="../editor/editor/innovaeditor/scripts/innovaeditor.js"></script>
+<script>
+  function Check_input()
+  {
+	return true;
+  }
+
+</script>
+           <div class="right_col" role="main">
+                <div class="">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <!-- BEGIN EDIT -->
+									<h2>Edit your image</small></h2>
+									<!-- END EDIT -->
+                                    <!-- BEGIN ADD -->
+									<h2>Upload your images</small></h2>
+									<!-- END ADD -->
+									
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+									
+									<p style="clear:both;"> </p>
+                                     <form  enctype="multipart/form-data" action="./?act={sbj_act}{txt_curent_link_info}{txt_local}" method="post" name="adminForm" onsubmit="return Check_input();" class="form-horizontal form-label-left">
+										<!-- BEGIN EDIT -->
+                                        <input type="hidden" value="{txt_type_edit}" name="cmd"/>
+										<!-- END EDIT -->
+										<!-- BEGIN ADD -->
+                                        <input type="hidden" value="{txt_type_add}" name="cmd"/>
+										<!-- END ADD -->
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image upload</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+											<input type="file" name="fileSmallImage"/><br/>
+											<!-- BEGIN EDIT -->
+											<!-- BEGIN SMALLIMAGE_PREVIEW -->
+												<a id="thumb1" href="{EDIT.SMALLIMAGE_PREVIEW.small_image}" class="highslide" target="_blank">
+													<img border="0" src="{EDIT.SMALLIMAGE_PREVIEW.small_image}" title="{txt_preview_to_large}" width="500"  style="margin-left: 5px;"> 
+												</a><br><br>
+												<input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"/> <label for="remove small image"> Check hrer to remove image</label>
+												<input type="hidden" name="txt_img_name" value="{txt_image_name}" size="12">
+											<!-- END SMALLIMAGE_PREVIEW -->  
+											<!-- END EDIT -->
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image title</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="hidden" name="id_item" value="{txt_id_item}" size="6">
+												<input type="text" value="{txt_info_namevn}" class="form-control col-md-7 col-xs-12" name="txtNamevn" style=" width: 500px; margin-left: 5px;"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image des</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<textarea rows="12" id="txtNameen" name="txtNameen" cols="60">{txt_info_nameen}</textarea>
+												<script>
+														var oEdit1 = new InnovaEditor("oEdit1");
+														oEdit1.width = 500;
+														oEdit1.height = 400;
+														oEdit1.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+														oEdit1.groups = [
+															["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+															["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+															["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+															["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+															["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+															];
+														oEdit1.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+														oEdit1.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+														oEdit1.fileBrowser = "../../../assetmanager/assetmanager.php";
+														oEdit1.arrCustomTag = [["First Name", "{%first_name%}"],
+															["Last Name", "{%last_name%}"],
+															["Email", "{%email%}"]];
+														oEdit1.css = "styles/default.css";
+														oEdit1.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,465)";
+														oEdit1.REPLACE("txtNameen");
+												  </script>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image link</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" value="{txt_link_info}" name="txtLink" class="form-control col-md-7 col-xs-12"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Related products</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" value="{txt_content_info}" name="txtContent" class="form-control col-md-7 col-xs-12"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Priority order</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" value="{txt_order_info}" name="txtOrder" class="form-control col-md-7 col-xs-12"/></td>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Image status</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												  <select size="1" name="cbStatus" id="cbStatus" class="form-control">
+													<option value="1" {ActivitySelected}>Active</option>
+													<option value="0" {WaitingSelected}>Unactive</option>
+												  </select> 
+											</div>
+										</div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<button type="submit" class="btn btn-success">Save</button>
+                                            </div>
+                                        </div>
+                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

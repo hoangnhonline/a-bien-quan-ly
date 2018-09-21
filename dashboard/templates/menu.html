@@ -1,0 +1,259 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {txt_chedo1}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>{txt_lang_menu_manager}</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}&addnew=0';">Thêm mới</button></a>
+                                        <li><button type="button" class="btn btn-danger" onclick="deleterows();">{txt_lang_delete}</button></a>
+										<li><button type="button" class="btn btn-primary" onclick="publich();">{txt_lang_publich}</button></a>
+                                        <li><button type="button" class="btn btn-warning" onclick="unpublish();">{txt_lang_unpublich}</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+                                    <p>{txt_lang_menu_manager_note}!</p>
+									<p style="clear:both;"> </p>
+									<form action="" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="120" class="column-title">{txt_lang_image}</th>
+                                                <th width="200"  class="column-title">{txt_lang_title}</th>
+                                                <th width="200"  class="column-title">{txt_lang_link}</th>
+                                                <th class="column-title">{txt_lang_order}</th>
+                                                <th class="column-title">{txt_lang_status}</th>
+                                                <th class="column-title no-link last"><span class="nobr">{txt_lang_action}</span></th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN MENULIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+									</td>
+                                    <td class="a-center ">
+										{MENULIST.images}
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+										<a href="./?act={sbj_act}&id={MENULIST.id}{txt_other_links}" title="{txt_preview}">{MENULIST.name}</a>
+									</td>
+									<td class=" ">
+										<a href="{MENULIST.links}" title="{txt_preview}">{MENULIST.links}</a>
+									</td>
+                                    <td class=" ">
+										{MENULIST.pri_order}
+									</td>
+                                    <td class=" ">
+										<a {MENULIST.linkStatus}>
+										<label>
+											<input type="checkbox" class="js-switch" {MENULIST.publish} {MENULIST.disable} />
+										</label>
+										</a>
+									</td>
+                                    <td class=" ">
+									<a {MENULIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> {txt_lang_edit} </a>
+									<a {MENULIST.linkDel} onclick="{MENULIST.checkDel}"  class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> {txt_lang_delete} </a>
+									</td>
+                                    <td class=" ">{MENULIST.id}</td>
+                                </tr>
+								<!-- END MENULIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page_info}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="ON";
+	document.adminForm.submit();
+	}
+}
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="OFF";
+		document.adminForm.submit();
+		}
+	}
+}
+function deleterows(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="del";
+		document.adminForm.submit();
+		}
+	}
+}
+
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display: {txt_chedo0}">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>{txt_lang_menu_manager} [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                           <div class="x_content">
+                                    <form enctype="multipart/form-data" action="./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}" method="post" name="admintable" data-parsley-validate class="form-horizontal form-label-left">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">{txt_lang_image}<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="file" name="fileSmallImage" class="form-control">
+												<!-- BEGIN SMALLIMAGE_PREVIEW -->
+												<img border="0" src="{SMALLIMAGE_PREVIEW.small_image}" style="max-width:500px; max-height:400px;"><br/>
+												<input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"><label for="remove small image">{txt_lang_delete}</label></td>
+												<!-- END SMALLIMAGE_PREVIEW -->
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">{txt_lang_title} <span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <!-- BEGIN MTITLE -->
+												<span style="text-transform:uppercase; display:block;">{MTITLE.lang}</span>
+												<input value="{MTITLE.name}" type="text" name="txtTitle[{MTITLE.lang_id}]" class="form-control col-md-7 col-xs-12">
+												 <!-- END MTITLE -->
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">{txt_lang_link} <span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <!-- BEGIN MLINK -->
+												<span style="text-transform:uppercase; display:block;">{MLINK.lang}</span>
+												<input value="{MLINK.link}" type="text" name="txtLink[{MLINK.lang_id}]" class="form-control col-md-7 col-xs-12">
+												 <!-- END MLINK -->
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">{txt_lang_parent_menu}<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<select name="cbGroup" class="form-control">
+													<option value="0">---Select---</option>
+													<!-- BEGIN GROUP -->
+													<option value="{GROUP.group_id}"{GROUP._selected}>{GROUP.group}</option>
+													<!-- END GROUP -->
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">{txt_lang_des}<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <!-- BEGIN MDES -->
+												<span style="text-transform:uppercase; display:block;">{MDES.lang}</span>
+												<textarea class="form-control" style="height:200px;" name="txtDes[{MDES.lang_id}]">{MDES.des}</textarea>
+												 <!-- END MDES -->
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">{txt_lang_order}<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<input value="{priority_order}" type="text" name="txtPriority_Order" class="form-control col-md-7 col-xs-12">
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Trạng thái <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<select size="1" name="cbStatus" id="cbStatus" class="form-control" style="width: 200px;">
+												  <option value="1" {ActivitySelected}>Xuất bản</option>
+												  <option value="0" {WaitingSelected}>Dừng xuất bản</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='./?act=menu';">Cancel</button>
+                                                <input type="hidden" name="id_menu" value="{txt_idMenu}">
+												<input type="hidden" name="cmdf" value="{txt_type_button}">
+												<button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>

@@ -1,0 +1,270 @@
+<link href="./js/select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="./js/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+	function showCatBox(cid)
+		{
+			$(".catbox-id").html("");
+			$.ajax({
+				   type: "GET",
+				   url: "getCatBox.php?cid=" + cid,
+				   success: function(data)
+				   {
+						$("#catbox-" + cid).html(data);
+						//$("#getcatbox").select2({
+						//	allowClear: true
+						//});
+				   }
+			});
+		}
+	  
+	function moveCatNow(cid)
+		{
+			$("#catname-" + cid).html("");
+			$("#getcatbox option:selected").each(function () {
+			   var $this = $(this);
+			   if ($this.length) {
+				var selText = $this.text();
+				selText = selText.replace('|__', '');
+				selText = selText.trim();
+				$("#catname-" + cid).append(selText + '<br>');
+			   }
+			});
+			
+			$.ajax({
+			   type: "POST",
+			   url: "ajax_action.php?act=movecat",
+			   data: $("#adminForm").serialize(),
+			   success: function(data)
+			   {
+					$("#catbox-" + cid).html(data);
+			   }
+			});
+		}
+	  
+</script>
+<script language="JAVASCRIPT">
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('{txt_lang_action_confirm}?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('{txt_lang_action_denid}');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('{txt_lang_action_denid}');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_lang_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_lang_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {show_form0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>{txt_lang_content_manager}</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button style="display:{txt_show_addnew};" type="button" class="btn btn-success" onclick="window.location.href='./?act=content_modify{txt_other_links}&addnew=0';">{txt_lang_addnew}</button></a>
+                                        <li><button style="display:{txt_show_update};" type="button" class="btn btn-info" onclick="update();">{txt_lang_update_stt}</button></a>
+                                        <li><button style="display:{txt_show_pub};display:none;" type="button" class="btn btn-primary" onclick="publich();">{txt_lang_publich}</button></a>
+                                        <li><button style="display:{txt_show_pub};" type="button" class="btn btn-danger" onclick="deletes();">{txt_lang_delete}</button></a>
+                                        <li><button style="display:{txt_show_unpub};" type="button" class="btn btn-warning" onclick="unpublish();">{txt_lang_unpublich}</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+
+
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+                        <div class="title_left">
+                            <div class="col-md-8 col-sm-8 col-xs-12 form-group pull-left top_search">
+                                <form method="POST" action="./?act={sbj_act}{txt_oder_fun}&trash={trash_act}" name="frmSearch">
+								<div class="input-group" style="max-width:240px; float:left;">
+                                    <input type="hidden" name="cmd" value="Search">
+									<input type="text" class="form-control" placeholder="Từ khóa tìm kiếm..." name="txtInfo_Search" value="{txt_enter_key_search}">
+                                    <span class="input-group-btn">
+										<button class="btn btn-default" type="submit">Go!</button>
+									</span>
+                                </div>
+								<div class="radio" style="margin:0px; float: left; padding-top: 5px;">
+									<label>
+										Trạng thái: <input type="radio" class="flat" checked name="search_status" value=""> {txt_lang_all}
+									</label>
+								</div>
+								<div class="radio" style="margin:0px; float: left; padding-top: 5px;">
+									<label>
+										<input type="radio" class="flat" {search_1_checked} name="search_status" value="1"> {txt_lang_publich}
+									</label>
+								</div>
+								<div class="radio" style="margin:0px; float: left; padding-top: 5px;">
+									<label>
+										<input type="radio" class="flat" {search_0_checked} name="search_status" value="0"> {txt_lang_unpublich}
+									</label>
+								</div>
+								
+								</form>
+								{txt_resul_search} 
+                            </div>
+                        </div>
+ 									<p style="float: right;">
+										<select onchange="window.location.href='{txt_go_link}&cat_id=' + this.value;" size="1" name="cbGroup" class="form-control" style="margin-left: 8px; width: 200px;"/>
+											<option value="0">{txt_lang_allcatalog}</option>
+											<!-- BEGIN GROUP -->
+											<option value="{GROUP.group_id}"{GROUP._selected}>{GROUP.group}</option>
+											<!-- END GROUP -->
+										</select>
+									</p>
+									<p style="clear:both;"> </p>
+									<form action="./?act={sbj_act}{txt_oder_fun}&trash={trash_act}" method="post" name="adminForm"  id="adminForm" >
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="80" class="column-title">{txt_lang_image}</th>
+                                                <th width="350"  class="column-title">{txt_lang_title}</th>
+                                                <th width="170"  class="column-title">Danh mục</th>
+                                                <th class="column-title">{txt_lang_order}</th>
+                                                <th class="column-title">{txt_lang_status}</th>
+                                                <th class="column-title no-link last"><span class="nobr">{txt_lang_action}</span>
+                                                </th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+													<div style="position: relative;float: right;">
+														Di chuyển bài viết: 
+														<select size="1" name="movecbGroup" class="form-control" style="margin-left: 5px; width: 160px;display: inline;color:#73879C;font-weight:normal;"/>
+															<!-- BEGIN GROUP -->
+															<option value="{GROUP.group_id}">{GROUP.group}</option>
+															<!-- END GROUP -->
+														</select>
+														<button type="button" class="btn btn-success" onclick="moveList();" style="display: inline;">Di chuyển</button>
+													</div>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN INFOLIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{INFOLIST.id}">
+									</td>
+                                    <td class="a-center ">
+										{INFOLIST.images}
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{INFOLIST.id}" size="6">
+										{INFOLIST.name}
+									</td>
+									<td class=" ">
+										<span id="catname-{INFOLIST.id}">{INFOLIST.catname}<br></span>
+										<a class="cat-hover-link" href="javascript:showCatBox('{INFOLIST.id}');">Di chuyển...</a>
+										<span id="catbox-{INFOLIST.id}" class="catbox-id" style="width: 250px;height: 300px;background:#fff;"></span>
+									</td>
+                                    <td class=" ">
+										<input class="form-control" type="text" name="order[]" value="{INFOLIST.pri_order}" style="width:40px; padding: 6px 2px; text-align:center;"/>
+									</td>
+                                    <td class=" ">
+										<a {INFOLIST.linkStatus}>
+										<label>
+											<input type="checkbox" class="js-switch" {INFOLIST.publish} {INFOLIST.disable} />
+										</label>
+										</a>
+									</td>
+                                    <td class=" ">
+									<a {INFOLIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> {txt_lang_edit} </a>
+									<a {INFOLIST.linkDel} onclick="{INFOLIST.checkDel}"  class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li>{txt_lang_delete}</a>
+									</td>
+                                    <td class=" ">{INFOLIST.id}</td>
+                                </tr>
+								<!-- END INFOLIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page_info}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("{txt_lang_select_error}");
+	else {
+	document.adminForm.cmd.value="ON";
+	document.adminForm.submit();
+	}
+}
+function update(){
+	if ($(".bulk-actions").css("display")=="none") alert("{txt_lang_select_error}");
+	else {
+	document.adminForm.cmd.value="UPDATE";
+	document.adminForm.submit();
+	}
+}
+function moveList(){
+	if ($(".bulk-actions").css("display")=="none") alert("{txt_lang_select_error}");
+	else {
+	document.adminForm.cmd.value="MOVE";
+	document.adminForm.submit();
+	}
+}
+
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("{txt_lang_select_error}");
+	else {
+	if (confirm('{txt_lang_action_confirm}?')) {
+		document.adminForm.cmd.value="OFF";
+		document.adminForm.submit();
+		}
+	}
+}
+function deletes(){
+	if ($(".bulk-actions").css("display")=="none") alert("{txt_lang_select_error}");
+	else {
+	if (confirm('{txt_lang_action_confirm}')) {
+		document.adminForm.cmd.value="DEL";
+		document.adminForm.submit();
+		}
+	}
+}
+
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

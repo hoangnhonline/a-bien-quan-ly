@@ -1,0 +1,56 @@
+            <div class="right_col" role="main">
+				<div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Add credit manager</h3>
+                        </div>
+                    </div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2><small>View add credit history</small></h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Custumer</th>
+                                                <th>Trans ID</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                                <th>Time</th>
+                                                <th>Action</th>
+                                                <th>Id</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- BEGIN MENULIST -->
+											<tr>
+                                                <td>{MENULIST.stt}</th>
+                                                <td>{MENULIST.name_item}</td>
+                                                <td>{MENULIST.trans}</td>
+                                                <td>{MENULIST.mount}</td>
+                                                <td>{MENULIST.status}</td>
+                                                <td>{MENULIST.time}</td>
+                                                <td>
+													<a {MENULIST.linkDel} onclick="{MENULIST.checkDel}" class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Delete </a>
+												</td>
+                                                <td>{MENULIST.id}</td>
+                                            </tr>
+											<!-- END MENULIST -->
+                                        </tbody>
+                                    </table>
+									<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+									{link_page_info}
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

@@ -1,0 +1,42 @@
+		<fieldset>
+			<label>Khách hàng: </label> {txt_user_pre} {txt_user_name}<br><br>
+			<div id="bds_form">
+				<label>Ký hiệu BĐS*</label> {txt_pro_code}<br>
+				<label>Loại BĐS*</label> {txt_pro_cat1} &nbsp;&nbsp;&nbsp;&nbsp;
+				<label>Khu vực</label> {txt_pro_cat2}
+				<br>
+				<label>Ngày hết HĐ:</label> {txt_pro_expired} &nbsp;&nbsp;&nbsp;&nbsp;
+				<label>Tình trạng:</label> <span style="background:{txt_pro_status_color}; padding:3px 5px;border-radius:2px;color:#fff;">{txt_pro_status}</span>
+				<br>
+				<label>Diện tích:</label> {txt_pro_dt} m<sup>2</sup> &nbsp;&nbsp;&nbsp;&nbsp;
+				<label>Dài:</label> {txt_pro_dt_d}m &nbsp;&nbsp;&nbsp;&nbsp;
+				<label>Rộng:</label> {txt_pro_dt_r}m
+				<br>
+				<label>Giá bán:</label> {txt_pro_price}
+				<select id="pro_price_dvt" name="pro_price_dvt" class="form-control" style="margin-top:5px;width:80px;display:inline;">
+					<option value="Tỷ">Tỷ</option>
+					<option value="Triệu" {price_dvt2_selected}>Triệu</option>
+				</select>
+				<label>Giá thuê: </label> {txt_pro_ren}
+				<select id="pro_ren_dvt" name="pro_ren_dvt" class="form-control" style="margin-top:5px;width:80px;display:inline;">
+					<option value="Tỷ">Tỷ</option>
+					<option value="Triệu" {ren_dvt2_selected}>Triệu</option>
+				</select>
+				<br><br>
+				<label>Số phòng ngủ: </label> {txt_pro_soPN}<br>
+				<label>Số WV: </label> {txt_pro_SoWC}<br>
+				<label>Hướng: </label> {txt_pro_huong}<br>
+				<br>
+				<label>Ghi chú:</label>
+<textarea name="pro_note_1" id="pro_note_1" style="width:100%;height:150px;margin-bottom:5px;" readonly>
+<!-- BEGIN NOTE -->
+[{NOTE.time}] bới {NOTE.admin}: {NOTE.note}
+<!-- END NOTE -->
+</textarea>
+				<div>
+				</div>
+			</div>
+		</fieldset>
+		<script>
+			$("#ui-id-2").html("Xem thông tin dự án");
+		</script>

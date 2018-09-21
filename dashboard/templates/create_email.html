@@ -1,0 +1,140 @@
+<script language=JavaScript src="../editor/editor/innovaeditor/scripts/innovaeditor.js"></script>
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Checksend()
+  {
+	checked=0;
+	$("input[name='cid[]']:checked").each(function ()
+	{
+		checked=checked+1;
+	});
+	vto = $("input[name='txtEmail']").val();
+	if (checked==0 && vto==''){
+		alert("Please choose at least one custumer to send!");
+		return false;
+	} else return true;
+  }
+</script>
+            <div class="right_col" role="main">
+				<div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Send message</h3>
+                        </div>
+                    </div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2><small>Send your message to custumes</small></h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                <div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    {txt_msg_error}
+                                </div>
+									<form enctype="multipart/form-data" name="admintable" action="" method="post" onsubmit="return Checksend();" data-parsley-validate class="form-horizontal form-label-left">
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">To<span class="required"></span>
+											</label>
+											<div class="col-md-8 col-sm-8 col-xs-12">
+												<input value="{dspl_email}" type="text" name="txtEmail" id="txtEmail" class="form-control col-md-7 col-xs-12" >
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Subject<span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 col-xs-12">
+												<input value="{dspl_titleF}" type="text" name="txtSubject" required="required" class="form-control col-md-7 col-xs-12" >
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Content<span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 col-xs-12">
+												<textarea rows="12" id="txtContent" name="txtContent" cols="50">{dspl_content}</textarea>
+												<script>
+														var oEdit1 = new InnovaEditor("oEdit1");
+														oEdit1.width = 670;
+														oEdit1.height = 400;
+														oEdit1.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+														oEdit1.groups = [
+															["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+															["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+															["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+															["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+															["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+															];
+														oEdit1.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+														oEdit1.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+														oEdit1.fileBrowser = "../../../assetmanager/assetmanager.php";
+														oEdit1.arrCustomTag = [["First Name", "{%first_name%}"],
+															["Last Name", "{%last_name%}"],
+															["Email", "{%email%}"]];
+														oEdit1.css = "styles/default.css";
+													  oEdit1.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,465)";
+													  oEdit1.REPLACE("txtContent");
+												  </script>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">To other custumes<span class="required">*</span>
+											</label>
+											<div class="col-md-8 col-sm-8 col-xs-12" style="max-height:200px; overflow:auto;">
+												<table class="table table-striped responsive-utilities jambo_table bulk_action">
+													<thead>
+														<tr class="headings">
+															<th width="30">
+																<input type="checkbox" id="check-all" class="flat">
+															</th>
+															<th width="250" class="column-title">Name</th>
+															<th class="column-title">Email</th>
+															<th class="column-title">Id</th>
+															<th class="bulk-actions" colspan="4">
+																<a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<!-- BEGIN MENULIST -->
+														<tr class="even pointer">
+															<td class="a-center ">
+																<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.email}">
+															</td>
+															<td class=" ">
+																{MENULIST.name}
+															</td>
+															<td class=" ">
+																{MENULIST.email}
+															</td>
+															<td class=" " align="center">
+																{MENULIST.id}
+															</td>
+														</tr>
+														<!-- END MENULIST -->
+													</tbody>
+
+												</table>
+											</div>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag"> </label>
+											<div class="col-md-8 col-sm-8 col-xs-12">
+												<button type="button" class="btn btn-primary" onclick="if (confirm('Are you sure you want cancel?')) window.location.href='./';">Cancel</button>
+												<input type="hidden" name="cmd" value="add"/>
+												<button type="submit" class="btn btn-success">Send</button>
+											</div>
+										</div>
+									
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

@@ -1,0 +1,103 @@
+
+	<td width="100%">
+          <!-- 1. PREVIEW INPUTBOX -->
+          <table border="0" style="display: {txt_chedo1}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+              <!-- TOOLBAR -->
+              <tr>
+          	    <td width="800">
+          	      <div id="title_panel">
+          			    <div id="title" class="header icon-48-statis">Phân tích trang web</div>
+        	      </div>
+          	    </td>
+              </tr>
+              <tr width="100%">
+              		    <td height="360" valign="top">
+                              <div id="cpanel">
+                                   <form method="post" name="adminForm">
+                                          <table class="adminlist" style="border:none 0px;" id="table6" cellspacing="1">
+											  <tr><td style="border:none 0px;">
+<br/>
+<center style="font-weight:bold; font-size:14px;">Lượt xem và số người truy cập</center><br/>
+<div id="chartContainer" style="margin:0px 30px; width: 94%; height: 440px; border:rgb(213, 213, 213) solid 1px;">
+<iframe src="gachart.php" width="100%" height="100%" frameborder=0 marginheight=0 marginwidth=0 scrolling=no></iframe>
+</div>
+
+<div >
+
+<style type="text/css">
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: rgb(213, 213, 213);
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 0px 8px;
+	border-style: solid;
+	border-color: rgb(213, 213, 213);
+	background-color: #dedede;
+	height:25px;
+}
+table.gridtable tr {
+	padding: 0px;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 0px 8px;
+	border-style: solid;
+	border-color: rgb(213, 213, 213);
+	background-color: #ffffff;
+	height:25px;
+}
+</style>
+<br/>
+<center style="font-weight:bold; font-size:14px;">Nguồn cung cấp truy cập</center><br/>
+<table class="gridtable" cellpadding=0 border=0 cellspacing=0 style="margin:0px 30px; width: 94%;">
+<tr style="background: rgb(213, 213, 213);">
+  <th width="40" align="center">#</th>
+  <th align="center">Referral URL</th>
+  <th align="center" width="150">Pageviews</th>
+  <th align="center" width="150">Visits</th>
+</tr>
+<!-- BEGIN SOURCECHART -->
+<tr>
+  <td align="center">{SOURCECHART.txt_stt}</td>
+  <td>{SOURCECHART.txt_source}</td>
+  <td align="center">{SOURCECHART.txt_pageviews}</td>
+  <td align="center">{SOURCECHART.txt_visitor}</td>
+</tr>
+<!-- END SOURCECHART -->
+</table>
+<br/>
+<center style="font-weight:bold; font-size:14px;">Phân loại trình duyệt</center>
+<table class="gridtable" cellpadding=0 border=0 cellspacing=0 style="margin:20px 30px 0px 30px; width: 94%;">
+<tr style="background: rgb(213, 213, 213);">
+  <th width="40" align="center">#</th>
+  <th align="center">Browser</th>
+  <th align="center" width="150">Pageviews</th>
+  <th align="center" width="150">Visits</th>
+</tr>
+<!-- BEGIN TYPECHART -->
+<tr>
+  <td align="center">{TYPECHART.txt_stt}</td>
+  <td>{TYPECHART.txt_source}</td>
+  <td align="center">{TYPECHART.txt_pageviews}</td>
+  <td align="center">{TYPECHART.txt_visitor}</td>
+</tr>
+<!-- END TYPECHART -->
+</table>
+<br/><br/>
+</div>
+
+		
+											  </td></tr>
+                                          </table>
+                                   </form>
+                              </div>
+                          </td>
+          	</tr>
+          </table>
+</td>

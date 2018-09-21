@@ -1,0 +1,149 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {txt_chedo1}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Web log</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}&addnew=0';">Thêm mới</button></a>
+                                        <li><button type="button" class="btn btn-danger" onclick="deleterows();">{txt_lang_delete}</button></a>
+										<li><button type="button" class="btn btn-primary" onclick="publich();">{txt_lang_publich}</button></a>
+                                        <li><button type="button" class="btn btn-warning" onclick="unpublish();">{txt_lang_unpublich}</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+									<p style="clear:both;"> </p>
+									<form action="" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="120" class="column-title">IP</th>
+                                                <th width="200"  class="column-title">Time</th>
+                                                <th width="200"  class="column-title">Browser</th>
+                                                <th class="column-title">Page</th>
+                                                <th class="column-title">Href</th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="6">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN MENULIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+									</td>
+                                    <td class="a-center ">
+										{MENULIST.ip}
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+										{MENULIST.date}
+									</td>
+									<td class=" ">
+										{MENULIST.action}
+									</td>
+                                    <td class=" ">
+										<a href="../{MENULIST.url}">{MENULIST.url}</a>
+									</td>
+                                    <td class=" ">
+										<a href="{MENULIST.from_url}">{MENULIST.from_urls}</a>
+									</td>
+                                    <td class=" ">{MENULIST.id}</td>
+                                </tr>
+								<!-- END MENULIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="ON";
+	document.adminForm.submit();
+	}
+}
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="OFF";
+		document.adminForm.submit();
+		}
+	}
+}
+function deleterows(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="del";
+		document.adminForm.submit();
+		}
+	}
+}
+
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>

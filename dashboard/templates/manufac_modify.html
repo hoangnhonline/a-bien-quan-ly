@@ -1,0 +1,163 @@
+<script language=JavaScript src="../editor/editor/innovaeditor/scripts/innovaeditor.js"></script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý thương hiệu  [{txt_type_update}]</small></h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                        <form  enctype="multipart/form-data" action="" method="post" name="admintable" data-parsley-validate class="form-horizontal form-label-left">
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Logo công ty<span class="required"></span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="file" name="fileSmallImage"/>
+													<!-- BEGIN SMALLIMAGE_PREVIEW -->
+														<a id="thumb1" href="{SMALLIMAGE_PREVIEW.small_image}" class="highslide" onclick="return hs.expand(this, {captionId: 'caption1'})">
+															<img border="0" src="{SMALLIMAGE_PREVIEW.small_image}" title="{txt_preview_to_large}" width="60" height="55"  style="margin-left: 5px;"> 
+														</a>
+														<input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"><label for="remove small image">Xóa ảnh này</label>
+														<input type="hidden" name="txt_img_name" value="{txt_image_name}" size="12">
+													<!-- END SMALLIMAGE_PREVIEW -->
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Tên công ty<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtNamevn" id="txtNamevn" value="{txt_info_namevn}" required="required" class="form-control col-md-7 col-xs-12">
+													<input type="hidden" name="txtContenten" id="txtContenten" value="{txt_info_desen}" class="form-control col-md-7 col-xs-12">
+													<input type="hidden" name="txtRobots" id="txtRobots" value="" class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Địa chỉ<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtAddrvn" id="txtAddrvn" value="{txt_info_addrvn}" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Tỉnh, thành phố<span class="required">*</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<select name="txtAddren" id="txtAddren" class="form-control">
+														<!-- BEGIN DSTINH -->
+														<option value="{DSTINH.id}" {DSTINH.selected}>{DSTINH.name}</option>
+														<!-- END DSTINH -->
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Quy mô công ty<span class="required">*</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<select name="txtSource" id="txtSource" class="form-control">
+													  <option value="1" {txt_source_1_selected} >Dưới 10 người</option>
+													  <option value="2" {txt_source_2_selected} >10 - 20 người</option>
+													  <option value="3" {txt_source_3_selected} >20 - 30 người</option>
+													  <option value="4" {txt_source_4_selected} >Trên 30 người</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Website
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtNameen" id="txtNameen" value="{txt_info_nameen}" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Điện thoại
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtProjecten" id="txtProjecten" value="{txt_info_projecten}" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Fax
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtProjectvn" id="txtProjectvn" value="{txt_info_projectvn}" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											
+											<div class="form-group" style="display:none;">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Sắp xếp<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+													<input type="text" name="txtOrder" id="txtOrder" value="{txt_order_info}" required="required" class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Trạng thái <span class="required">*</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<select name="cbStatus" id="cbStatus" class="form-control">
+													  <option value="1" {ActivitySelected}>Active</option>
+													  <option value="0" {WaitingSelected}>Unactive</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Nhà tuyển dụng VIP<span class="required">*</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<select name="txtHotnews" id="txtHotnews" class="form-control">
+													  <option value="1" {txt_hotNew_sel}>Có</option>
+													  <option value="0" {txt_hotNom_sel}>Không</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Giới thiệu<span class="required">*</span>
+												</label>
+												<div class="col-md-8 col-sm-8 col-xs-12">
+												<textarea rows="12" id="txtContentvn" name="txtContentvn" cols="60">{txt_info_desvn}</textarea>
+												<script>
+														var oEdit1 = new InnovaEditor("oEdit1");
+														oEdit1.width = 670;
+														oEdit1.height = 500;
+														oEdit1.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+														oEdit1.groups = [
+															["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+															["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+															["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+															["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+															["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+															];
+														oEdit1.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+														oEdit1.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+														oEdit1.fileBrowser = "../../../assetmanager/assetmanager.php";
+														oEdit1.arrCustomTag = [["First Name", "{%first_name%}"],
+															["Last Name", "{%last_name%}"],
+															["Email", "{%email%}"]];
+														oEdit1.css = "styles/default.css";
+														oEdit1.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,500)";
+														oEdit1.REPLACE("txtContentvn");
+												  </script>
+												</div>
+											</div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-3">
+                                                
+                                                <input type="hidden" name="id_item" value="{txt_id_item}" size="6">
+												<input type="hidden" value="{txt_type_button}" name="cmd"/>
+												<button type="submit" class="btn btn-success">Save</button>
+												<button type="button" class="btn btn-primary" onclick="if (confirm('Are you sure want to cancel?')) window.location.href='./?act=manufac{txt_curent_link_info}';">Cancel</button>
+                                            </div>
+                                        </div>
+										</form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

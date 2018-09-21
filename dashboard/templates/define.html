@@ -1,0 +1,184 @@
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="" style="display: {show_form0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Define manager</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act=define&addnew=1';">Add New</button></a>
+                                        <li><button type="button" class="btn btn-primary" onclick="publich();">Publish</button></a>
+                                        <li><button type="button" class="btn btn-warning" onclick="unpublish();">Unpublish</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p class="col-md-8 col-sm-8 col-xs-9">Add, edit or delete your definition language!</p>
+									<div class="title_right">
+										<div class="col-md-3 col-sm-3 col-xs-9 form-group pull-right top_search">
+											<div class="input-group">
+												<form method="POST" action="./?act=define{txt_other_links}" name="frmSearch">
+													<input type="text" style="width:80%;" class="form-control" placeholder="Search for..." name="txtInfo_Search" value="{txt_enter_key_search}">
+													<span class="input-group-btn" style="float:left;">
+													<input type="hidden" name="cmd" value="Search">
+													<button class="btn btn-default" type="submit">Go!</button>
+													</span>
+												</form>
+											</div>
+										</div>
+									</div>
+						<div class="clearfix"></div>
+									<form method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th>
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th class="column-title">Keyword</th>
+                                                <th class="column-title">Value</th>
+                                                <th class="column-title">Group</th>
+                                                <th class="column-title">Status</th>
+                                                <th class="column-title no-link last"><span class="nobr">Action</span>
+                                                </th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN DEFINE -->
+								<tr class="even pointer">
+                                    <td class="a-center "><input type="checkbox" class="flat" name="cid[]" value="{DEFINE.id}"></td>
+                                    <td class="a-center "><input name="strSubject[]" value="{DEFINE.subject}"></td>
+                                    
+									<td class=" ">
+									<input type="hidden" name="itemID[]" value="{DEFINE.id}" size="6">
+									<!-- BEGIN VALUE -->
+									<span style="text-transform:uppercase;">{DEFINE.VALUE.symbol}</span> <input  style="" name="strName[]" class="textForm_define icon-16-vn" value="{DEFINE.VALUE.name}"><br/>
+									<!-- END VALUE -->
+									</td>
+                                    <td class=" ">{DEFINE.group}</td>
+                                    <td class=" ">
+										<a  {DEFINE.linkStatus} onclick="{DEFINE.checkMod}">
+										<label>
+											<input type="checkbox" class="js-switch" {DEFINE.publish} {DEFINE.disable} />
+										</label>
+										</a>
+									</td>
+                                    <td class=" ">
+									<a {DEFINE.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+									<a {DEFINE.linkDel} class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Delete </a>
+									</td>
+                                    <td class=" ">{DEFINE.id}</td>
+                                </tr>
+								<!-- END DEFINE -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="Publish";
+	document.adminForm.submit();
+	}
+}
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="Unpublish";
+	document.adminForm.submit();
+	}
+}
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display: {show_form}">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Define manager [{txt_doaction}]</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<!-- BEGIN ERROR -->
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{ERROR.info}
+					</div>
+					<!-- END ERROR -->
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                           <div class="x_content">
+                                    <form name="{txt_form2_submit}" method="post" onsubmit="return Check_input_Define();" data-parsley-validate class="form-horizontal form-label-left">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Keyword<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="txtSubject" id="txtSubject" value="{txt_name_subject}" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Value <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <!-- BEGIN VALUE -->
+												<span style="text-transform:uppercase; display:block;">{VALUE.lang}</span>
+												<input value="{VALUE.name}" type="text" name="txtTitle[{VALUE.lang_id}]" required="required" class="form-control col-md-7 col-xs-12">
+												 <!-- END VALUE -->
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Group <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												  <select class="form-control" name="cbGroup" id="cbGroup" size="1" style="width: 200px;">
+													  <!-- BEGIN GROUP_V -->
+														  <option value="{GROUP_V.id}" {GROUP_V._selected}>{GROUP_V.name}</option>
+													  <!-- END GROUP_V -->
+												  </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Status <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<select size="1" name="cbtrash" id="cbtrash" class="form-control" style="width: 200px;">
+												  <option value="1" {ActivitySelected}>Active</option>
+												  <option value="0" {WaitingSelected}>Unactive</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='./?act=cat_lang';">Cancel</button>
+                                                <input type="hidden" name="id_itemFile" value="{txt_id_item}" size="6">
+												<input type="hidden" name="cmd" value="{txt_cmd_submit}">
+												<button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

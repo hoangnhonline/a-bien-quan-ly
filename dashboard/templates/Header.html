@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>KioHome</title>
+	<link href='./images/favicon.png' rel='icon' type='image/x-icon' />
+    <!-- Bootstrap core CSS -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.1.css" />
+    <link href="css/icheck/flat/green.css" rel="stylesheet" />
+    <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
+	<script src="js/switchery/switchery.min.js"></script>
+	<link rel="stylesheet" href="css/switchery/switchery.min.css" />
+    <script src="js/jquery.min.js"></script>
+	<script src="js/accounting.js"></script>
+	<link rel="stylesheet" href="./js/jstree/dist/themes/default/style.css" />
+	<script src="./js/jstree/dist/jstree.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+      function Question_del()
+      {
+           return confirm('Bạn chắc chắn muốn xóa?');
+      }
+	function submitForm(sform) {
+	jQuery("#wait_layer").show();
+	jQuery.ajax({
+		   type: jQuery("#"+sform).attr('method'),
+		   url: jQuery("#"+sform).attr('action'),
+		   data: jQuery("#"+sform).serialize(),
+		   success: function(data)
+		   {
+			   if (data.indexOf("RUN:")>0){
+					jQuery("#wait_layer").hide();
+					var script = data.replace("--RUN:", "");
+					jQuery("#return-script").html(script);
+			   } else {alert(data);}
+			   jQuery("#wait_layer").hide();
+		   }
+		 });
+		 return false;
+	};
+</script>
+<script type="text/javascript">
+	function makeRandomString()
+	{
+		var text = "";
+		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		for( var i=0; i < 10; i++ )
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		return text;
+	}
+</script>
+</head>
+<body class="nav-sm">
+    <div class="container body">
+        <div class="main_container">
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle" title="Truy xuất danh sách khu vực"><i class="fa fa-folder-open"></i></a>
+                        </div>
+					   <div class="navi-path">
+							<a title="{txt_cms_index}" border="0" href="./?">KioHome</a>
+							{txt_url_function_module}
+					   </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="./images/admin.png" alt="">{txt_lang_login_as} {admin_name}
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
+                                    <li><a href="./?act=user_modify&edit={id}"> Thông tin tài khoản</a></li>
+                                    <li><a href="./?act=cat_bds"> Quản lý khu vực</a></li>
+                                    <li><a href="./?act=users"> Quản lý khách hàng</a></li>
+                                    <li style="display:{gms_admin};"><a href="./?act=user_list"> Quản lý nhân viên</a></li>
+                                    <li><a href="./?act=logout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li role="presentation" class="dropdown" style="display:none;">
+                                <a href="./?act=contact" class="info-number" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-green">{txt_new_contact}</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+				<!-- BEGIN SHOWTIP -->
+				<div class="admin_tooltip">
+					<div class="box_tooltip arrow-top-left">
+						Quản lý và truy xuất khu vực BĐS
+					</div>
+				</div>
+				<script>
+					$(".admin_tooltip").fadeIn();
+					setTimeout(function(){ $(".admin_tooltip").fadeOut();}, 5000);
+				</script>
+				<!-- END SHOWTIP -->
+            </div>

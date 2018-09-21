@@ -1,0 +1,280 @@
+<script language=JavaScript src="../editor/editor/innovaeditor/scripts/innovaeditor.js"></script>
+  <!--[if IE 6]>
+    <script> var HeightE = 220;</script>
+  <![endif]-->
+
+  <!--[if IE 7]>
+    <script> var HeightE = 220;</script>
+  <![endif]-->
+
+  <!--[if IE 8]>
+    <script> var HeightE = 220;</script>
+  <![endif]-->
+
+  <!--[if FF]><!-->
+    <script> var HeightE = 300;</script>
+  <!--<![endif]-->
+
+ <td valign="top">
+    <table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+	   <tr width="909">
+  			<td colspan="2">
+  			  <div id="title_panel">
+  					<div id="title" class="header icon-48-setting">{txt_lang_psetting}</div>
+                    <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=pre_setting');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                    <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                    
+                    <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript: {txtButton_type};" href="#" title="{txt_cms_update}"><span class="icon-32-update"></span>{txt_cms_update}</a></div>
+  			  </div>
+             <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                     {txt_msg_error}
+             </div>
+  			</td>
+  		</tr>
+
+  		<tr width="909" valign="top">
+            <td>
+                  <!-- BEGIN Tab0 -->
+    			  <div id="body_setting" style="text-align:center; width:995px; height:auto; display: {txt_show_tab_0}; ">
+                              <form name="adminForm" method="post" action=""  enctype="multipart/form-data">
+                                      <input type="hidden" name="tab0_setting_id" value="{Tab0.id}" size="6">
+                                      <input type="hidden" value="" name="cmd"/>
+                                      <fieldset style="width: 650px; height: auto; margin: 0 auto; border:#d5d5d5 solid 0px; border-radius:10px; padding:30px 0px 10px 30px; margin:50px auto; font-size:18px;">                                              
+                                            <table class="admintable" cellspacing="1">
+                                                  <tr>
+                                                      <td width="250" height="50">
+                                                          <span>Meta description</span>
+                                                      </td>
+                                                      <td>
+                                                              <textarea id="metaPage" name="metaPage" class="textSetting" size="57" style="width: 400px; padding:2px; height: 100px; font-size:18px;">{Tab0.txt_data_meta_page}</textarea>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td height="50">
+                                                          <span>Meta keyword</span>
+                                                      </td>
+                                                      <td>
+                                                              <textarea id="metaKey" name="metaKey" class="textSetting" size="57" style="width: 400px; padding:2px; height: 100px; font-size:18px;">{Tab0.txt_data_meta_key}</textarea>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td height="50">
+                                                        <span>Meta robots</span>
+                                                    </td>
+                                                    <td>
+                                                         <input id="txt_site_robots" name="txt_site_robots" size="57" class="textSetting" value="{Tab0.txtSite_robot}" style="width: 401px; height: 27px; padding-top: 3px; padding-left: 3px; height:27px; font-size:18px;" />   
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>
+                                                        <span>Meta author</span>
+                                                    </td>
+                                                    <td height="50">
+                                                         <input id="txt_site_author" name="txt_site_author" size="57" class="textSetting" value="{Tab0.txtSite_author}" style="width: 401px; height: 27px; padding-top: 3px; padding-left: 3px; height:27px; font-size:18px;" /><br/>
+                                                    </td>
+                                                  </tr>  
+                                                  <tr>
+                                                    <td>
+                                                        <span>Online support</span>
+                                                    </td>
+                                                    <td height="50">
+                                                         <textarea id="list_support" name="list_support" class="textSetting" style="width: 401px; padding-top: 3px; padding-left: 3px; height:100px; font-size:18px;">{Tab0.txt_list_support}</textarea>
+                                                    </td>
+                                                  </tr>  
+												  
+                                                  <tr style="display:none;">
+                                                    <td>
+                                                        <span>Admin email (Gmail)</span>
+                                                    </td>
+                                                    <td height="50">
+                                                         <input id="txt_site_gmail" name="txt_site_gmail" size="57" class="textSetting" value="{Tab0.txtSite_gmail}" style="width: 401px; height: 27px; padding-top: 3px; padding-left: 3px; height:27px; font-size:18px;" /><br/>
+                                                    </td>
+                                                  </tr>
+                                                  <tr style="display:none;">
+                                                    <td>
+                                                        <span>Mật khẩu (Gmail)</span>
+                                                    </td>
+                                                    <td height="50">
+                                                         <input id="txt_site_pgmail" name="txt_site_pgmail" size="57" class="textSetting" value="{Tab0.txtSite_pgmail}" style="width: 401px; height: 27px; padding-top: 3px; padding-left: 3px; height:27px; font-size:18px;" />
+														 <br><span style="font-size:13px;">Bạn cần khai báo mật khẩu chính xác để sử dụng cho chức năng gửi mail trên trang web</span>
+														 <br/>
+                                                    </td>
+                                                  </tr>  
+                                              </table>
+                                      </fieldset>
+                                 </form>
+                  </div>
+                   <!-- END Tab0 -->
+
+                  <!-- BEGIN Tab1 -->
+    			  <div id="body_setting" style="height:auto; width:995px;">
+                             <form name="adminForm" method="post" action="./?act=pre_setting&tab=1"  enctype="multipart/form-data">
+                                      <input type="hidden" name="tab1_setting_id" value="{Tab1.id}" size="6">
+                                      <input type="submit" value="update" style="display: none" name="cmd"/>
+
+                                      <fieldset id="SiteSetting"><legend>Thông tin liên hệ [Viet Nam]</legend>
+                                              <table class="admintable" cellspacing="1">
+                                                  <tr>
+                                                      <td>
+                                                            <textarea rows="12" id="txtContent_Vn" name="txtContent_Vn" cols="50">{Tab1.Contact_vn}</textarea>
+                                                              <script>
+                                                              	var oEdit1 = new InnovaEditor("oEdit1");
+                                                              	  oEdit1.width=450;
+                                                                  oEdit1.height=HeightE;
+                                                              	  oEdit1.features=["FullScreen","Preview",
+                                                                  "Superscript","Subscript","LTR","RTL",
+                                                                  "Table","Guidelines",
+                                                                  "Flash","Media",
+                                                                  "Characters","ClearAll","XHTMLSource","BRK",
+                                                                  "Cut","Copy","Paste","PasteWord","PasteText",
+                                                                  "Undo","Redo","Hyperlink","Image",
+                                                                  "JustifyLeft","JustifyCenter","JustifyRight","JustifyFull",
+                                                                  "Numbering","Bullets",
+                                                                  "Line","RemoveFormat","BRK",
+                                                                  "StyleAndFormatting","TextFormatting","ListFormatting",
+                                                                  "BoxFormatting","ParagraphFormatting","CssText",
+                                                                  "Paragraph","FontName","FontSize",
+                                                                  "Bold","Italic","Underline","Strikethrough",
+                                                                  "ForeColor","BackColor",
+                                                                  ];// => Custom Button Placement
+
+                                                                  oEdit1.css="style/test.css";
+                                                                  oEdit1.cmdAssetManager = "modalDialogShow('../assetmanager/assetmanager.php',640,465)";
+                                                              	  oEdit1.REPLACE("txtContent_Vn");
+                                                          	</script> 
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                      </fieldset>
+
+
+
+                                      <fieldset id="SiteSetting"><legend>Thông tin liên hệ [English]</legend>
+                                            <table class="admintable" cellspacing="1">
+                                                  <tr>
+                                                      <td>
+                                                            <textarea rows="12" id="txtContent_En" name="txtContent_En" cols="73" class="FormItem">{Tab1.Contact_en}</textarea>
+                                                              <script>
+                                                              	var oEdit2 = new InnovaEditor("oEdit2");
+                                                              	  oEdit2.width=450;
+                                                                  oEdit2.height=HeightE;
+                                                              	  oEdit2.features=["FullScreen","Preview",
+                                                                  "Superscript","Subscript","LTR","RTL",
+                                                                  "Table","Guidelines",
+                                                                  "Flash","Media",
+                                                                  "Characters","ClearAll","XHTMLSource","BRK",
+                                                                  "Cut","Copy","Paste","PasteWord","PasteText",
+                                                                  "Undo","Redo","Hyperlink","Image",
+                                                                  "JustifyLeft","JustifyCenter","JustifyRight","JustifyFull",
+                                                                  "Numbering","Bullets",
+                                                                  "Line","RemoveFormat","BRK",
+                                                                  "StyleAndFormatting","TextFormatting","ListFormatting",
+                                                                  "BoxFormatting","ParagraphFormatting","CssText",
+                                                                  "Paragraph","FontName","FontSize",
+                                                                  "Bold","Italic","Underline","Strikethrough",
+                                                                  "ForeColor","BackColor",
+                                                                  ];// => Custom Button Placement
+
+                                                                  oEdit2.css="style/test.css";
+                                                                  oEdit2.cmdAssetManager = "modalDialogShow('../assetmanager/assetmanager.php',640,465)";
+                                                              	  oEdit2.REPLACE("txtContent_En");
+                                                          	</script>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                      </fieldset>
+                              </form>
+                  </div>
+                  <!-- END Tab1 -->
+
+                  <!-- BEGIN Tab2 -->
+    			  <div id="body_setting" style="height:auto;  display: {txt_show_tab_2}">
+                            <form name="adminForm" method="post" action="./?act=setting&tab=2"  enctype="multipart/form-data">
+                                    <input type="hidden" name="tab2_setting_id" value="{Tab2.id}" size="6">
+                                    <input type="submit" value="update" style="display: none" name="cmd"/>
+
+                                    <fieldset id="SiteSetting"><legend>Viet Nam</legend>
+                                              <table class="admintable" cellspacing="1">
+                                                  <tr>
+                                                      <td>
+                                                            <textarea rows="12" id="footer_vn" name="footer_vn" cols="50">{Tab2.txtContact_footer_vn}</textarea>
+                                                              <script>
+                                                              	var oEdit1 = new InnovaEditor("oEdit1");
+                                                              	  oEdit1.width=421;
+                                                                  oEdit1.height=HeightE;
+                                                              	  oEdit1.features=["FullScreen","Preview",
+                                                                  "Superscript","Subscript","LTR","RTL",
+                                                                  "Table","Guidelines",
+                                                                  "Flash","Media",
+                                                                  "Characters","ClearAll","XHTMLSource","BRK",
+                                                                  "Cut","Copy","Paste","PasteWord","PasteText",
+                                                                  "Undo","Redo","Hyperlink","Image",
+                                                                  "JustifyLeft","JustifyCenter","JustifyRight","JustifyFull",
+                                                                  "Numbering","Bullets",
+                                                                  "Line","RemoveFormat","BRK",
+                                                                  "StyleAndFormatting","TextFormatting","ListFormatting",
+                                                                  "BoxFormatting","ParagraphFormatting","CssText",
+                                                                  "Paragraph","FontName","FontSize",
+                                                                  "Bold","Italic","Underline","Strikethrough",
+                                                                  "ForeColor","BackColor",
+                                                                  ];// => Custom Button Placement
+
+                                                                  oEdit1.css="style/test.css";
+                                                                  oEdit1.cmdAssetManager = "modalDialogShow('../assetmanager/assetmanager.php',640,465)";
+                                                              	  oEdit1.REPLACE("footer_vn");
+                                                          	</script>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                      </fieldset>
+
+
+
+                                      <fieldset id="SiteSetting"><legend>English</legend>
+                                            <table class="admintable" cellspacing="1">
+                                                  <tr>
+                                                      <td>
+                                                            <textarea rows="12" id="footer_en" name="footer_en" cols="50">{Tab2.txtContact_footer_en}</textarea>
+                                                              <script>
+                                                              	var oEdit2 = new InnovaEditor("oEdit2");
+                                                              	  oEdit2.width=421;
+                                                                  oEdit2.height=HeightE;
+                                                              	  oEdit2.features=["FullScreen","Preview",
+                                                                  "Superscript","Subscript","LTR","RTL",
+                                                                  "Table","Guidelines",
+                                                                  "Flash","Media",
+                                                                  "Characters","ClearAll","XHTMLSource","BRK",
+                                                                  "Cut","Copy","Paste","PasteWord","PasteText",
+                                                                  "Undo","Redo","Hyperlink","Image",
+                                                                  "JustifyLeft","JustifyCenter","JustifyRight","JustifyFull",
+                                                                  "Numbering","Bullets",
+                                                                  "Line","RemoveFormat","BRK",
+                                                                  "StyleAndFormatting","TextFormatting","ListFormatting",
+                                                                  "BoxFormatting","ParagraphFormatting","CssText",
+                                                                  "Paragraph","FontName","FontSize",
+                                                                  "Bold","Italic","Underline","Strikethrough",
+                                                                  "ForeColor","BackColor",
+                                                                  ];// => Custom Button Placement
+
+                                                                  oEdit2.css="style/test.css";
+                                                                  oEdit2.cmdAssetManager = "modalDialogShow('../assetmanager/assetmanager.php',640,465)";
+                                                              	  oEdit2.REPLACE("footer_en");
+                                                          	</script>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                      </fieldset>
+                             </form>
+                  </div>
+                  <!-- END Tab2 -->
+            </td>
+        </tr>
+        <!--[if IE 7]>
+            <tr width="909"><td colspan="2" style="height: 5px;"></td></tr>
+        <![endif]-->
+
+        <!--[if IE 8]>
+            <tr width="909"><td colspan="2" style="height: 5px;"></td></tr>
+        <![endif]-->
+    </table>
+  </td>

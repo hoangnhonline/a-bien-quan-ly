@@ -1,0 +1,86 @@
+								<td width="100%">
+									<table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+                               		   <tr width="100%">
+                                  			<td>
+                                  			  <div id="title_panel" style="display: {show_all}">
+                                  					<div id="title" class="header icon-48-placelist">{txt_cms_statusmanage}<small style="display: {txt_ds};"><small> [Thêm mới]</small></small></div>
+
+                                                    <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=place_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                                                    <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+
+                                                    <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?{link_cancel}');" title="{txt_cancel}"><span class="icon-32-cancel"></span>{txt_cancel}</a></div>
+                                                    <div style="display: {txt_button_law_save};" id="toolbar_button"><a onclick="javascript: if(Check_input('{txt_type_button}'))submitbutton('{txt_type_button}');" title="{txt_save}"><span class="icon-32-save"></span>{txt_save}</a></div>
+                                  			  </div>
+                                              <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                                                       {txt_msg_error}
+                                              </div>
+                                  			</td>
+                                  		</tr>
+                                        <script language="JAVASCRIPT">
+                                              //Catch error when place lick submit
+                                              function Check_input(e)
+                                              {
+                                              	var txtname_vn = document.adminForm.txtname_vn.value;
+                                              	var txtname_en = document.adminForm.txtname_en.value;
+                                                 if(e=='add')
+                                                 {
+                                                    	if(txtname_vn == '')
+                                                    	{
+                                                    		    alert('{txt_error_input_text} [{txt_login_name}]!');
+                                                    			document.adminForm.txtname_vn.focus();
+                                                    		    return false;
+                                                    	}
+                                                    	if(txtname_en == '')
+                                                    	{
+                                                    		    alert('{txt_error_input_text} [{txt_login_pass}]!');
+                                                    			document.adminForm.txtname_en.focus();
+                                                    		    return false;
+                                                    	}
+                                                  }
+
+                                                  if(e=='edit')
+                                                  {
+                                                    	if(txtname_vn == '')
+                                                    	{
+                                                    		    alert('{txt_error_input_text} [{txt_login_name}]!');
+                                                    			document.adminForm.txtname_vn.focus();
+                                                    		    return false;
+                                                    	}
+                                                  }
+                                                return true;
+                                              }
+
+
+
+                                        </script>
+
+                                		<tr width="909">
+                                                <!-- THE BEGIN BODY LEFT  -->
+                                        		<td height="360" valign="top">
+                                                    <div id="cpanel" style="text-align: left; display: {show_all};">
+                                                            <div style="width: 340px; height: 380px; margin: 0 auto;">
+                                                                 <form autocomplete="on" method="post" name="adminForm" onsubmit="return Check_input('{txt_type_button}');">
+                                                                    <table>
+																	<tr>
+																	<td>{txt_vn_name}:</td>
+                                                                    <td><input type="text" name="txtname_vn" id="txtplacename" value="{txtplacenamevn_inf}" class="textUI" size="25"></td></tr>
+                                                                    <td>{txt_en_name}:</td>
+                                                                    <td><input type="text" name="txtname_en" id="txtPwd" value="{txtplacenameen_inf}" class="textUI" size="25"></td></tr>
+																	<td>{txt_title_order}</td>
+																	<td><input type="text" name="txtOrder" id="txtOrder" value="{txtplaceorder_inf}" class="textUI" size="5"></td></tr>
+                                                                    <td>{txtStatus} :</td>
+                                                                    <td><select size="1" name="cbstatus" id="cbstatus">
+                                                                      <option value="1" {ActivitySelected}>{txt_cms_active}</option>
+                                                                      <option value="0" {WaitingSelected}>{txt_cms_unactive}</option>
+                                                                    </select>
+																	</td></tr></table>
+																	<input type="hidden" name="cmd" value="" />
+																	<input style="display: none" type="submit" name="cmdl" value="{txt_type_button}" />
+                                                                 </form>
+                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <!-- THE END BODY LEFT -->
+                                    		</tr>
+									</table>
+								</td>

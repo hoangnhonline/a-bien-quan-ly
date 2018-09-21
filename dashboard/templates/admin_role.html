@@ -1,0 +1,93 @@
+								<td width="100%">
+									<table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+                               		   <tr width="909">
+                                  			<td>
+                                  			  <div id="title_panel">
+                                  					<div id="title" class="header icon-48-userlist">{txt_lang_admin_role}</div>
+
+                                                    <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                                                    <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+ <div style="display: {txt_button_law_save};" id="toolbar_button"><a onclick="javascript: submitbutton('edit');" title="{txt_save}"><span class="icon-32-save"></span>{txt_save}</a></div>
+                                  			  </div>
+                                              <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                                                       {txt_msg_error}
+                                              </div>
+                                  			</td>
+                                  		</tr>
+                                        <script language="JAVASCRIPT">
+                                          //Question when user lick delete
+                                          function Question_del()
+                                          {
+                                               return confirm("{txt_question_delete}");
+                                          }
+
+                                          //Error when user click icon action
+                                          function Error_law(e)
+                                          {
+                                              if (e=='del')
+                                               { alert("{txt_error_law_del}");
+                                                return false;
+                                               }
+                                              if (e=='mod')
+                                               { alert("{txt_error_law_mod}");
+                                                 return false;
+                                               }
+                                          }
+
+                                          //Effect for Search
+                                          function focus_search(e)
+                                          {
+                                          	if ( e.value == "{txt_enter_key}" )
+                                          	{
+                                          		e.value = '';
+                                          		return false;
+                                          	}
+                                          }
+                                          function moveout_search(e)
+                                          {
+                                          	if ( e.value == '')
+                                          	{
+                                          		e.value = "{txt_enter_key}";
+                                          		return false;
+                                          	}
+                                          }
+                                         //call error
+
+                                        </script>
+
+                                		<tr width="909">
+                                        		<td height="360" valign="top">
+                                                    <div id="cpanel" style="text-align: center; display: {show_all};">
+                                                            <div style="text-align:left; width: 600px; height: auto; margin: 0 auto; border:#d5d5d5 solid 0px; border-radius:10px; padding:10px 0px 10px 30px; margin:30px auto; font-size:18px;">
+                                                                 <form autocomplete="on" method="post" name="adminForm" onsubmit="return Check_input('{txt_type_button}');">
+                                                                    <table border="0">
+																	<!-- BEGIN USERLIST -->
+																	<tr>
+																	<td width="150" valign="top"><img src="images/{USERLIST.image}" width="120"></td>
+																	<td style="line-height:25px;" valign="top">
+																	<input type="hidden" name="itemID[]" value="{USERLIST.id}">
+																		<b>{USERLIST.username}</b><br>
+																		<span style="color:#666666;">Email:&nbsp;</span> {USERLIST.email}<br/>
+																		<span style="color:#666666;">{txtMobile}: </span> {USERLIST.phone}<br/>
+																		<span style="color:#666666;">{txt_lang_role}:</span>
+																		<select name="txtGroup[]" style="font-size:18px;" {USERLIST.disabled}>
+																		<!-- BEGIN LISTGROUP -->
+																		<option value="{USERLIST.LISTGROUP.id}" {USERLIST.LISTGROUP.selected} style="font-size:18px;">{USERLIST.LISTGROUP.name}</option>
+																		<!-- END LISTGROUP -->
+																		</select>
+																		{USERLIST.input}
+																		<p style="border-top:#ccc solid 1px; font-size:15px; color:#666666;">{USERLIST.role_des}</p>
+																	</td>
+																	</tr>
+																	<tr><td height="30" colspan="2"> </td></tr>
+																	<!-- END USERLIST -->
+																	</table>
+																	<input type="hidden" name="cmd" value="" />
+																	<input style="display: none" type="submit" name="cmdl" value="edit" />
+																</form>
+                                                            </div>
+                                                    </div>
+                                                </td>
+                                    		</tr>
+									</table>
+								</td>

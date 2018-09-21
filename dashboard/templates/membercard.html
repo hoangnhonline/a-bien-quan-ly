@@ -1,0 +1,329 @@
+<script>
+      function delEmail(id)
+      {
+		if(confirm('Bạn có chắc chắn xóa?')) {
+			goPage('./?act={sbj_act}{txt_other_links}{txt_catid}&del='+id);
+		} else return;
+      }
+      function editRow(id)
+      {
+		$("#item_row_" + id).hide();
+		$("#item_edit_row_" + id).show();
+      }
+      function CancelEditRow(id)
+      {
+		$("#item_edit_row_" + id).hide();
+		$("#item_row_" + id).show();
+		
+      }
+      function editCat()
+      {
+		$("#selectCatform").hide();
+		$("#editCatform").show();
+      }
+      function cancel_update()
+      {
+		
+		$("#editCatform").hide();
+		$("#selectCatform").show();
+      }
+      function addCat()
+      {
+		$("#selectCatform").hide();
+		$("#addCatform").show();
+      }
+      function cancel_add()
+      {
+		
+		$("#addCatform").hide();
+		$("#selectCatform").show();
+      }
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {txt_chedo1}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý thẻ ưu đãi</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}&addnew=0';">Thêm mới</button></a>
+                                        <li><button type="button" class="btn btn-danger" onclick="deleterows();">{txt_lang_delete}</button></a>
+										<li><button type="button" class="btn btn-primary" onclick="publich();">{txt_lang_publich}</button></a>
+                                        <li><button type="button" class="btn btn-warning" onclick="unpublish();">{txt_lang_unpublich}</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+									<p style="clear:both;"> </p>
+									<table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+              <!-- 1. TOOLS BAR -->
+              <tr width="100%">
+                  <td>
+                    <div id="title_panel">
+                          <div id="title" class="header icon-48-project">Quản lý thẻ ưu đãi</div>
+                          <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                          <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                    </div>
+                    <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                             {txt_msg_error}
+                    </div>
+                    <div id="header_box_behind" style="height:58px;">
+                          <div id="search" style="padding:5px;">
+                              <form method="GET" action="./" name="frmGroup" id="selectCatform" style="padding-top:10px;">
+                                <input type="hidden" name="act" value="{sbj_act}">
+								<select size="1" name="catid" class="combo_group" style="margin-bottom: 3px; width: 300px;"  onchange="document.frmGroup.submit();">
+                                    <option value="0">{txtSelect}</option>
+                                    <!-- BEGIN CATLIST -->
+                                    <option value="{CATLIST.id}" {CATLIST.selected}>{CATLIST.name} (giảm {CATLIST.phantram}%/đơn hàng>{CATLIST.mintotal}đ/{CATLIST.use})</option>
+                                    <!-- END CATLIST -->
+                                </select> &nbsp;&nbsp;
+								<input  style="{txt_hide_row}" type="button" value="Xóa nhóm" onclick="if (confirm('Bạn có chắc chắn xóa nhóm này?')) location.href='./?act={sbj_act}{txt_catid}&delcat=true';" />
+								<input  style="{txt_hide_row}" type="button" value="Sửa nhóm" onclick="editCat();" />
+								<input  type="button" value="Thêm nhóm" onclick="addCat();" />
+							  </form>
+                              <form method="POST" action="" id="editCatform" style="display:none;">
+                                <input type="hidden" name="cmd" value="editcat">
+								<table>
+								<tr>
+									<td><label>Tên</label></td>
+									<td><label>Ưu đãi</label></td>
+									<td><label>Đơn hàng trên</label></td>
+									<td><label>Số lần sử dụng</label></td>
+									<td><label>Thứ tự</label></td>
+									<td><label></label></td>
+									<td><label></label></td>
+								</tr>
+								<tr>
+									<td><input name="strName_vn" value="{txt_cur_cat_name}" style="width:150px;"></td>
+									<td><input name="strGiam" value="{txt_cur_cat_giam}" style="width:90px;">%&nbsp;&nbsp;</td>
+									<td><input name="strMinTotal" value="{txt_cur_cat_total}" style="width:120px;">đ&nbsp;&nbsp;</td>
+									<td><input name="strUse" value="{txt_cur_cat_use}" style="width:80px;" title="Số lần sử dụng, nhập 0 để sử dụng mãi mãi."></td>
+									<td><input name="strOrder" value="{txt_cur_cat_order}" style="width:30px;"></td>
+									<td><input type="submit" value="Cập nhật" /></td>
+									<td><input type="button" value="Hủy" onclick="cancel_update();" /></td>
+								</tr>
+								</table>
+							  </form>
+							<form method="POST" action="" name="frmAddGroup" id="addCatform" style="display:none;">
+							<input type="hidden" name="cmd" value="addCat">
+								<table>
+								<tr>
+									<td><label>Tên</label></td>
+									<td><label>Ưu đãi</label></td>
+									<td><label>Đơn hàng trên</label></td>
+									<td><label>Số lần sử dụng</label></td>
+									<td><label>Thứ tự</label></td>
+									<td><label></label></td>
+									<td><label></label></td>
+								</tr>
+								<tr>
+									<td><input name="strName_vn" value="" style="width:150px;"></td>
+									<td><input name="strGiam" value="" style="width:90px;">%&nbsp;&nbsp;</td>
+									<td><input name="strMinTotal" value="" style="width:120px;">đ&nbsp;&nbsp;</td>
+									<td><input name="strUse" value="" style="width:80px;" title="Số lần sử dụng, nhập 0 để sử dụng mãi mãi."></td>
+									<td><input name="strOrder" value="" style="width:30px;"></td>
+									<td><input type="submit" value="Thêm nhóm" /></td>
+									<td><td><input type="button" value="Hủy" onclick="cancel_add();" /></td></td>
+								</tr>
+								</table>
+								
+								
+							</form>
+						  </div>
+                       
+                    </div>
+                  </td>
+              </tr>
+              
+              <tr width="909">
+                          <td valign="top">
+                              <div id="cpanel">
+										  <table class="adminlist" id="table6" cellspacing="1" width="100%">
+                                              <thead>
+                                                 <tr style="height: 23px;">
+                                                      <th width="20" height="23px;">  # </th>
+                                                      <th width="15%">
+                                                        Mã số thẻ
+                                                      </th>
+                                                      <th>
+                                                        Khách hàng
+                                                      </th>
+                                                      <th width="10%">
+                                                        Ưu đãi (%)
+                                                      </th>
+                                                      <th width="15%">
+                                                        Đơn hàng trên (đ)
+                                                      </th>
+                                                      <th width="10%">
+                                                        Số lần SD
+                                                      </th>
+                                                      <th width="8%">
+                                                        Sắp xếp
+                                                      </th>
+                                                      <th width="5%">
+                                                          {txt_change}
+                                                      </th>
+                                                      <th width="5%">
+                                                          {txt_clear}
+                                                      </th>
+                                                      <th width="5%"  onclick="goPage('./?act={sbj_act}&order=id{dir}{txt_other_links_title}');">
+                                                          Đã SD
+                                                      </th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody style="{txt_hide_row}">
+                                                        <tr class="">
+															<td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" title="center"></td>
+															<td align="left">
+															<form method="POST" action="">
+															<input name="strCode" value="" style="width:90%;">
+															</td>
+															<td align="left">
+															<input name="strName_vn" value="" style="width:90%;">
+															</td>
+															<td align="left">
+															<input name="strPhamtram" value="{txt_cur_cat_giam}" style="width:90%; text-align:center;">
+															</td>
+															<td align="left">
+															<input name="strMintotal" value="{txt_cur_cat_total}" style="width:90%; text-align:right;">
+															</td>
+															<td align="left">
+															<input name="strMaxuse" value="{txt_cur_cat_use}" style="width:90%; text-align:center;">
+															</td>
+															<td align="left">
+															<input name="strOrder" value="" style="width:90%;">
+															</td>
+															<td class="id_item" align="left" colspan="3">
+															<input type="hidden" name="cmd" value="addItem">
+															<input type="submit" value="Thêm mã số" />
+															</form>
+															</td>
+                                                        </tr>
+														<!-- BEGIN ITEMLIST -->
+                                                        <tr class="{ITEMLIST.background}" id="item_row_{ITEMLIST.id}">
+															<td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" align="center">{ITEMLIST.stt}</td>
+															<td align="left">
+															{ITEMLIST.code}
+															</td>
+															<td align="left">
+															{ITEMLIST.name}
+															</td>
+															<td align="center">
+															{ITEMLIST.phantram}
+															</td>
+															<td align="right">
+															{ITEMLIST.mintotal}
+															</td>
+															<td align="center">
+															{ITEMLIST.maxuse}
+															</td>
+															<td align="center">
+															{ITEMLIST.order}
+															</td>
+															<td align="center">
+															<a style="cursor:pointer;" href="javascript:editRow('{ITEMLIST.id}');" class="inline"><img src="{ITEMLIST.imgEdit}" width="16" height="16"/></a>
+															</td>
+															<td align="center">
+															<a style="cursor:pointer;" onclick="delEmail('{ITEMLIST.id}');"><img src="{ITEMLIST.imgDel}" width="16" height="16"/></a>
+															</td>
+															<td class="id_item" align="center" title="Mã đã được sử dụng {ITEMLIST.used} lần">
+															{ITEMLIST.used}
+															</td>
+                                                        </tr>
+                                                        <tr class="" style="display:none;" id="item_edit_row_{ITEMLIST.id}">
+															<td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" title="center"></td>
+															<td align="left">
+															<form method="POST" action="">
+															<input name="strCode" value="{ITEMLIST.code}" style="width:90%;">
+															</td>
+															<td align="left">
+															<input name="strName_vn" value="{ITEMLIST.name}" style="width:90%;">
+															</td>
+															<td align="left">
+															<input name="strPhamtram" value="{ITEMLIST.phantram}" style="width:90%; text-align:center;">
+															</td>
+															<td align="left">
+															<input name="strMintotal" value="{ITEMLIST.mintotal}" style="width:90%; text-align:right;">
+															</td>
+															<td align="left">
+															<input name="strMaxuse" value="{ITEMLIST.maxuse}" style="width:90%; text-align:center;">
+															</td>
+															<td align="left">
+															<input name="strOrder" value="{ITEMLIST.order}" style="width:90%; text-align:center;">
+															</td>
+															<td class="id_item" align="left" colspan="3">
+															<input type="hidden" name="cmd" value="editItem">
+															<input type="hidden" name="itemId" value="{ITEMLIST.id}">
+															<input type="submit" value="Cập nhật" />
+															<input type="button" value="Hủy" onclick="CancelEditRow('{ITEMLIST.id}');" />
+															</form>
+															</td>
+                                                        </tr>
+                                                        <!-- END ITEMLIST -->
+                                                </tbody>
+                                                <tfoot>
+                                                      <tr>
+                                                          <td colspan="10" style="background-color:#F3F3F3; border-top:1px solid #999999; border-right:1px solid #e7e7e7; border-left:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; text-align:center;">
+                                                                 <div style="margin: 2px auto 2px auto;" class="pagination">
+                                                                    <div  style="{txt_hide_page_link}">
+																	{link_page_rows}
+																	</div>
+																		{txt_no_attr}
+																		{txt_choise_attr}
+                                                                 </div>
+                                                          </td>
+                                                      </tr>
+                                                </tfoot>
+                                          </table>
+
+                              </div>
+                          </td>
+              </tr>
+          </table>
+									
+									
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page_info}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="ON";
+	document.adminForm.submit();
+	}
+}
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="OFF";
+		document.adminForm.submit();
+		}
+	}
+}
+function deleterows(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="del";
+		document.adminForm.submit();
+		}
+	}
+}
+
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>

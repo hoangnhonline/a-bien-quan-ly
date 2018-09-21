@@ -1,0 +1,527 @@
+            <div class="right_col" role="main">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Quản lý mã giảm giá [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{txt_msg_error}
+					</div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_content">
+								<div class="" role="tabpanel" data-example-id="togglable-tabs">
+									<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+										<li role="presentation" class="active"><a href="#tab_content1" id="tab-1" role="tab" data-toggle="tab" aria-expanded="true">{txt_lang_general}</a></li>
+										<li role="presentation" class=""><a href="#tab_content2" role="tab" id="tab-2" data-toggle="tab"  aria-expanded="false">Sản phẩm</a></li>
+										<li role="presentation" class=""><a href="#tab_content3" role="tab" id="tab-3" data-toggle="tab" aria-expanded="false">Khách hàng</a></li>
+										<li role="presentation" class=""><a href="#tab_content4" role="tab" id="tab-4" data-toggle="tab" aria-expanded="false">Khu vực</a></li>
+									</ul>
+                                    <!-- BEGIN INFOLIST -->
+									<form enctype="multipart/form-data" name="admintable" action="" method="post" onsubmit="return Check_input_Define();" data-parsley-validate class="form-horizontal form-label-left">
+										<div id="myTabContent" class="tab-content" style="padding-top:20px;">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="tab-1">
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Tên<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input value="{INFOLIST.name}" type="text" name="name" required="required" class="form-control col-md-7 col-xs-12" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Mã giảm giá<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input id="tags_1" type="text" value="{INFOLIST.code}" name="code" class="tags form-control col-md-7 col-xs-12" required="required" />
+														<div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+														<script>
+															function onAddTag(tag) {
+																alert("Thêm mã mới: " + tag);
+															}
+
+															function onRemoveTag(tag) {
+																alert("Xóa mã: " + tag);
+															}
+
+															function onChangeTag(input, tag) {
+																alert("Đỗi mã: " + tag);
+															}
+
+															$(function () {
+																$('#tags_1').tagsInput({
+																	defaultText: '+ thêm mã',
+																	width: 'auto'
+																});
+															});
+														</script>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Kiểu giảm giá<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="discount_type" id="discount_type" class="form-control">
+														  <option value="cd">Cố định</option>
+														  <option value="pt" {INFOLIST.discount_type_pt}>Phần trăm</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Lượng giảm giá<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{INFOLIST.discount}" name="discount" class="form-control col-md-7 col-xs-12" required="required" style="" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Với đơn hàng trên<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{INFOLIST.min_total}" name="min_total" class="form-control col-md-7 col-xs-12" required="required"/>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Ngày bắt đầu<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{INFOLIST.begin_date}" name="begin_date" id="begin_date" class="form-control col-md-7 col-xs-12" required="required"/>
+														<script type="text/javascript">
+															$(document).ready(function () {
+																$('#begin_date').daterangepicker({
+																	format: "DD-MM-YYYY",
+																	singleDatePicker: true,
+																	calender_style: "picker_4"
+																}, function (start, end, label) {
+																	console.log(start.toISOString(), end.toISOString(), label);
+																});
+															});
+														</script>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Ngày kết thúc<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{INFOLIST.end_date}" id="end_date" name="end_date" class="form-control col-md-7 col-xs-12" required="required"/>
+														<script type="text/javascript">
+															$(document).ready(function () {
+																$('#end_date').daterangepicker({
+																	format: "DD-MM-YYYY",
+																	singleDatePicker: true,
+																	calender_style: "picker_4"
+																}, function (start, end, label) {
+																	console.log(start.toISOString(), end.toISOString(), label);
+																});
+															});
+														</script>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Tổng số lần có thể sử dụng<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{INFOLIST.max_use}" name="max_use" class="form-control col-md-7 col-xs-12" required="required"/>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Số lần sử dụng cho mỗi khách hàng<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{INFOLIST.max_use_user}" name="max_use_user" class="form-control col-md-7 col-xs-12" required="required"/>
+													</div>
+												</div>
+													<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Số lần sử dụng cho mỗi mã<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{INFOLIST.max_code}" name="max_code" class="form-control col-md-7 col-xs-12" required="required"/>
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Trạng thái<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="status" id="status" class="form-control">
+														  <option value="1">Kích hoạt</option>
+														  <option value="0" {INFOLIST.status_0}>Dừng kích hoạt</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div role="tabpanel" class="tab-pane fade in" id="tab_content2" aria-labelledby="tab-2">
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Áp dụng cho:
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 8px;">
+														<label onclick="jQuery('#discount_sp').hide(); jQuery('#pro_list_table').hide(); jQuery('#pro_group_table').hide();" >
+																<input class="flat" type="radio" value="0" id="for_pro0" name="for_pro" {INFOLIST.forpro_0} > Tất cả sản phẩm &nbsp;&nbsp;
+														</label>
+														<label onclick="jQuery('#discount_sp').show();jQuery('#pro_list_table').show(); jQuery('#pro_group_table').hide();" >
+																<input class="flat" type="radio" value="1" id="for_pro1" name="for_pro" {INFOLIST.forpro_1} > Danh sách sản phẩm &nbsp;&nbsp;
+														</label>
+														<label onclick="jQuery('#discount_sp').show();jQuery('#pro_list_table').hide(); jQuery('#pro_group_table').show();">
+																<input class="flat" type="radio" value="2" id="for_pro2" name="for_pro" {INFOLIST.forpro_2} > Nhóm sản phẩm
+														</label>
+													</div>
+														<div class="ln_solid" style="clear:both;"></div>
+														<div id="discount_sp" style="display:none{INFOLIST.forpro_1}{INFOLIST.forpro_2};">
+															<div class="form-group">
+																<label class="control-label col-md-3 col-sm-3 col-xs-12">Kiểu giảm giá cho mỗi SP<span class="required">*</span></label>
+																<div class="col-md-6 col-sm-6 col-xs-12">
+																	<select size="1" name="discount_type1" id="discount_type1" class="form-control">
+																	  <option value="cd">Cố định</option>
+																	  <option value="pt" {INFOLIST.discount_type1_pt}>Phần trăm</option>
+																	</select>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Lượng giảm giá cho mỗi SP<span class="required">*</span>
+																</label>
+																<div class="col-md-6 col-sm-6 col-xs-12">
+																	<input type="text" value="{INFOLIST.discount1}" name="discount1" class="form-control col-md-7 col-xs-12" style="" />
+																</div>
+															</div>
+														</div>
+														<table width="100%" id="pro_list_table" style="display:none{INFOLIST.forpro_1};">
+															<tr>
+																<td width="300" valign="top">
+																<select onchange="getProList(this.value);" class="form-control">
+																	<option value="0">Chọn danh mục sản phẩm</option>
+																	<!-- BEGIN CATPRO -->
+																	<option value="{INFOLIST.CATPRO.group_id}">{INFOLIST.CATPRO.group}</option>
+																	<!-- END CATPRO -->
+																</select>
+																<select multiple="multiple" class="form-control" id="quiz_list" style="height:300px;">
+
+																</select>
+																<button type="button" onclick="addQuiz();" style="float:right;margin-top:10px;">Thêm vào sanh sách</button>
+																</td>
+																<td valign="top" style="padding-left:20px;">
+																	<table width="100%" id="quiz_table" class="table">
+																		<thead>
+																		<tr>
+																			<th class="type-title">Sản phẩm</th>
+																			<th class="type-title" width="100" style="text-align:center;">ID</th>
+																			<th class="type-butt last" width="100" style="text-align:center;"><a  href="javascript:dell_all_pro();">Xóa tất cả</a></th>
+																		</tr>
+																		</thead>
+																		<tbody id="quiz_body">
+																		<!-- BEGIN COUPON_PRO -->
+																		<tr class="quiz_rows" id="quiz_row_{INFOLIST.COUPON_PRO.row_id}">
+																			<td>
+																				<input type="hidden" class="pro_id" name="pro_id[]" value="{INFOLIST.COUPON_PRO.pro_id}">
+																				{INFOLIST.COUPON_PRO.name}
+																			</td>
+																			<td align="center">{INFOLIST.COUPON_PRO.pro_id}</td>
+																			<td align="center"><a title="Xóa" href="javascript:del_pro({INFOLIST.COUPON_PRO.row_id});"><img src="./images/icon-16-del.png"></a></td>
+																		</tr>
+																		<!-- END COUPON_PRO -->
+																		</tbody>
+																	</table>
+																	<script>
+																	function getProList(cat_id) {
+																		jQuery.ajax({
+																			   type: "GET",
+																			   url: "./getpro.php?cat_id=" + cat_id,
+																			   success: function(data)
+																			   {
+																						jQuery("#quiz_list").html(data);
+																				}
+																			 });
+																	}
+																	function del_pro(id) {
+																		jQuery('#quiz_row_' + id).remove();
+																	}
+																	function dell_all_pro() {
+																		if (confirm('A you sure?')) {
+																			jQuery('.quiz_rows').remove();
+																		}
+																		
+																	}
+																	
+																	function addQuiz() {
+																		count=0;
+																		$('#quiz_list option:selected').each(function(){
+																			count++;
+																			pro_id=jQuery(this).val();
+																			exit=false;
+																			jQuery('.pro_id').each(function(){
+																				if ($(this).val()==pro_id) {
+																					//alert("This question already exists in the list!");
+																					exit=true;
+																				}
+																			});
+																			if (exit==false) {
+																				jQuery("#quiz_body").append('\
+																					<tr class="quiz_rows" id="quiz_row_' + jQuery(this).val() + '">\
+																						<td>\
+																							<input type="hidden" class="pro_id" name="pro_id[]" value="' + jQuery(this).val() + '">\
+																							' + jQuery(this).text() + '\
+																						</td>\
+																						<td align="center">' + jQuery(this).val() + '</td>\
+																						<td align="center"><a title="Remove" href="javascript:del_pro(\'' + jQuery(this).val() + '\');"><img src="./images/icon-16-del.png"></a></td>\
+																					</tr>\
+																				');
+																			}
+																		});
+																		if (count==0) alert("Vui lòng chọn sản phẩm để thêm vào danh sách!");
+																	}
+																	
+																	</script>
+																</td>
+															</tr>
+														</table>
+
+														<table width="100%" id="pro_group_table" style="display:none{INFOLIST.forpro_2};">
+															<tr><td>
+															Chọn nhóm sản phẩm áp dụng giảm giá
+															<a href="javascript:load_group();" style="color:#1ABC9C; float:right;">[Load lại danh sách nhóm]</a> <a href="./?act=pro_group" target="_blank" style="color:#1ABC9C; float:right;">[Quản lý danh sách nhóm]</a>
+															<br/><br/>
+															</td></tr>
+															<tr>
+																<td width="100%" valign="top">
+																<select id="coupon_group" name="coupon_group[]" multiple="multiple" class="form-control" style="height:500px;">
+																
+																</select>
+																<script>
+																	function load_group() {
+																		jQuery.ajax({
+																			   type: "GET",
+																			   url: "./load_group.php?coupon_id={INFOLIST.id}",
+																			   success: function(data)
+																			   {
+																						jQuery("#coupon_group").html(data);
+																				}
+																			 });
+																	}
+																	load_group();
+																</script>
+																</td>
+															</tr>
+														</table>
+												</div>
+											</div>
+											<div role="tabpanel" class="tab-pane fade in" id="tab_content3" aria-labelledby="tab-3">
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Áp dụng cho:
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 8px;">
+														<label onclick="jQuery('#member_list_table').hide(); jQuery('#member_group_table').hide();" >
+																<input class="flat" type="radio" value="0" id="for_user0" name="for_user" {INFOLIST.for_user_0} > Tất cả khách &nbsp;&nbsp;
+														</label>
+														<label onclick="jQuery('#member_list_table').hide(); jQuery('#member_group_table').hide();" >
+																<input class="flat" type="radio" value="1" id="for_user1" name="for_user" {INFOLIST.for_user_1} > Chỉ thành viên &nbsp;&nbsp;
+														</label>
+														<label onclick="jQuery('#member_list_table').show(); jQuery('#member_group_table').hide();" >
+																<input class="flat" type="radio" value="2" id="for_user2" name="for_user" {INFOLIST.for_user_2} > Danh sách &nbsp;&nbsp;
+														</label>
+														<label onclick="jQuery('#member_list_table').hide(); jQuery('#member_group_table').show();">
+																<input class="flat" type="radio" value="3" id="for_user3" name="for_user" {INFOLIST.for_user_3} > Nhóm
+														</label>
+													</div>
+													<div class="ln_solid" style="clear:both;"></div>
+														<table width="100%" id="member_list_table" style="display:none{INFOLIST.for_user_2};">
+															<tr><td>
+															Chọn danh sách khách hàng áp dụng giảm giá
+															</td></tr>
+															<tr>
+																<td width="100%" valign="top">
+																<table style='width:100%;'>
+																	<tr>
+																		<td style='width:40%;'>
+																			<b>Chọn khách hàng:</b><br/>
+																			<select multiple="multiple" id='lstBox1' style="width:100%; height:500px;">
+																			  <!-- BEGIN MEMBER -->
+																			  <option value="{INFOLIST.MEMBER.id}">{INFOLIST.MEMBER.email}</option>
+																			  <!-- END MEMBER -->
+																			</select>
+																		</td>
+																		<td style='width:20%;text-align:center;vertical-align:middle;'>
+																			<input type='button' id='btnRight' value ='  >  '/>
+																			<br/><input type='button' id='btnLeft' value ='  <  '/>
+																		</td>
+																		<td style='width:40%;'>
+																			<b>Danh sách đã áp dụng: </b><br/>
+																			<select multiple="multiple" id='lstBox2' name="member_list[]" style="width:100%; height:500px;">
+																			  <!-- BEGIN MEMBER_AP -->
+																			  <option value="{INFOLIST.MEMBER_AP.user_id}" selected >{INFOLIST.MEMBER_AP.email}</option>
+																			  <!-- END MEMBER_AP -->
+																			</select>
+																		</td>
+																</tr>
+																</table>
+																<script>
+																$(document).ready(function() {
+																	$('#btnRight').click(function(e) {
+																		var selectedOpts = $('#lstBox1 option:selected');
+																		if (selectedOpts.length == 0) {
+																			alert("Vui lòng chọn khách hàng.");
+																			e.preventDefault();
+																		}
+
+																		$('#lstBox2').append($(selectedOpts).clone());
+																		$(selectedOpts).remove();
+																		e.preventDefault();
+																		$('#lstBox2 option').prop('selected', true);
+																	});
+
+																	$('#btnLeft').click(function(e) {
+																		var selectedOpts = $('#lstBox2 option:selected');
+																		if (selectedOpts.length == 0) {
+																			alert("Vui lòng chọn khách hàng.");
+																			e.preventDefault();
+																		}
+
+																		$('#lstBox1').append($(selectedOpts).clone());
+																		$(selectedOpts).remove();
+																		e.preventDefault();
+																		$('#lstBox2 option').prop('selected', true);
+																	});
+																});
+																</script>
+																</td>
+															</tr>
+														</table>
+														
+														<table width="100%" id="member_group_table" style="display:none{INFOLIST.for_user_3};">
+															<tr><td>
+															Chọn nhóm thành viên áp dụng giảm giá
+															<a href="javascript:load_mem_group();" style="color:#1ABC9C; float:right;">[Load lại danh sách nhóm]</a> <a href="./?act=user_group" target="_blank" style="color:#1ABC9C; float:right;">[Quản lý danh sách nhóm]</a>
+															<br/><br/>
+															</td></tr>
+															<tr>
+																<td width="100%" valign="top">
+																<select id="mem_group" name="mem_group[]" multiple="multiple" class="form-control" style="height:400px;">
+																
+																</select>
+																<script>
+																	function load_mem_group() {
+																		jQuery.ajax({
+																			   type: "GET",
+																			   url: "./load_mem_group.php?coupon_id={INFOLIST.id}",
+																			   success: function(data)
+																			   {
+																						jQuery("#mem_group").html(data);
+																				}
+																			 });
+																	}
+																	load_mem_group();
+																</script>
+																</td>
+															</tr>
+														</table>
+												</div>
+											</div>
+											<div role="tabpanel" class="tab-pane fade in" id="tab_content4" aria-labelledby="tab-4">
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Áp dụng cho:
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12" style="padding-top: 8px;">
+														<label onclick="jQuery('#zone_list_table').hide();" >
+																<input class="flat" type="radio" value="0" id="zone0" name="zone" {INFOLIST.zone0_selected} > Tất cả các tỉnh &nbsp;&nbsp;
+														</label>
+														<label onclick="jQuery('#zone_list_table').show();" >
+																<input class="flat" type="radio" value="1" id="zone1" name="zone" {INFOLIST.zone1_selected} > Danh sách tỉnh &nbsp;&nbsp;
+														</label>
+													</div>
+													<div class="ln_solid" style="clear:both;"></div>
+														<table width="100%" id="zone_list_table" style="display:none{INFOLIST.zone1_selected};">
+															<tr><td>
+															Chọn danh sách tỉnh thành áp dụng giảm giá:
+															</td></tr>
+															<tr>
+																<td width="100%" valign="top">
+																<table style='width:100%;'>
+																	<tr>
+																		<td style='width:40%;'>
+																			<b>Chọn tỉnh:</b><br/>
+																			<select multiple="multiple" id='lstBox3' style="width:100%; height:500px;">
+																			  <!-- BEGIN TINH -->
+																			  <option value="{INFOLIST.TINH.id}">{INFOLIST.TINH.name}</option>
+																			  <!-- END TINH -->
+																			</select>
+																		</td>
+																		<td style='width:20%;text-align:center;vertical-align:middle;'>
+																			<input type='button' id='btnRight1' value ='  >  '/>
+																			<br/><input type='button' id='btnLeft1' value ='  <  '/>
+																		</td>
+																		<td style='width:40%;'>
+																			<b>Danh sách tỉnh đã áp dụng: </b><br/>
+																			<select multiple="multiple" id='lstBox4' name="zone_list[]" style="width:100%; height:500px;">
+																			  <!-- BEGIN TINH_AP -->
+																			  <option value="{INFOLIST.TINH_AP.zone_id}" selected >{INFOLIST.TINH_AP.name}</option>
+																			  <!-- END TINH_AP -->
+																			</select>
+																		</td>
+																</tr>
+																</table>
+																<script>
+																$(document).ready(function() {
+																	$('#btnRight1').click(function(e) {
+																		var selectedOpts = $('#lstBox3 option:selected');
+																		if (selectedOpts.length == 0) {
+																			alert("Vui lòng chọn tỉnh/tp.");
+																			e.preventDefault();
+																		}
+
+																		$('#lstBox4').append($(selectedOpts).clone());
+																		$(selectedOpts).remove();
+																		e.preventDefault();
+																		$('#lstBox4 option').prop('selected', true);
+																	});
+
+																	$('#btnLeft1').click(function(e) {
+																		var selectedOpts = $('#lstBox4 option:selected');
+																		if (selectedOpts.length == 0) {
+																			alert("Vui lòng chọn tỉnh/tp.");
+																			e.preventDefault();
+																		}
+
+																		$('#lstBox3').append($(selectedOpts).clone());
+																		$(selectedOpts).remove();
+																		e.preventDefault();
+																		$('#lstBox4 option').prop('selected', true);
+																	});
+																});
+																</script>
+																</td>
+															</tr>
+														</table>
+												</div>
+
+											</div>
+											
+										</div>	
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation"> 
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="hidden" name="cmd" value="{INFOLIST.cmd}">
+												<input type="hidden" name="cid" value="{INFOLIST.id}">
+												<button type="button" class="btn btn-primary" onclick="if (confirm('A you sure to cancel?')) window.location.href='./?act=coupon';">Cancel</button>
+												<button type="submit" class="btn btn-success">Submit</button>
+											</div>
+										</div>
+									</form>
+									<script>
+									function Check_input_Define() {
+										$('#lstBox2 option').prop('selected', true);
+										$('#lstBox4 option').prop('selected', true);
+										return true;
+									}
+									</script>
+									<!-- END INFOLIST -->
+								</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				

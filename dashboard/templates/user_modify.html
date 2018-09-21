@@ -1,0 +1,134 @@
+                                        <script language="JAVASCRIPT">
+                                              //Catch error when user lick submit
+                                              function Check_input(e)
+                                              {
+                                              	var txtuser = document.adminForm.txtUsername.value;
+                                              	var txtpass = document.adminForm.txtPwd.value;
+                                                 if(e=='add')
+                                                 {
+                                                    	if(txtuser == '')
+                                                    	{
+                                                    		    alert('{txt_error_input_text} [{txt_login_name}]!');
+                                                    			document.adminForm.txtUsername.focus();
+                                                    		    return false;
+                                                    	}
+                                                    	if(txtpass == '')
+                                                    	{
+                                                    		    alert('{txt_error_input_text} [{txt_login_pass}]!');
+                                                    			document.adminForm.txtPwd.focus();
+                                                    		    return false;
+                                                    	}
+                                                  }
+
+                                                  if(e=='edit')
+                                                  {
+                                                    	if(txtuser == '')
+                                                    	{
+                                                    		    alert('{txt_error_input_text} [{txt_login_name}]!');
+                                                    			document.adminForm.txtUsername.focus();
+                                                    		    return false;
+                                                    	}
+                                                  }
+                                                return true;
+                                              }
+
+
+
+                                        </script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Thông tin tài khoản nhân viên</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{txt_msg_error}
+					</div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                           <div class="x_panel">
+
+                           <div class="x_content">
+								<form action="" method="post" name="adminForm" oonsubmit="return Check_input('{txt_type_button}');" data-parsley-validate class="form-horizontal form-label-left">
+										<div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Họ tên<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" value="{txtUserHname_inf}" class="form-control col-md-7 col-xs-12" required="required" name="txtUserHname" id="txtUserHname" style="width:50%;" />
+											</div>
+                                        </div>
+										 <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Tên truy cập<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" value="{txtUsername_inf}" class="form-control col-md-7 col-xs-12" required="required" name="txtUsername" id="txtUsername" style="width:50%;" />
+											</div>
+                                        </div>
+										 <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Email<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" value="{txtUseremail_inf}" class="form-control col-md-7 col-xs-12" required="required" name="txtUseremail" id="txtUseremail" style="width:50%;" />
+											</div>
+                                        </div>
+										 <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Điện thoại<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" value="{txtUserphone_inf}" class="form-control col-md-7 col-xs-12" required="required" name="txtUserphone" id="txtUserphone" style="width:50%;" />
+											</div>
+                                        </div>
+										 <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Mật khẩu<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" value="" {txthide_placeholder}placeholder="Bỏ trống để giữ mật khẩu cũ" class="form-control col-md-7 col-xs-12" {txtrequired} name="txtPwd" id="txtPwd" style="width:50%;" />
+											</div>
+                                        </div>
+										 <div class="form-group" style=" display:{show_edit_sample_active};">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Phân quyền<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<select class="form-control" name="txtGroup">
+												<!-- BEGIN LISTGROUP -->
+												<option value="{LISTGROUP.id}" {LISTGROUP.selected} style="font-size:18px;">{LISTGROUP.name}</option>
+												<!-- END LISTGROUP -->
+												</select>
+											</div>
+                                        </div>
+										 <div class="form-group" style=" display:{show_edit_sample_active};">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Trạng thái<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+													<select name="cbstatus" id="cbstatus" class="form-control">
+													  <option value="1" {ActivitySelected}>Hoạt động</option>
+													  <option value="0" {WaitingSelected}>Dừng hoạt động</option>
+													</select>
+													<br><span style="font-style:italic;color:#ff0000;">Chú ý: Tất cả dự án của thành viên dừng hoạt động sẽ ở chế độ Public cho nhân viên khác tiếp nhận.</span>
+											</div>
+                                        </div>
+
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='./';">Hủy</button>
+												<input type="hidden" name="cmd" value="" />
+												<input  type="hidden" name="cmdl" value="{txt_type_button}" />
+												<button type="submit" class="btn btn-success">Cập nhật</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

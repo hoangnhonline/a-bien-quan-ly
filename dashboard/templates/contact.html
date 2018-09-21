@@ -1,0 +1,199 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {txt_chedo1}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Contacts</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act=create_email';">Create email</button></a>
+                                        <li><button type="button" class="btn btn-danger" onclick="deleterows();">Delete</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>Add, edit or delete your contacts!</p>
+									<p style="clear:both;"> </p>
+									<form action="" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="340"  class="column-title">Subject</th>
+                                                <th class="column-title">Name</th>
+                                                <th class="column-title">Email</th>
+                                                <th class="column-title">Time</th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="6">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN MENULIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6">
+										<a class="visited" title="{MENULIST.titleF}" href="./?act=contact&id={MENULIST.id}{txt_oder_fun}"><img src="./images/{MENULIST.visited}.gif" border="0"/> {MENULIST.title}</a>
+									</td>
+                                    <td class=" ">
+										{MENULIST.name}
+									</td>
+                                    <td class=" ">
+										{MENULIST.email}
+									</td>
+                                    <td class=" ">
+										{MENULIST.date}
+									</td>
+                                    <td class=" ">{MENULIST.id}</td>
+                                </tr>
+								<!-- END MENULIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page}
+</div>
+<script>
+function deleterows(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="del";
+		document.adminForm.submit();
+		}
+	}
+}
+
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display: {txt_chedo0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>View contact</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act=create_email';">Create email</button></a>
+                                        <li><button type="button" class="btn btn-primary" onclick="window.location.href='./?act=create_email&send={dspl_id}';">Reply</button></a>
+                                        <li><button type="button" class="btn btn-danger" onclick="if (confirm('Are you sure delete this contact?')) window.location.href='./?act=contact&del={dspl_id}';">Delete</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>View your contact detail!</p>
+									<p style="clear:both;"> </p>
+									<form action="" method="post" name="adminForm" class="form-horizontal form-label-left">
+									 <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Subject
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<span style="display:block; margin-top: 8px;">{dspl_title}</span>
+										</div>
+									</div>
+									 <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">From
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<span style="display:block; margin-top: 8px;">{dspl_email}</span>
+										</div>
+									</div>
+									 <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Name
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<span style="display:block; margin-top: 8px;">{dspl_name}</span>
+										</div>
+									</div>
+									 <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Address
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<span style="display:block; margin-top: 8px;">{dspl_address}</span>
+										</div>
+									</div>
+									 <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Phone
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<span style="display:block; margin-top: 8px;">{dspl_phone}</span>
+										</div>
+									</div>
+									 <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Time
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<span style="display:block; margin-top: 8px;">{dspl_date}</span>
+										</div>
+									</div>
+									 <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Content
+										</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<textarea style="width:100%; margin-top:3px; padding:5px; border:none; background:#fff;" rows="10">{dspl_content}</textarea>
+										</div>
+									</div>
+									
+									
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

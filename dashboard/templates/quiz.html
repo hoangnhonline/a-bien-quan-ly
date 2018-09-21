@@ -1,0 +1,138 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {show_form0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quiz bank manager</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act=quiz_modify{txt_other_links}&addnew=0';">Add New</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>Add, edit or delete your quiz!</p>
+									<p style="float: right;">
+										<select onchange="window.location.href='./?act=quiz&cat_id=' + this.value;" size="1" name="cbGroup" class="form-control" style="margin-left: 8px; width: 200px;"/>
+											<option value="0">Go to catalog</option>
+											<!-- BEGIN GROUPZ -->
+											<option value="{GROUPZ.id}"{GROUPZ.selected}>{GROUPZ.name}</option>
+											<!-- END GROUPZ -->
+										</select>
+									</p>
+									<p style="clear:both;"> </p>
+									<form action="./?act={sbj_act}{txt_oder_fun}&trash={trash_act}" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="100"  class="column-title">Image</th>
+                                                <th width="400"  class="column-title">Title</th>
+                                                <th class="column-title">Type</th>
+                                                <th class="column-title no-link last"><span class="nobr">Action</span>
+                                                </th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN INFOLIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{INFOLIST.id}">
+									</td>
+                                    <td class="a-center ">
+										<img src="../images_upload/{INFOLIST.image}" width="100">
+									</td>
+                                    <td class="a-center ">
+										{INFOLIST.title}
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{INFOLIST.id}" size="6">
+										{INFOLIST.type}
+									</td>
+                                    <td class=" ">
+									<a {INFOLIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+									<a {INFOLIST.linkDel} onclick="{INFOLIST.checkDel}"  class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Delete </a>
+									</td>
+                                    <td class=" ">{INFOLIST.id}</td>
+                                </tr>
+								<!-- END INFOLIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page_info}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="ON";
+	document.adminForm.submit();
+	}
+}
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="OFF";
+		document.adminForm.submit();
+		}
+	}
+}
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

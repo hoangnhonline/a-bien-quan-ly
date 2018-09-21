@@ -1,0 +1,376 @@
+            </div>
+        </div>
+		<footer>
+			<div class="">
+				<p class="pull-right" style="margin:10px 0px 0px;">Phần mềm dữ liệu BĐS KioHome. Phát triển bởi <a href="http://tiun.co" target="_blank">Tiun website</a></p>
+			</div>
+			<div class="clearfix"></div>
+		</footer>
+    </div>
+
+    <div id="custom_notifications" class="custom-notifications dsp_none">
+        <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+        </ul>
+        <div class="clearfix"></div>
+        <div id="notif-group" class="tabbed_notifications"></div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- gauge js -->
+    <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
+    <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
+    <!-- chart js -->
+    <script src="js/chartjs/chart.min.js"></script>
+    <!-- bootstrap progress js -->
+    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- icheck -->
+    <script src="js/icheck/icheck.min.js"></script>
+    <!-- daterangepicker -->
+    <script type="text/javascript" src="js/moment.min.js"></script>
+    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
+
+    <script src="js/custom.js"></script>
+
+    <!-- flot js -->
+    <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+    <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="js/flot/date.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
+    <script type="text/javascript" src="js/flot/curvedLines.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
+    <script type="text/javascript" src="js/validator/validator.js"></script>
+	<link href="./js/DataTables/datatables.css" rel="stylesheet">
+	<script src="./js/DataTables/datatables.js"></script>
+	<style>
+	.dataTables_filter,.dataTables_length {display:none !important;}
+	</style>
+	<script>
+	$.fn.dataTable.ext.search.push(
+		function( settings, data, dataIndex ) {
+			var min = parseInt( $('#dt_min').val(), 10 );
+			var max = parseInt( $('#dt_max').val(), 10 );
+			var dientich = parseFloat( data[5] ) || 0;
+			var row_show=false;
+			if ( ( isNaN( min ) && isNaN( max ) ) ||
+				 ( isNaN( min ) && dientich <= max ) ||
+				 ( min <= dientich   && isNaN( max ) ) ||
+				 ( min <= dientich   && dientich <= max ) )
+			{
+				var min = parseInt( $('#price_min').val(), 10 );
+				var max = parseInt( $('#price_max').val(), 10 );
+				var price = parseFloat( data[6] ) || 0;
+				if ( ( isNaN( min ) && isNaN( max ) ) ||
+					 ( isNaN( min ) && price <= max ) ||
+					 ( min <= price   && isNaN( max ) ) ||
+					 ( min <= price   && price <= max ) )
+				{
+					var min = parseInt( $('#ren_min').val(), 10 );
+					var max = parseInt( $('#ren_max').val(), 10 );
+					var price = parseFloat( data[8] ) || 0;
+					if ( ( isNaN( min ) && isNaN( max ) ) ||
+						 ( isNaN( min ) && price <= max ) ||
+						 ( min <= price   && isNaN( max ) ) ||
+						 ( min <= price   && price <= max ) )
+					{
+						row_show=true;
+					} else {
+						row_show=false;
+					}
+				} else {
+					row_show=false;
+				}
+			} else {
+				row_show=false;
+			}
+			return row_show;
+		}
+	);
+    var table = $('#bds_list_table').DataTable({"ordering": false,"pageLength": 25});
+    $('#dt_min,#dt_max,#price_min,#price_max,#ren_min,#ren_max').keyup( function() {
+        table.draw();
+    } );
+    $('#price_dvt').change( function() {
+		table
+			.columns( 7 )
+			.search( this.value )
+			.draw();
+    } );
+    $('#ren_dvt').change( function() {
+		table
+			.columns( 9 )
+			.search( this.value )
+			.draw();
+    } );
+	$('#kh_name').on( 'keyup', function () {
+		table
+			.columns( 2 )
+			.search( this.value )
+			.draw();
+	} );
+	$('#cat_name').on( 'keyup', function () {
+		table
+			.columns( 3 )
+			.search( this.value )
+			.draw();
+	} );
+	$('#pro_code').on( 'keyup', function () {
+		table
+			.columns( 4 )
+			.search( this.value )
+			.draw();
+	} );
+	$('#bds_huong').on( 'keyup', function () {
+		table
+			.columns( 10 )
+			.search( this.value )
+			.draw();
+	} );
+	$('#admin_name').on( 'keyup', function () {
+		table
+			.columns( 11 )
+			.search( this.value )
+			.draw();
+	} );
+	
+	</script>
+    <script>
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var submit = true;
+            if (!validator.checkAll($(this))) {
+                submit = false;
+            }
+
+            if (submit)
+                this.submit();
+            return false;
+        });
+    </script>
+        <script type="text/javascript" src="js/autocomplete/countries.js"></script>
+        <script src="js/autocomplete/jquery.autocomplete.js"></script>
+		<script src="js/select/select2.full.js"></script>
+		<link href="css/select/select2.min.css" rel="stylesheet">
+		<script src="js/tags/jquery.tagsinput.min.js"></script>
+<style>
+.ui-dialog-titlebar-close {border:none;background:#9c9a9a;background:url("./images/icon-16-del.png") center center no-repeat;background-size:cover;}
+</style>
+<div id="dialog-form" title="Thêm mới dự án">
+	<form action="./ajax_action.php?act=addPro" method="POST" id="addproForm" onsubmit="return submitForm('addproForm');">
+		<fieldset>
+			<h2>Thông tin khách hàng</h2>
+			<div id="add_user_form" style="padding-top:10px;">
+				<label style="width: 69px;">Xưng hô *</label>
+				<select id="user_pre" name="user_pre" class="form-control" style="width:80px;display:inline;">
+					<option value="1">Anh</option>
+					<option value="2">Chị</option>
+					<option value="3">Ông</option>
+					<option value="4">Bà</option>
+				</select>
+				<label>Tên *</label> <input class="form-control" type="text" name="user_name" id="user_name" value="" style="width:200px;display:inline;"><br>
+				<label>Di động 1 *</label> <input class="form-control" type="text" name="user_mobile1" id="user_mobile1" value="" style="width:150px;display:inline;margin-top:5px;">
+				<label>Di động 2</label> <input class="form-control" type="text" name="user_mobile2" id="user_mobile2" value="" style="width:150px;display:inline;margin-top:5px;">
+				<label>ĐT bàn</label> <input class="form-control" type="text" name="user_phone" id="user_phone" value="" style="margin-top:5px;width:150px;display:inline;">
+				<input class="form-control" type="hidden" name="user_address" id="user_address" value="" style="width:200px;display:inline;">
+			</div>
+			<hr style="padding:1px;border-top:#EDEDED solid 1px;margin:10px 0px 3px;"/>
+			<h2>Thông tin BĐS</h2>
+			<div id="bds_form">
+				<label style="width:65px;">Ký hiệu *</label> <input class="form-control" type="text" name="pro_code" id="pro_code" value="" style="margin-top:5px;width:148px;display:inline;">
+				<label>Khu vực *</label>
+				<select id="pro_cat1" name="pro_cat1" class="form-control" style="margin-top:5px;width:130px;display:inline;" onchange="loadCat2(this.value);">
+					<option value="0">Vui lòng chọn</option>
+					<!-- BEGIN CAT1 -->
+					<option value="{CAT1.id}">{CAT1.title}</option>
+					<!-- END CAT1 -->
+				</select>
+				<label style="width:48px;">Dự án *</label>
+				<select id="pro_cat2" name="pro_cat2" class="form-control" style="margin-top:5px;width:130px;display:inline;">
+					<option value="0">Vui lòng chọn</option>
+				</select>
+				<label>Ngày hết HĐ</label> <input class="form-control date_picker" type="text" name="pro_expired" id="pro_expired" value="" style="margin-top:5px;width:100px;display:inline;">
+				<br>
+				
+				<label>Tình trạng</label>
+				<select id="pro_status" name="pro_status" class="form-control" style="margin-top:5px;width:150px;display:inline;">
+					<!-- BEGIN CSTATUS -->
+					<option value="{CSTATUS.id}" style="color:{CSTATUS.color};" {CSTATUS.selected}>{CSTATUS.title}</option>
+					<!-- END CSTATUS -->
+				</select>
+				<label style="width:57px;text-align:right;">Diện tích</label> <input class="form-control" type="text" name="pro_dt" id="pro_dt" value="" style="margin-top:5px;width:130px;display:inline;">m<sup>2</sup>
+				<label style="width:32px;text-align:right;">Dài</label> <input class="form-control" type="text" name="pro_dt_d" id="pro_dt_d" value="" style="margin-top:5px;width:130px;display:inline;">m
+				<label style="width:68px;text-align:right;">Rộng</label> <input class="form-control" type="text" name="pro_dt_r" id="pro_dt_r" value="" style="margin-top:5px;width:100px;display:inline;">m
+				<br>
+				<label style="width:64px;text-align:left;">Giá bán</label> <input class="form-control" type="text" name="pro_price" id="pro_price" value="" style="margin-top:5px;width:150px;display:inline;">
+				<label style="width:57px;text-align:right;">ĐVT</label>
+				<select id="pro_price_dvt" name="pro_price_dvt" class="form-control" style="margin-top:5px;width:130px;display:inline;">
+					<option value="Tỷ">Tỷ</option>
+					<option value="Triệu">Triệu</option>
+				</select>
+				<label>Giá thuê</label> <input class="form-control" type="text" name="pro_ren" id="pro_ren" value="" style="margin-top:5px;width:125px;display:inline;">
+				<label style="width:79px;text-align:right;">ĐVT</label>
+				<select id="pro_ren_dvt" name="pro_ren_dvt" class="form-control" style="margin-top:5px;width:100px;display:inline;">
+					<option value="Tỷ">Tỷ</option>
+					<option value="Triệu" selected>Triệu</option>
+				</select>
+				<br>
+				<label  style="width:64px;text-align:left;">Số PN</label> <input class="form-control" type="text" name="pro_soPN" id="pro_soPN" value="" style="margin-top:5px;width:150px;display:inline;">
+				<label style="width:57px;text-align:right;">Số WC</label> <input class="form-control" type="text" name="pro_soWC" id="pro_soWC" value="" style="margin-top:5px;width:130px;display:inline;">
+				<label style="width:53px;text-align:right;">Hướng</label> 
+				<select id="pro_huong" name="pro_huong" class="form-control" style="margin-top:5px;width:125px;display:inline;">
+					<option value="0">-----</option>
+					<option value="1">Đông</option>
+					<option value="2">Tây</option>
+					<option value="3">Nam</option>
+					<option value="4">Bắc</option>
+					<option value="5">Tây Nam</option>
+					<option value="6">Tây Bắc</option>
+					<option value="7">Đông Nam</option>
+					<option value="8">Đông Bắc</option>
+				</select>
+				<label style="width:79px;text-align:right;">Dự án HOT</label> <input type="checkbox" name="flag" value="hot"> <img src="./images/hot.png" height="28">
+				<br>
+				<label>Ghi chú</label>
+				<textarea name="pro_note" id="pro_note" style="width:100%;height:100px;margin-bottom:10px;"></textarea>
+				<div style="display:none;">
+				<label>Lịch sử cập nhật</label>
+				<textarea name="pro_log" id="pro_note" style="width:100%;height:100px;"></textarea>
+				</div>
+				<button type="submit" class="btn btn-success">Thêm</button>
+			</div>
+		</fieldset>
+	</form>
+</div>
+<div id="dialog-form1" title="Thông tin dự án">
+<div id="dialog_ajax_content"></div>
+</div>
+<style>
+#dialog_ajax_content h2 {
+	font-size: 16px;
+	font-weight: 600;
+	padding: 0px;
+	margin: 5px 0px;
+}
+</style>
+<script>
+	$('.date_picker').daterangepicker({
+		format: "YYYY-MM-DD",
+		singleDatePicker: true,
+		calender_style: "picker_4"
+	}, function (start, end, label) {
+		console.log(start.toISOString(), end.toISOString(), label);
+	});
+	function loadCat2(cat1Id) {
+		jQuery.ajax({
+			   type: "GET",
+			   url: "./ajax_action.php?act=getCat2&cat1Id=" + cat1Id,
+			   success: function(data)
+			   {
+					jQuery("#pro_cat2").html(data);
+			   }
+			});
+	}
+	function loadCat2_1(cat1Id) {
+		jQuery.ajax({
+			   type: "GET",
+			   url: "./ajax_action.php?act=getCat2&cat1Id=" + cat1Id,
+			   success: function(data)
+			   {
+					jQuery("#pro_cat2_1").html(data);
+			   }
+			});
+	}
+	function loadCat2_2(cat1Id) {
+		jQuery.ajax({
+			   type: "GET",
+			   url: "./ajax_action.php?act=getCat2&cat1Id=" + cat1Id,
+			   success: function(data)
+			   {
+					jQuery("#pro_cat2_2").html(data);
+			   }
+			});
+	}
+	function loadBDS() {
+		
+		jQuery("#wait_layer").show();
+		jQuery.ajax({
+			   type: "POST",
+			   url: "./ajax_action.php?act=loadBDS",
+			   data: jQuery("#BdsFilterForm").serialize(),
+			   success: function(data)
+			   {
+				   if (data.indexOf("RUN:")>0){
+						jQuery("#wait_layer").hide();
+						var script = data.replace("--RUN:", "");
+						jQuery("#return-script").html(script);
+				   } else {
+						document.getElementById('BdsListForm').reset();
+						table = $('#bds_list_table').DataTable().destroy();
+						jQuery("#BdsDataTable").html(data);
+						table = $('#bds_list_table').DataTable({"ordering": false,"pageLength": 25}).draw();
+				   }
+					
+				   jQuery("#wait_layer").hide();
+			   }
+			 });
+	};
+	var dialog,dialog1
+	dialog = $( "#dialog-form" ).dialog({
+	  autoOpen: false,
+	  height: 590,
+	  width: 850,
+	  modal: true
+	});
+	dialog1 = $( "#dialog-form1" ).dialog({
+	  autoOpen: false,
+	  height: 590,
+	  width: 850,
+	  modal: true
+	});
+	$( "#addProjectButton" ).button().on( "click", function() {
+	  dialog.dialog( "open" );
+	});
+	function dupBDS(bsd_id) {
+		jQuery.ajax({
+			   type: "GET",
+			   url: "./ajax_action.php?act=dupBDS&id=" + bsd_id,
+			   success: function(data)
+			   {
+					jQuery("#dialog_ajax_content").html(data);
+					dialog1.dialog( "open" );
+			   }
+			});
+	};
+	function editBds(bsd_id) {
+		jQuery.ajax({
+			   type: "GET",
+			   url: "./ajax_action.php?act=editBds&id=" + bsd_id,
+			   success: function(data)
+			   {
+					jQuery("#dialog_ajax_content").html(data);
+					dialog1.dialog( "open" );
+			   }
+			});
+	};
+	
+	
+	$(".select2_single").select2({
+		placeholder: "Vui lòng chọn",
+		allowClear: true
+	});
+</script>
+<style>
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 32px;
+	height: 32px;
+}
+</style>
+<div id="return-script"></div>
+<div id="wait_layer" style="display:none; position: fixed; width:100%;  height:100%; bottom:0px; right:0px; background:#F3F3F3; z-index:9999;cursor: wait; opacity: 0.6; filter: alpha(opacity=60)"></div>
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+
+<script language="JAVASCRIPT">
+	  //Question when user lick delete
+	  function Question_del()
+	  {
+		   return confirm("Are you sure want to delete this row?");
+	  }
+
+	  //Error when user click icon action
+	  function Error_law(e)
+	  {
+		  if (e=='del')
+		   { alert("You can not perform this function");
+			return false;
+		   }
+		  if (e=='mod')
+		   { alert("You can not perform this function");
+			 return false;
+		   }
+	  }
+	</script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="" style="display: {txt_chedo1};">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Album manager</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}&addnew=0';">Add New</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>Add, edit or delete your album!</p>
+
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title">ID </th>
+                                                <th class="column-title">Image</th>
+                                                <th class="column-title">Name</th>
+                                                <th class="column-title">Album images</th>
+                                                <th class="column-title">Order</th>
+                                                <th class="column-title last"><span class="nobr">Action</span></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- BEGIN MENULIST -->
+								<tr class="even pointer">
+                                    <td class=" ">{MENULIST.id}</td>
+                                    <td class=" ">{MENULIST.images}</td>
+                                    <td class=" "><a {MENULIST.llink} >{MENULIST.name_vn}</a></td>
+                                    <td class=" ">{MENULIST.gallery} <a href="{MENULIST.albumlink}">[view images]</a></td>
+                                    <td class="a-right a-right ">{MENULIST.pri_order}</td>
+                                    <td class=" last">
+									<a {MENULIST.linkEdit} onclick="{MENULIST.checkMod}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+									<a {MENULIST.linkDel} class="btn btn-danger btn-xs" onclick="{MENULIST.checkDel}"><li class="fa fa-trash-o"></li> Delete </a>
+									</td>
+                                </tr>
+								<!-- END MENULIST -->
+                            </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="display: {txt_chedo0}">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Album manager [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                           <div class="x_content">
+                                    <form enctype="multipart/form-data" name="admintable" action="./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}" method="post" data-parsley-validate class="form-horizontal form-label-left">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Image<span class="required"></span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="file" name="fileSmallImage" size="53">
+                                                <table>
+												<!-- BEGIN SMALLIMAGE_PREVIEW -->
+                                                <tr>
+                                                    <td></td>
+                                                    <td align="left">
+                                                    <a id="thumb1" href="{SMALLIMAGE_PREVIEW.small_image}" class="highslide" onclick="return hs.expand(this, {captionId: 'caption1'})">
+                                                        <img border="0" src="{SMALLIMAGE_PREVIEW.small_image}" title="{txt_preview_to_large}" width="60" height="55"  style="margin-left: 8px;"> 
+                                                    </a>
+                                                     <br/>
+                                                    <input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"/><label for="remove small image"> Delete this image</label>
+                                                    <input type="hidden" name="txt_img_name" value="{txt_image_name}" size="12"/>
+                                                    </td>
+                                                </tr>
+                                                <!-- END SMALLIMAGE_PREVIEW -->
+												</table>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Name<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+												<input value="{type_name_vn}" type="text" name="txtType_Vn" required="required" class="form-control col-md-7 col-xs-12">
+												<input value="{type_name_en}" type="hidden" name="txtType_En" class="form-control col-md-7 col-xs-12">
+												<input value="{type_name_cn}" type="hidden" name="txtType_Cn" class="form-control col-md-7 col-xs-12">
+												<input value="{type_name_jp}" type="hidden" name="txtType_Jp" class="form-control col-md-7 col-xs-12">
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Parent album <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="txtParentId" class="form-control"/>
+															<option value="0" {CAT_ALBUM.checked}>No parent album</option>
+															<!-- BEGIN CAT_ALBUM -->
+															<option value="{CAT_ALBUM.id}" {CAT_ALBUM.selected} >-- {CAT_ALBUM.name}</option>
+															<!-- END CAT_ALBUM -->
+														</select> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Link to content<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <select name="txtHotelId" class="form-control">
+														<option value="0">No link</option>
+														<!-- BEGIN HOTEL -->
+														<option value="{HOTEL.id}" {HOTEL.selected} >-- {HOTEL.name}</option>
+														<!-- END HOTEL -->
+														</select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lname">Order<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="txtPriority_Order" id="txtPriority_Order" value="{priority_order}" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>										
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <button type="button" class="btn btn-primary" onclick="window.location.href='./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}';">Cancel</button>
+                                                <input type="hidden" name="id_item" value="{txt_ID}" size="6"/>
+												<input type="hidden" name="cmdf" value="{txt_type_button}"/>
+												<button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

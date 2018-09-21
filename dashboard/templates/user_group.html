@@ -1,0 +1,137 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {txt_chedo1}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý nhóm thành viên</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act=user_group_modify&addnew=0';">Thêm mới</button></a>
+                                        <li><button type="button" class="btn btn-danger" onclick="deleterows();">{txt_lang_delete}</button></a></li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+									<p style="clear:both;"> </p>
+									<form action="" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th class="column-title">Tên nhóm</th>
+                                                <th width="200"  class="column-title">Thành viên</th>
+                                                <th class="column-title" width="150">Thao tác</th>
+                                                <th class="column-title" width="50">ID</th>
+                                                <th class="bulk-actions" colspan="5">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+											</tr>
+										</thead>
+									<tbody>
+										<!-- BEGIN MENULIST -->
+										<tr class="even pointer">
+											<td class="a-center ">
+												<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+											</td>
+											<td class="a-center ">
+												{MENULIST.name}
+											</td>
+											<td class=" ">
+												<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+												{MENULIST.user}
+											</td>
+											<td class=" " width="150">
+											<a {MENULIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> {txt_lang_edit} </a>
+											<a {MENULIST.linkDel} class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li>{txt_lang_delete}</a>
+											</td>
+											<td class=" " width="50">{MENULIST.id}</td>
+										</tr>
+										<!-- END MENULIST -->
+									</tbody>
+									</table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+									<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+									{link_page_info}
+									</div>
+									<script>
+									function publich(){
+										if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+										else {
+										document.adminForm.cmd.value="ON";
+										document.adminForm.submit();
+										}
+									}
+									function unpublish(){
+										if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+										else {
+										if (confirm('Are you sure want to action?')) {
+											document.adminForm.cmd.value="OFF";
+											document.adminForm.submit();
+											}
+										}
+									}
+									function deleterows(){
+										if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+										else {
+										if (confirm('Are you sure want to action?')) {
+											document.adminForm.cmd.value="del";
+											document.adminForm.submit();
+											}
+										}
+									}
+									</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>

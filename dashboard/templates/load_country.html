@@ -1,0 +1,15 @@
+<tr id="row_{row_id}">
+	<td width="45%">
+		<select name="ship_country[]" onchange="load_tinh(this.value,'tinh_{row_id}');">
+		<!-- BEGIN DSCOUNTRY -->
+		<option value="{DSCOUNTRY.id}" {DSCOUNTRY.selected}>{DSCOUNTRY.name}</option>
+		<!-- END DSCOUNTRY -->
+		</select>
+	</td>
+	<td>
+		<select name="ship_tinh[]" id="tinh_{row_id}"></select>
+	</td>
+	<td width="100">
+		<button class="btn btn-primary" type="button" onclick="dellRow('{row_id}');">Xóa</button>
+	</td>
+</tr>

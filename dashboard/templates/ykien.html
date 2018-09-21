@@ -1,0 +1,178 @@
+
+    <script language="JAVASCRIPT">
+
+      //Question when user lick delete
+      function Question_del()
+      {
+           return confirm('Bạn có chắc chắn muốn xóa học viên này không?');
+      }
+	  </script>
+<td width="100%">
+          <!-- 1. PREVIEW INFOMATION -->
+          <table border="0" style="display: {txt_chedo1}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+              <!-- TOOLBAR -->
+              <tr width="909">
+          	    <td>
+          	      <div id="title_panel">
+          			    <div id="title" class="header icon-48-userlist{trash_icon}">Ý kiến - Phản hồi</div>
+
+                              <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                              <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>Home</a></div>
+                              
+                              <div style="display: none;" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{ if({checkDel_anyfile}) submitbutton('xoa');}" href="#" title="{txt_cms_delete}"><span class="icon-32-delete"></span>{txt_cms_delete}</a></div>
+                              <div style="display: {txt_button_law_restore};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{submitbutton('restore');}" href="#" title="{txt_cms_restore}"><span class="icon-32-save"></span>{txt_cms_restore}</a></div>
+                              <div style="display: none;" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_send_trash}]');}else{submitbutton('MoveTrash');}" href="#" title="{txt_go_trash}"><span class="icon-32-trash"></span>{txt_go_trash}</a></div>
+                              <div style="display: none;" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_one} [{txt_change}]');}else{ submitbutton('{txt_cms_edit}');}" {txt_links_update} title="{txt_change}"><span class="icon-32-edit"></span>{txt_change}</a></div>
+                              <div style="display: none;" id="toolbar_button"><a onclick="javascript: submitbutton('update');" href="#" title="{txt_cms_update}"><span class="icon-32-update"></span>{txt_cms_update}</a></div>
+
+
+          	      </div>
+                    <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                             {txt_msg_error}
+                    </div>
+          	    </td>
+              </tr>
+              
+              <!-- GRID PREVIEW -->
+              <tr width="909">
+                          <!-- THE BEGIN BODY LEFT  -->
+              		    <td height="360" valign="top">
+                              <div id="cpanel">
+                                   <form method="post" name="adminForm">
+                                          <table class="adminlist" id="table6" cellspacing="1"  style="width:1100px;">
+                  						    <!-- Bat dau dieu de -->
+                  						    <thead>
+                  						       <tr style="height: 23px;">
+                  								    <th width="30" height="23px;">  # </th>
+                  								    <th width="30" style="display:none;">
+                                                          <input name="toggle" onclick="checkAll({txt_sophantu});" type="checkbox">
+                                                    </th>
+                                                    <th width="300" height="23px;" align="center">Người gửi/Thời gian</th>
+                  								    <th class="{txt_class_title_name}" title="{txt_order}" width="300">
+                  									Nội dung ý kiến
+                  								    </th>
+                  								    <th class="{txt_class_title_cb}" width="300" title="{txt_order}">
+                  									Nội dung phản hồi
+                  								    </th>
+                  								    <th width="100">
+                  									Viết phản hồi
+                  								    </th>
+                  								    <th width="50">
+                  									    Xóa
+                  								    </th>
+                  								    <th width="100">
+                  									    Trạng thái
+                  								    </th width="50">
+                  								    <th class="{txt_class_title_order}" title="{txt_order}" width="8%"  onclick="goPage('./?act={sbj_act}&order=id{dir}{txt_other_links_title}');">
+                  									    ID
+                                                        {order_pri_order}
+                  								    </th>
+                  							    </tr>
+                  						    </thead>
+                                              <!-- KET THUC TIEU DE -->
+
+
+
+                    						    <tbody>
+                                                        <!-- BEGIN MENULIST -->
+                    								    <tr class="{MENULIST.background}">
+                    									    <td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" title="center">  {MENULIST.stt}  </td>
+                    									    <td align="center" bgcolor="#EEEEEE"  style="display:none;">
+                    										    <input id="cb{MENULIST.stt}" type="checkbox" name="cid[]" onclick="isChecked(this.checked);" value="{MENULIST.id}"/>
+                    									    </td>
+                                                          <td align="center" bgcolor="#EEEEEE">
+                                                              {MENULIST.phu_huynh}<br>{MENULIST.time}
+                                                          </td>                                                      
+                                                          <td>
+                                                                <input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+                    										    <textarea  class="textForm_define" style="margin: 1px 0; background-color: #FFFFFF; width:300px; height:100px;">{MENULIST.nd_ykien}</textarea>
+                                                          </td>
+                  									      <td align="center">
+																<textarea class="textForm_define" style="margin: 1px 0; background-color: #FFFFFF; width:300px; height:100px;">{MENULIST.nd_phanhoi}</textarea>
+                  									      </td>
+                    									    <td align="center">
+                    										    <a style="cursor:pointer;" {MENULIST.linkEdit} onclick="{MENULIST.checkMod}"><img src="{MENULIST.imgEdit}" width="16" height="16"/></a>
+                    									    </td>
+                                                          <td align="center">
+                    										    <a style="cursor:pointer;" {MENULIST.linkDel}><img    onclick="return Question_del();" src="{MENULIST.imgDel}" width="16" height="16"/></a>
+                    									    </td>
+                                                          <td align="center">
+                    										    <a style="cursor:pointer;" {MENULIST.linkStatus} onclick="{MENULIST.checkMod}"><img src="{MENULIST.imgStatus}" width="16" height="16"/></a>
+																
+                    									    </td>
+                    									    <td class="id_item" align="center">
+                    										    {MENULIST.id}
+                    									    </td>
+                    								    </tr>
+                                                        <!-- END MENULIST -->
+                                                </tbody>
+                                                <!-- Hien thi phan trang -->
+                                                <tfoot>
+                                                      <tr>
+                                                          <td colspan="11" style="background-color:#F3F3F3; border-top:1px solid #999999; border-right:1px solid #e7e7e7; border-left:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; text-align:center;">
+                                                              <del class="container">
+                                                                 <div style="margin: 2px auto 2px auto;" class="pagination">
+                                                                        {link_page}
+                                                                 </div>
+                                                              </del>
+                                                          </td>
+                                                      </tr>
+                                                </tfoot>
+                                          </table>
+              <input type="hidden" name="cmd" value="" />
+              <input type="hidden" name="boxchecked" value="0" />
+                                   </form>
+                              </div>
+                          </td>
+                          <!-- THE END BODY LEFT -->
+          		    </tr>
+          </table>
+
+        <!-- 2. UPDATE INFOMATION -->
+        <table border="0"  style="display: {txt_chedo0}" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+            <!-- TOOLBAR -->
+            <tr><td colspan="2" height="5"><font color="red" size="4">{txtmsg}</font></td></tr>
+            <tr width="909">
+        	<td>
+        	  <div id="title_panel" style="display: {show_all}">
+        			<div id="title" class="header icon-48-userlist">Sửa/viết phản hồi.</small></small></div>
+                        <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?act={sbj_act}{txt_other_links_title}{txt_oder_fun}');" title="{txt_cancel}"><span class="icon-32-close"></span>Quay ra</a></div>
+                        <div style="display: {txt_button_law_save};" id="toolbar_button"><a onclick="document.admintable.submit();" title="{txt_save}"><span class="icon-32-save"></span>{txt_save}</a></div>
+        	  </div>
+        	</td>
+        </tr>
+            
+            <script language="JavaScript">
+    function display(menuid) 
+    {
+        var id = document.admintable.cbMenuType.value;
+        requestCustomerInfo(id,menuid);
+    }
+</script>
+
+            <!-- VIEW UPDATE -->
+			<tr>
+            		<td height="360" valign="top">
+					    <form autocomplete="on" method="post" name="admintable">
+                        <div id="cpanel" style="float: left; height: auto; width: 1000px; font-size:14px;">
+						<table width="100%" border="0">
+							<tr bgcolor="#ffffff" height="30"><td>&nbsp;Họ tên:</td><td>&nbsp; &nbsp;{phu_huynh}</td></tr>
+							<tr bgcolor="#ffffff" height="30"><td>&nbsp;Là phụ huynh của em:</td><td>&nbsp; &nbsp;{hoc_sinh}</td></tr>
+							<tr bgcolor="#ffffff" height="30"><td valign="top">&nbsp;Nội dung ý kiến:</td>
+							<td><textarea  name="nd_ykien" class="textForm_define" style="margin: 1px 0; background-color: #FFFFFF; width:600px; height:200px;">{nd_ykien}</textarea>
+							</td></tr>
+							<tr bgcolor="#ffffff" height="30"><td valign="top">&nbsp;Nội dung phản hồi:</td><td>
+							<textarea  name="nd_phanhoi" class="textForm_define" style="margin: 1px 0; background-color: #FFFFFF; width:600px; height:200px;">{nd_phanhoi}</textarea>
+							</td></tr>
+							<tr bgcolor="#ffffff" height="30"><td>&nbsp;Trạng thái:</td>
+							<td>&nbsp; &nbsp;<input type="radio" name="status" checked value="1"/>Kích hoạt &nbsp; &nbsp;&nbsp; &nbsp;<input type="radio" name="status" value="0" {ustatus} />Không kích hoạt
+							</td></tr>
+							<input type="hidden" name="id_item" value="{utxt_id}" />
+							<input style="display:none;" type="hidden" name="cmdfF" value="{txt_type_button}" />
+						 </form>
+						</table>
+                        </div>
+                    </td>
+        </tr>
+        </table> 
+</td>

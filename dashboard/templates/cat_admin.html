@@ -1,0 +1,278 @@
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Phân quyền Admin</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{txt_msg_error}
+					</div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                           <div class="x_panel">
+
+								<div class="x_content">
+	<style>
+	.role_table td {padding:3px;}
+	</style>
+	 <form  enctype="multipart/form-data" action="" method="post" name="admintable">
+		 <table width="100%" class="role_table" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+				<td width="150" align="right">Vui lòng chọn nhóm admin để phân quyền:</td>
+				<td align="left">
+					<select onchange="window.location.href='?act=cat_admin&id='+this.value;">
+					<option value="0">Danh sách nhóm admin</option>
+					<!-- BEGIN LISTGROUP -->
+					<option value="{LISTGROUP.id}" onclick="window.location.href='?act=cat_admin&id={LISTGROUP.id}';" {LISTGROUP.selected}>{LISTGROUP.name}</option>
+					<!-- END LISTGROUP -->
+					</select>
+				</td>
+				</tr>
+				<tr style="display:none{txt_show_quyen};">
+				<td width="150" align="right" height="300">Quyền được cấp</td>
+				<td align="left">
+      <table width="623" height="366" border="1" cellpadding="5" cellspacing="0">
+        <tr>
+          <td colspan="2" width="44"><div align="center">Đặt tên nhóm</div></td>
+          <td colspan="3"><input type="text" name="admin_name" value="{txt_admin_name}"  /></td>
+        </tr>
+	  <tr>
+          <td width="44"><div align="center">Xem</div></td>
+          <td width="41"><div align="center">Sửa</div></td>
+          <td width="40"><div align="center">Xóa</div></td>
+          <td width="38"><div align="center">Thêm</div></td>
+          <td width="427"><div align="center">Khu vực</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="admin_xem" value="1" {txt_admin_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="admin_sua" value="1" {txt_admin_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="admin_xoa" value="1" {txt_admin_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="admin_them" value="1" {txt_admin_them} />
+            </label>
+          </div></td>
+          <td><div align="left"> Quản lý danh sách admin</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="pro_xem" value="1" {txt_pro_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="pro_sua" value="1" {txt_pro_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="pro_xoa" value="1" {txt_pro_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="pro_them" value="1" {txt_pro_them} />
+            </label>
+          </div></td>
+          <td><div align="left">{txt_pro_module_name}</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="info_xem" value="1" {txt_info_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="info_sua" value="1" {txt_info_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="info_xoa" value="1" {txt_info_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="info_them" value="1" {txt_info_them} />
+            </label>
+          </div></td>
+          <td><div align="left"> {txt_info_module_name} </div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="hv_xem" value="1" {txt_hv_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="hv_sua" value="1" {txt_hv_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="hv_xoa" value="1" {txt_hv_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="hv_them" value="1" {txt_hv_them} />
+            </label>
+          </div></td>
+          <td><div align="left"> {txt_hv_module_name}</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="lh_xem" value="1" {txt_lh_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="lh_sua" value="1" {txt_lh_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="lh_xoa" value="1" {txt_lh_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="lh_them" value="1" {txt_lh_them} />
+            </label>
+          </div></td>
+          <td><div align="left"> {txt_lh_module_name} </div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="tk_xem" value="1" {txt_tk_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="tk_sua" value="1" {txt_tk_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="tk_xoa" value="1" {txt_tk_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="tk_them" value="1" {txt_tk_them} />
+            </label>
+          </div></td>
+          <td><div align="left"> {txt_tk_module_name}</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="th_xem" value="1" {txt_th_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="th_sua" value="1" {txt_th_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="th_xoa" value="1" {txt_th_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="th_them" value="1" {txt_th_them} />
+            </label>
+          </div></td>
+          <td><div align="left"> {txt_th_module_name}</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="dg_xem" value="1" {txt_dg_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="dg_sua" value="1" {txt_dg_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="dg_xoa" value="1" {txt_dg_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="dg_them" value="1" {txt_dg_them} />
+            </label>
+          </div></td>
+          <td><div align="left">{txt_dg_module_name}</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="nk_xem" value="1" {txt_nk_xem} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="nk_sua" value="1" {txt_nk_sua} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="nk_xoa" value="1" {txt_nk_xoa} />
+            </label>
+          </div></td>
+          <td><div align="center">
+            <label>
+            <input type="checkbox" name="nk_them" value="1" {txt_nk_them} />
+            </label>
+          </div></td>
+          <td><div align="left"> {txt_nk_module_name}</div></td>
+        </tr>
+      </table>
+										</td>
+										</tr>
+								 </table>
+		<div class="ln_solid"></div>
+		<div class="form-group">
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<button type="button" class="btn btn-primary" onclick="window.location.href='./?act=user_list';">Cancel</button>
+				<input type="hidden" name="cmdf" value="" />
+				<button type="submit" class="btn btn-success">Save</button>
+			</div>
+		</div>
+	</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

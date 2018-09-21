@@ -1,0 +1,104 @@
+<script type="text/javascript">
+	function showCatEditForm(cid)
+		{
+			$(".catbox-id").html("");
+			$.ajax({
+				   type: "GET",
+				   url: "showCatEditForm.php?cid=" + cid,
+				   success: function(data)
+				   {
+						$("#catbox-" + cid).html(data);
+				   }
+			});
+		}
+</script>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+							<form action="" method="post" onsubmit="return confirm('Bạn chắc chắn muốn cập nhật thông tin?');">
+								<div class="x_title">
+                                    <h2>Quản lý khách hàng</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="submit" class="btn btn-primary">Cập nhật</button></a></li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+                                    <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title">TT </th>
+                                                <th class="column-title">Xưng hô</th>
+                                                <th class="column-title">Tên</th>
+                                                <th class="column-title">Di động 1</th>
+                                                <th class="column-title">Di động 3</th>
+                                                <th class="column-title">ĐT bàn</th>
+                                                <th class="column-title">Địa chỉ</th>
+                                                <th class="column-title" width="50">Ngày tạo</th>
+                                                <th class="column-title last"><span class="nobr"></span></th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<!-- BEGIN MENULIST -->
+											<tr class="even pointer">
+												<td class=" ">
+												{MENULIST.tt}
+												<input type="hidden" name="user_id[]" value="{MENULIST.id}"/>
+												</td>
+												<td class=" ">
+												<select name="user_pre[]" class="form-control" style="width:70px;padding:6px;">
+													<option value="1" {MENULIST.pre1_selected}>Anh</option>
+													<option value="2" {MENULIST.pre2_selected}>Chị</option>
+													<option value="3" {MENULIST.pre3_selected}>Ông</option>
+													<option value="4" {MENULIST.pre4_selected}>Bà</option>
+												</select>
+												</td>
+												<td class="">
+													<input class="form-control" type="text" name="user_name[]" value="{MENULIST.name}" style="width:130px;display:inline;padding:6px;">
+												</td>
+												<td class="">
+													<input class="form-control" type="text" name="user_mobile1[]" value="{MENULIST.mobile1}" style="width:100px;display:inline;padding:6px;">
+												</td>
+												<td class="">
+													<input class="form-control" type="text" name="user_mobile2[]" value="{MENULIST.mobile2}" style="width:100px;display:inline;padding:6px;">
+												</td>
+												<td class="">
+													<input class="form-control" type="text" name="user_phone[]" value="{MENULIST.phone}" style="width:100px;display:inline;padding:6px;">
+												</td>
+												<td class="">
+													<input class="form-control" type="text" name="user_address[]" value="{MENULIST.address}" style="width:250px;display:inline;padding:6px;">
+												</td>
+												<td class=""><span>{MENULIST.create_time}</span></td>
+												<td class=" last">
+												<span>
+												<a href="./?act=users&del={MENULIST.id}" title="Xóa khách hàng này" onclick="return Question_del();" class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li></a>
+												</span>
+												</td>
+											</tr>
+											<!-- END MENULIST -->
+										</tbody>
+
+                                    </table>
+                                </div>
+								<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+								{link_page_info}
+								</div>
+								<input type="hidden" name="cmd" value="update" />
+							</form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+				

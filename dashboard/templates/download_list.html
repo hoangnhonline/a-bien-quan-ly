@@ -1,0 +1,295 @@
+    <script language="JAVASCRIPT">
+
+      //Question when user lick delete
+      function Question_del()
+      {
+           return confirm('{txt_question_delete}');
+      }
+
+      //Error when user click icon action
+      function Error_law(e)
+      {
+          if (e=='del')
+           { alert('{txt_error_law_del}');
+            return false;
+           }
+          if (e=='mod')
+           { alert('{txt_error_law_mod}');
+             return false;
+           }
+      }
+
+      //Effect for Search
+      function focus_search(e)
+      {
+          if ( e.value == "{txt_enter_key}" )
+          {
+              e.value = '';
+              return false;
+          }
+      }
+      function moveout_search(e)
+      {
+          if ( e.value == '')
+          {
+              e.value = '{txt_enter_key}';
+              return false;
+          }
+      }
+
+    </script>
+    
+    
+<td width="100%">
+          <!-- 1. VIEW INFOMATION -->
+          <table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+              <!-- 1. TOOLS BAR -->
+              <tr width="100%">
+                  <td>
+                    <div id="title_panel">
+                          <div id="title" class="header icon-48-product-images{trash_icon}">{txt_cms_downloadmng}</div>
+
+                              <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                              <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                              
+                              <div style="display: {txt_button_law_del};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{ if({ques_del_All}) submitbutton('xoa');}" href="#" title="{txt_cms_delete}"><span class="icon-32-delete"></span>{txt_cms_delete}</a></div>
+                              <div style="display: {txt_button_law_restore};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_delete}]');}else{submitbutton('restore');}" href="#" title="{txt_cms_restore}"><span class="icon-32-save"></span>{txt_cms_restore}</a></div>
+
+                              <div style="display: {txt_button_law_add};" id="toolbar_button"><a onclick="goPage('./?act=download_modify{txt_other_links}&addnew=0');" title="{txt_cms_addnew}"><span class="icon-32-new"></span>{txt_cms_addnew}</a></div>
+                              <div style="display: {txt_button_law_trash};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_send_trash}]');}else{submitbutton('MoveTrash');}" href="#" title="{txt_go_trash}"><span class="icon-32-trash"></span>{txt_go_trash}</a></div>
+                              <div style="display: none;" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_one} [{txt_change}]');}else{ submitbutton('{txt_cms_edit}');}" {txt_links_update} title="{txt_change}"><span class="icon-32-edit"></span>{txt_change}</a></div>
+                              <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript: submitbutton('update');" href="#" title="{txt_cms_update}"><span class="icon-32-update"></span>{txt_cms_update}</a></div>
+                              <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_unpublish}]');}else{ submitbutton('OFF');}" href="#" title="{txt_cms_unpublish}"><span class="icon-32-unpublish"></span>{txt_cms_unpublish}</a></div>
+                              <div style="display: {txt_button_law_mod};" id="toolbar_button"><a onclick="javascript:if(document.adminForm.boxchecked.value==0){alert('{txt_question_any} [{txt_cms_publish}]');}else{ submitbutton('ON');}" href="#" title="{txt_cms_publish}"><span class="icon-32-publish"></span>{txt_cms_publish}</a></div>
+
+                    </div>
+                    <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                             {txt_msg_error}
+                    </div>
+                    <div id="header_box_behind">
+                          <div id="search">
+                              <form method="POST" action="./?act={sbj_act}{txt_oder_fun}&trash={trash_act}" name="frmSearch">
+                                  <input type="text" name="txtInfo_Search" value="{txt_enter_key_search}" id="txtInfo_Search" class="textSearch" size="20">
+                                  <input class="button"  type="submit" value="{txt_public_search}" name="cmd">
+                                  <input class="button" type="reset"  value="{txt_public_search_reset}" onclick="goPage('./?act={sbj_act}');" >
+                              </form>
+                          </div>
+                         {txt_resul_search} 
+                        <div id="group">
+                            <form method="POST" action="./?act={sbj_act}" name="frmGroup">
+                                <select size="1" style="display: {v_list_lang}" id="lang" name="lang" class="combo_group"  onchange="document.frmGroup.submit();">
+                                  <option selected="selected" value="{txt_lang}"> -- {txt_chooselang} -- </option>
+                                  <option value="vn" {txt_sel_vn}>{txt_vn}</option>
+                                  <option value="en" {txt_sel_en}>{txt_en}</option>                                  
+                                </select> 
+                                                         
+                                <select size="1" name="cbGroup" class="combo_group" style="margin-left: 8px; width: 200px;"  onchange="document.frmGroup.submit();"/>
+                                    <option value="0">{txtSelect}</option>
+                                    <!-- BEGIN GROUP -->
+                                    <option value="{GROUP.group_id}" {GROUP._selected}>{GROUP.group}</option>
+                                    <!-- END GROUP -->
+                                </select>                                  
+                            </form>
+                        </div>                          
+                    </div>
+                  </td>
+              </tr>
+              
+              <!-- 2. DANH SACH BAI VIET -->     
+              <tr width="909">
+                          <!-- THE BEGIN BODY LEFT  -->
+                          <td {txt_height_file} valign="top">
+                              <div id="cpanel" style="display: {txt_file}">
+                                   <form method="post" name="adminForm">
+                                          <table class="adminlist" id="table6" cellspacing="1">
+                                              <!-- Bat dau dieu de -->
+                                              <thead>
+                                                 <tr style="height: 23px;">
+                                                      <th width="3%" height="23px;">  # </th>
+                                                      <th width="2%">
+                                                          <input name="toggle" onclick="checkAll({txt_sophantu});" type="checkbox">
+                                                      </th>
+                                                      <th width="20%">
+                                                          Link file
+                                                      </th>                                                      
+                                                      <th class="{txt_class_title_name}" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=name{dir}{txt_other_links_title}');">
+                                                        {txt_title_string}
+                                                        {order_name}
+                                                      </th>
+                                                      <th class="{txt_class_title_order}" width="8%" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=pri_order{dir}{txt_other_links_title}');">
+                                                          {txt_title_order}
+                                                          {order_pri_order}
+                                                      </th>                                                  
+                                                      <th width="10%" class="{txt_class_title_created}" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=created{dir}{txt_other_links_title}');">
+                                                         Download
+                                                         {order_create}
+                                                      </th>                                                  
+                                                      <th class="{txt_class_title_status}" width="7%" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=status{dir}{txt_other_links_title}');">
+                                                          {txt_title_status}
+                                                          {order_status}
+                                                      </th>                                                   
+                                                      <th width="4%">
+                                                          {txt_change}
+                                                      </th>
+                                                      <th width="4%">
+                                                          {txt_clear}
+                                                      </th>
+                                                      <th width="4%">
+                                                          {txt_go_trash}
+                                                      </th>
+                                                      <th class="{txt_class_title_id}" title="{txt_order}" width="4%"  onclick="goPage('./?act={sbj_act}&order=id{dir}{txt_other_links_title}');">
+                                                          id
+                                                          {order_id}
+                                                      </th>
+                                                  </tr>
+                                              </thead>
+                                              <!-- KET THUC TIEU DE -->
+
+
+
+                                                <tbody>
+                                                        <!-- BEGIN FILESLIST -->
+                                                        <tr class="{FILESLIST.background}">
+                                                            <td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" title="center">  {FILESLIST.order}  </td>
+                                                            <td align="center" bgcolor="#EEEEEE">
+                                                                <input id="cb{FILESLIST.stt}" type="checkbox" name="cid[]" onclick="isChecked(this.checked);" value="{FILESLIST.id}"/>
+                                                            </td>
+                                                            <td align="center" bgcolor="#EEEEEE">
+                                                                 <input class="textForm" type="hidden" name="file_path[]" style="text-align: left;  background-color: #ffd6df;" value="{FILESLIST.file_path}" size="5"/>
+																 {FILESLIST.images}
+                                                            </td>
+                                                    
+                                                          <td>
+                                                                <input type="hidden" name="itemID[]" value="{FILESLIST.id}" size="6"/>
+                                                                <input type="hidden" name="image_item[]" value="{FILESLIST.img}" size="6"/>
+                                                                <input  style="margin: 1px 0; width: 85%;" name="str_name[]" class="textForm_define icon-16-{FILESLIST.lang}" value="{FILESLIST.name}"/>
+                                                                <textarea name="str_des[]" class="textSetting" style="width:96%; height: 60px;   padding: 0px 0px 0px 2px;">{FILESLIST.des}</textarea>
+                                                          </td>
+                                                          <td>
+                                                                <input class="textForm" type="text" name="order[]" style="text-align: center;" value="{FILESLIST.pri_order}" size="5"/>
+                                                          </td>                                                       
+                                                          <td align="center">
+                                                                <input type="hidden" name="download[]" value="{FILESLIST.download}"/>{FILESLIST.download}
+                                                          </td>  
+                                                          <td align="center">
+                                                                <a style="cursor:pointer;" {FILESLIST.linkStatus} onclick="{FILESLIST.checkMod}"><img src="{FILESLIST.imgStatus}" width="16" height="16"/></a>
+                                                          </td>                                                                                                                                                              
+                                                          <td align="center">
+                                                                <a style="cursor:pointer;" {FILESLIST.linkEdit} onclick="{FILESLIST.checkMod}"><img src="{FILESLIST.imgEdit}" width="16" height="16"/></a>
+                                                          </td>
+                                                          <td align="center">
+                                                                <a style="cursor:pointer;" onclick="{FILESLIST.checkDel}" {FILESLIST.linkDel}><img src="{FILESLIST.imgDel}" width="16" height="16"/></a>
+                                                            </td>
+                                                          <td align="center">
+                                                                <a style="cursor:pointer;" {FILESLIST.linkTrash}><img border="0" src="{FILESLIST.imgTrash}" width="16" height="16"/></a>
+                                                            </td>
+                                                            <td class="id_item" align="center">
+                                                                {FILESLIST.id}
+                                                            </td>
+                                                        </tr>
+                                                        <!-- END FILESLIST -->
+                                                </tbody>
+                                                <!-- Hien thi phan trang -->
+                                                <tfoot>
+                                                      <tr>
+                                                          <td colspan="13" style="background-color:#F3F3F3; border-top:1px solid #999999; border-right:1px solid #e7e7e7; border-left:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; text-align:center;">
+                                                              <del class="container">
+                                                                 <div style="margin: 2px auto 2px auto;" class="pagination">
+                                                                        {link_page_info}
+                                                                 </div>
+                                                              </del>
+                                                          </td>
+                                                      </tr>
+                                                </tfoot>
+                                          </table>
+              <input type="hidden" name="cmd" value="" />
+              <input type="hidden" name="boxchecked" value="0" />
+                                   </form>
+                              </div>
+                              
+<div id="controlbar" style="z-index: 1" class="highslide-overlay controlbar">
+    <a href="#" class="previous" onclick="return hs.previous(this)" title="{txt_pre_pic}"></a>
+    <a href="#" class="next" onclick="return hs.next(this)" title="{txt_next_pic}"></a>
+    <a href="#" class="highslide-move" onclick="return false" title="{txt_drag_move_pic}"></a>
+    <a href="#" class="close" onclick="return hs.close(this)" title="{txt_close}"></a>
+</div>                              
+                          </td>
+                          <!-- THE END BODY LEFT -->
+                      </tr>
+              
+              <!-- 3. DANH SACH THU MUC -->   
+              <tr width="909">
+                          <!-- THE BEGIN BODY LEFT  -->
+                          <td {txt_height_folder} valign="top">
+                              <div id="cpanel" style="display: {txt_folder}">
+                                   <form method="post" name="adminFolder">
+                                          <table class="adminlist" id="table6" cellspacing="1">
+                                              <!-- Bat dau dieu de -->
+                                              <thead>
+                                                 <tr style="height: 23px;">
+                                                      <th width="3%" height="23px;">  # </th>
+                                                      <th width="3%" height="23px;">{txt_browse}</th>
+                                                      <th class="{txt_class_title_name}" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=name{dir}{txt_other_links_title}');">
+                                                        {txt_group_project}
+                                                        {order_name}
+                                                      </th>
+                                                      <th class="{txt_class_title_order}" width="8%" title="{txt_order}" onclick="goPage('./?act={sbj_act}&order=pri_order{dir}{txt_other_links_title}');">
+                                                          {txt_title_order}
+                                                          {order_pri_order}
+                                                      </th>                                                 
+                                                      <th width="8%">
+                                                          {txt_cms_preview}
+                                                      </th>
+                                                      <th class="{txt_class_title_id}" title="{txt_order}" width="4%"  onclick="goPage('./?act={sbj_act}&order=id{dir}{txt_other_links_title}');">
+                                                          id
+                                                          {order_id}
+                                                      </th>
+                                                  </tr>
+                                              </thead>
+                                              <!-- KET THUC TIEU DE -->
+
+
+
+                                                <tbody>
+                                                        <!-- BEGIN DIRLIST -->
+                                                        <tr class="{DIRLIST.background}">
+                                                          <td style="text-align: center; background: url(./images/icon_vistar/bg_menu_order.png) repeat-y;" title="center">  {DIRLIST.order}  </td>
+                                                          <td align="center" bgcolor="#EEEEEE">
+                                                                {DIRLIST.type_F}
+                                                          </td>                                                      
+                                                          <td>
+                                                                <input type="hidden" name="itemID[]" value="{DIRLIST.id}" size="6"/>
+                                                                {DIRLIST.name_item}
+                                                          </td>
+                                                          <td align="center">
+                                                                {DIRLIST.pri_order} 
+                                                          </td>                                                                                                                                                                
+                                                          <td align="center">
+                                                                {DIRLIST.preview}
+                                                          </td>
+                                                          <td class="id_item" align="center">
+                                                                {DIRLIST.id}
+                                                          </td>
+                                                        </tr>
+                                                        <!-- END DIRLIST -->
+                                                </tbody>
+                                                <!-- Hien thi phan trang -->
+                                                <tfoot>
+                                                      <tr>
+                                                          <td colspan="6" style="background-color:#F3F3F3; border-top:1px solid #999999; border-right:1px solid #e7e7e7; border-left:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7; text-align:center;">
+                                                              <del class="container">
+                                                                 <div style="margin: 2px auto 2px auto;" class="pagination">
+                                                                        {link_page_folder}
+                                                                 </div>
+                                                              </del>
+                                                          </td>
+                                                      </tr>
+                                                </tfoot>
+                                          </table>
+                                   </form>
+                              </div>
+                          </td>
+                          <!-- THE END BODY LEFT -->
+                      </tr>
+          </table>
+</td>

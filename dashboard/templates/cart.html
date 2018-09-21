@@ -1,0 +1,310 @@
+    <script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+      //Effect for Search
+      function focus_search(e)
+      {
+          if ( e.value == "{txt_enter_key}" )
+          {
+              e.value = '';
+              return false;
+          }
+      }
+      function moveout_search(e)
+      {
+          if ( e.value == "")
+          {
+              e.value = "{txt_enter_key}";
+              return false;
+          }
+      }
+	function update(){
+		document.adminForm.cmd.value="update";
+		document.adminForm.submit();
+	}
+    </script>
+            <div class="right_col" role="main">
+                <div class=""  style="display: {txt_folder}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>{txt_lang_corder}</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-warning" onclick="delcart();">Xóa đơn đã chọn</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+									<form action="./?act={sbj_act}{txt_oder_fun}&trash={trash_act}" method="post" name="adminForm">								
+									<p style="float: right;">
+										<select onchange="window.location.href='./?act=cart&type=' + this.value;" size="1" name="cbGroup" class="form-control" style="margin-left: 8px; width: 200px;"/>
+											<option class="combo_select_item" value="all">Tất cả trạng thái</option>
+											<!-- BEGIN ALLSTATUS -->
+											<option class="combo_select_item" value="{ALLSTATUS.id}" {ALLSTATUS.selected}>{ALLSTATUS.title}</option>
+											<!-- END ALLSTATUS -->
+										</select>
+									</p>
+									<p style="clear:both;"> </p>
+
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="100" class="column-title">{txt_lang_order_code}</th>
+                                                <th class="column-title">{txt_lang_customer}</th>
+                                                <th class="column-title">{txt_lang_time}</th>
+                                                <th class="column-title">{txt_lang_total_order}</th>
+                                                <th class="column-title">{txt_lang_status}</th>
+                                                <th class="column-title no-link last"><span class="nobr">{txt_lang_action}</span>
+                                                </th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN MENULIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+										{MENULIST.order_code}
+									</td>
+									<td class=" ">
+										{MENULIST.name_item}
+									</td>
+									<td class=" ">
+										{MENULIST.creatime}
+									</td>
+									<td class=" " align="center">
+										{MENULIST.totalprice}
+									</td>
+                                    <td class=" ">
+										<select style="height: 25px; padding: 2px; line-height: 25px;" class="form-control" name="cbType_i[]" id="cbType_i[]"  size="1"  onchange="update();" {sel_disabled} disabled>
+											<!-- BEGIN LISTSTATUS -->
+											<option class="combo_select_item" value="{MENULIST.LISTSTATUS.id}" {MENULIST.LISTSTATUS.selected}>{MENULIST.LISTSTATUS.title}</option>
+											<!-- END LISTSTATUS -->
+										</select>
+									</td>
+                                    <td class=" ">
+									<a {MENULIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Xem/sửa </a>
+									<a {MENULIST.linkDel} onclick="{MENULIST.checkDel}"  class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Xóa </a>
+									</td>
+                                    <td class=" ">{MENULIST.id}</td>
+                                </tr>
+								<!-- END MENULIST -->
+                            </tbody>
+
+                                    </table>
+									<input type="hidden" name="cmd" value="" />
+
+									<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+									{link_page_folder}
+									</div>
+ 									</form>
+									</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="" style="display:{txt_file};">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Orders manager</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<!-- BEGIN ERROR -->
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{ERROR.info}
+					</div>
+					<!-- END ERROR -->
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_content">
+                                <div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    {txt_msg_error}
+                                </div>
+                                    <form enctype="multipart/form-data" name="admintable" action="" method="post" class="form-horizontal form-label-left">
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Mã đơn hàng<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{order_code}<span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Ngày gửi<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_date}</span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Họ tên<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_shiptoname}</span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Địa chỉ<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_shiptodc}</span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Quận, huyện<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_shiphuyen}</span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Tỉnh, thành phố<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_shiptinh}</span></div>
+										</div>
+										
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Điện thoại<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_mobile}</span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Email<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_email}</span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Giao hàng<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_shipmethod}</span></div>
+										</div>										
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Thanh toán<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_paymethod}</span></div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Giao dịch (nếu có)<span class="required"></span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12"><span style="display:block; padding-top:8px;">{txt_order_payact}</span></div>
+										</div>
+
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Trạng thái <span class="required"></span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<select style="" class="form-control" name="orderStatus" id="orderStatus" >
+													<!-- BEGIN OSTATUS -->
+													<option class="combo_select_item" value="{OSTATUS.id}" {OSTATUS.selected}>{OSTATUS.title}</option>
+													<!-- END OSTATUS -->
+												</select>
+												
+												<input type="text" class="form-control" id="addstatus" name="addstatus" style="display:none; width:150px; margin-top:5px;" placeholder="Nhập tên trạng thái">
+												<a onclick="$(this).hide(); $('#addstatus').show();" style="cursor: pointer; color:#E6671C;">[+] Thêm trạng thái</a>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Ghi chú<span class="required"></span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<textarea class="form-control" name="txt_comment" >{txt_order_des}</textarea>
+											</div>
+										</div>
+										
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Sản phẩm<span class="required"></span>
+											</label>
+											<div class="col-md-9 col-sm-9 col-xs-12">
+												<table class="table">
+													<thead>
+														<tr>
+															<th width="10">#</th>
+															<th width="100">Ảnh</th>
+															<th>Tên SP</th>
+															<th width="30">SL</th>
+															<th width="100">Giá</th>
+0															<th width="10">ID</th>
+														</tr>
+													</thead>
+													<tbody>
+														<!-- BEGIN INFOLIST -->
+														<tr>
+															<td>{INFOLIST.order}</th>
+															<td>{INFOLIST.images}</td>
+															<td><b>{INFOLIST.name}</b>{INFOLIST.color}{INFOLIST.size}</td>
+															<td>{INFOLIST.nums}</td>
+															<td>{INFOLIST.price}</td>
+															<td>{INFOLIST.pro_id}</td>
+														</tr>
+														<!-- END INFOLIST -->
+														<tr>
+															<td colspan="3" align="right"><label>Tổng cộng:</label></td>
+															<td colspan="2" align="left"><label>{txt_total_money_order}</label></td>
+														</tr>
+														<tr>
+															<td colspan="3" align="right"><label>Giảm giá:</label></td>
+															<td colspan="2" align="left"><label>{txt_total_money_coupon}</label>{txt_total_coupon_code}</td>
+														</tr>
+														<tr>
+															<td colspan="3" align="right"><label>Phí chuyển hàng:</label></td>
+															<td colspan="2" align="left"><label>{txt_total_money_fee}</label></td>
+														</tr>
+														<tr>
+															<td colspan="3" align="right"><label>Tổng:</label></td>
+															<td colspan="2" align="left"><label>{txt_total_money_mount}</label></td>
+														</tr>
+														<tr style="{txt_credit_show}">
+															<td colspan="3" align="right"><label>Sử dụng ví điện tử:</label></td>
+															<td colspan="2" align="left"><label>{txt_total_money_credit}</label></td>
+														</tr>
+														<tr style="{txt_credit_show}">
+															<td colspan="3" align="right"><label>Cần thanh toán:</label></td>
+															<td colspan="2" align="left"><label>{txt_total_money_mount_credit}</label></td>
+														</tr>
+														
+													</tbody>
+												</table>	
+											</div>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<button type="button" class="btn btn-primary" onclick="window.location.href='./?act=cart';">Cancel</button>
+												<input type="hidden" name="cmd" value="update_status"/>
+												<button type="submit" class="btn btn-success"> Update </button>
+											</div>
+										</div>
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<script>
+function delcart(){
+	if ($(".bulk-actions").css("display")=="none") alert("{txt_lang_select_error}");
+	else {
+	if (confirm('{txt_lang_action_confirm}?')) {
+		document.adminForm.cmd.value="DEL";
+		document.adminForm.submit();
+		}
+	}
+}
+</script>				

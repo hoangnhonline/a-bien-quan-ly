@@ -1,0 +1,148 @@
+            <div class="right_col" role="main">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Quản lý nhóm sản phẩm [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+					<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{txt_msg_error}
+					</div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_content">
+									<form enctype="multipart/form-data" name="admintable" action="" method="post" data-parsley-validate class="form-horizontal form-label-left">
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">Tên nhóm<span class="required"></span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<input type="text" value="{group_name}" name="group_name" class="form-control col-md-7 col-xs-12" required="required"/>
+												</div>
+											</div>
+											<div class="form-group">
+													<table width="100%">
+														<tr>
+															<td width="300" valign="top">
+															<select onchange="getProList(this.value);" class="form-control">
+																<option value="0">Chọn danh mục sản phẩm</option>
+																<!-- BEGIN CATPRO -->
+																<option value="{CATPRO.group_id}">{CATPRO.group}</option>
+																<!-- END CATPRO -->
+															</select>
+															<select multiple="multiple" class="form-control" id="quiz_list" style="height:300px;">
+
+															</select>
+															<button type="button" onclick="addQuiz();" style="float:right;margin-top:10px;">Thêm vào nhóm</button>
+															</td>
+															<td valign="top" style="padding-left:20px;">
+																<table width="100%" id="quiz_table" class="table">
+																	<thead>
+																	<tr>
+																		<th class="type-title">Sản phẩm</th>
+																		<th class="type-title" width="100" style="text-align:center;">ID</th>
+																		<th class="type-butt last" width="100" style="text-align:center;"><a  href="javascript:dell_all_pro();">Xóa tất cả</a></th>
+																	</tr>
+																	</thead>
+																	<tbody id="quiz_body">
+																	<!-- BEGIN GROUP_PRO -->
+																	<tr class="quiz_rows" id="quiz_row_{GROUP_PRO.row_id}">
+																		<td>
+																			<input type="hidden" class="pro_id" name="pro_id[]" value="{GROUP_PRO.pro_id}">
+																			{GROUP_PRO.name}
+																		</td>
+																		<td align="center">{GROUP_PRO.pro_id}</td>
+																		<td align="center"><a title="Xóa" href="javascript:del_pro({GROUP_PRO.row_id});"><img src="./images/icon-16-del.png"></a></td>
+																	</tr>
+																	<!-- END GROUP_PRO -->
+																	</tbody>
+																</table>
+																<script>
+																function getProList(cat_id) {
+																	jQuery.ajax({
+																		   type: "GET",
+																		   url: "./getpro.php?cat_id=" + cat_id,
+																		   success: function(data)
+																		   {
+																					jQuery("#quiz_list").html(data);
+																			}
+																		 });
+																}
+																function del_pro(id) {
+																	jQuery('#quiz_row_' + id).remove();
+																}
+																function dell_all_pro() {
+																	if (confirm('A you sure?')) {
+																		jQuery('.quiz_rows').remove();
+																	}
+																	
+																}
+																
+																function addQuiz() {
+																	count=0;
+																	$('#quiz_list option:selected').each(function(){
+																		count++;
+																		pro_id=jQuery(this).val();
+																		exit=false;
+																		jQuery('.pro_id').each(function(){
+																			if ($(this).val()==pro_id) {
+																				//alert("This question already exists in the list!");
+																				exit=true;
+																			}
+																		});
+																		if (exit==false) {
+																			jQuery("#quiz_body").append('\
+																				<tr class="quiz_rows" id="quiz_row_' + jQuery(this).val() + '">\
+																					<td>\
+																						<input type="hidden" class="pro_id" name="pro_id[]" value="' + jQuery(this).val() + '">\
+																						' + jQuery(this).text() + '\
+																					</td>\
+																					<td align="center">' + jQuery(this).val() + '</td>\
+																					<td align="center"><a title="Remove" href="javascript:del_pro(\'' + jQuery(this).val() + '\');"><img src="./images/icon-16-del.png"></a></td>\
+																				</tr>\
+																			');
+																		}
+																	});
+																	if (count==0) alert("Vui lòng chọn sản phẩm để thêm vào danh sách!");
+																}
+																
+																</script>
+															</td>
+														</tr>
+													</table>
+
+													<table width="100%" id="pro_group_table" style="display:none{forpro_2};">
+														<tr><td>
+														Chọn nhóm sản phẩm áp dụng giảm giá
+														<a href="" style="color:#1ABC9C; float:right;">[Load lại danh sách nhóm]</a> <a href="./?act=pro-group" target="_blank" style="color:#1ABC9C; float:right;">[Quản lý danh sách nhóm]</a>
+														<br/><br/>
+														</td></tr>
+														<tr>
+															<td width="100%" valign="top">
+															<select multiple="multiple" class="form-control" style="height:500px;">
+															</select>
+															</td>
+														</tr>
+													</table>
+											</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation"> 
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="hidden" name="cmd" value="{group_cmd}">
+												<input type="hidden" name="cid" value="{group_cid}">
+												<button type="button" class="btn btn-primary" onclick="if (confirm('A you sure to cancel?')) window.location.href='./?act=coupon';">Cancel</button>
+												<button type="submit" class="btn btn-success">Submit</button>
+											</div>
+										</div>
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				

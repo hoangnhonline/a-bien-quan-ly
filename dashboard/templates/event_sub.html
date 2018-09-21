@@ -1,0 +1,295 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure you want to delete this row?');
+  }
+</script>
+<script>
+	function deleterows(){
+		if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+		else {
+		if (confirm('Are you sure want to action?')) {
+			document.adminForm.cmd.value="del";
+			document.adminForm.submit();
+			}
+		}
+	}
+</script>
+            <div class="right_col" role="main">
+                <div class=""  style="display: {txt_chedo0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý đăng ký Beauti Tour</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-danger" onclick="deleterows();">{txt_lang_delete}</button></a>
+										<li><button type="button" class="btn btn-primary" onclick="window.open('./ajax_action.php?act=export_rfh');">Xuất ra Exel</button></a>
+									</ul>
+                                    <div class="clearfix"></div>
+                                </div>
+								<div class="clearfix"></div>
+								<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+									</button>
+									{txt_msg_error}
+								</div>
+                                <div class="x_content">
+									<form action="" method="post" name="adminForm">								
+                                    <p>Add, edit or delete your RFH subscribe!</p>
+									<p style="clear:both;"> </p>
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="250" class="column-title">Name</th>
+                                                <th class="column-title">Email</th>
+                                                <th class="column-title">Tell</th>
+                                                <th class="column-title">Date</th>
+                                                <th class="column-title no-link last"><span class="nobr">Action</span>
+                                                </th>
+                                                <th class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- BEGIN MENULIST -->
+											<tr class="even pointer">
+												<td class="a-center ">
+													<input type="checkbox" class="flat" name="cid[]" value="{MENULIST.id}">
+												</td>
+												<td class=" ">
+													<input type="hidden" name="itemID[]" value="{MENULIST.id}" size="6"/>
+													{MENULIST.name}
+												</td>
+												<td class=" ">
+													{MENULIST.email}
+												</td>
+												<td class=" " align="center">
+													{MENULIST.tell}
+												</td>
+												<td class=" ">
+													{MENULIST.date}
+												</td>
+												<td>
+												<a {MENULIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+												<a {MENULIST.linkDel} onclick="{MENULIST.checkDel}"  class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Delete </a>
+												</td>
+												<td class=" ">{MENULIST.id}</td>
+											</tr>
+											<!-- END MENULIST -->
+										</tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+
+									<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+									{link_page}
+									</div>
+									<script>
+									function publich(){
+										if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+										else {
+										document.adminForm.cmd.value="ON";
+										document.adminForm.submit();
+										}
+									}
+									function unpublish(){
+										if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+										else {
+										if (confirm('Are you sure want to action?')) {
+											document.adminForm.cmd.value="OFF";
+											document.adminForm.submit();
+											}
+										}
+									}
+									</script>
+ 									</form>
+									</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="" style="display:{txt_chedo1};">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>Quản lý đăng ký Beauti Tour [{txt_type_update}]</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+					<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+						</button>
+						{txt_msg_error}
+					</div>
+					<div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_content">
+                                    <form enctype="multipart/form-data" name="admintable" action="" method="post" onsubmit="return Check_input_Define();" data-parsley-validate class="form-horizontal form-label-left">
+										<div class="" role="tabpanel" data-example-id="togglable-tabs">
+											<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+												<li role="presentation" class="active"><a href="#tab_content1" id="tab-1" role="tab" data-toggle="tab" aria-expanded="true">Thông tin khách hàng</a></li>
+											</ul>
+										<div id="myTabContent" class="tab-content" style="padding-top:20px;">
+											<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="tab-1">
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Họ tên<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input value="{firstname}" type="text" name="firstname" required="required" class="form-control col-md-7 col-xs-12" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Điện thoại<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{tell}" name="tell" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>												
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Email<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{email}" name="email" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Tên<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{lastname}" class="form-control col-md-7 col-xs-12" name="lastname" style="" />
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Giới tính <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="gender" id="gender" class="form-control">
+														  <option value="m" selected>Nam</option>
+														  <option value="f" {gender_f_selected}>Nữ</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Tên công ty<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{yob}" name="yob" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" required="required" for="lflag">Địa chỉ công ty<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{address}" name="address" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Là sinh viên <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="stud" id="stud" class="form-control">
+														  <option value="0" selected>Không</option>
+														  <option value="1" {stud_selected}>Có</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Số nhân viên nữ<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{school}" name="school" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">MSSV<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{studid}" name="studid" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Họ tên em bé<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{kidname}" name="kidname" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Năm sinh em bé<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{kidyob}" name="kidyob" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="llocation">Đóng góp quỹ <span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<select size="1" name="sub" id="sub" class="form-control">
+														  <option value="0" selected>Không</option>
+														  <option value="1" {sub_selected}>Có</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Đóng góp thêm:<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{subcash}" name="subcash" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Size áo người lớn<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{adultsize}" name="adultsize" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Size áo trẻ em<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{kidsize}" name="kidsize" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>		
+												<div class="form-group" style="display:none;">
+													<label class="control-label col-md-3 col-sm-3 col-xs-12" for="lflag">Ngày đã chuyển khoản:<span class="required"></span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<input type="text" value="{subpaydate}" name="subpaydate" class="form-control col-md-7 col-xs-12" style="" />
+													</div>
+												</div>		
+											</div>
+	
+										</div>
+										
+
+											<div class="ln_solid"></div>
+											<div class="form-group">
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<button type="button" class="btn btn-primary" onclick="window.location.href='./?act=event_sub';">Quay lại</button>
+													<input type="hidden" name="id_item" value="{rid}" />
+													<input type="hidden" name="cmdfF" value="{txt_type_button}"/>
+													<button type="submit" class="btn btn-success">Cập nhật</button>
+												</div>
+											</div>
+										</div>
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

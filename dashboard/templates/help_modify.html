@@ -1,0 +1,335 @@
+    <script language=JavaScript src="../Editor/scripts/innovaeditor.js"></script>
+       <script type="text/javascript">                                                            
+          //Catch error when user lick submit
+          function Check_input()
+          {
+              var txtTitle = document.adminForm.txtName.value;
+              var txtProject = document.adminForm.txtContent.value;
+              if(txtTitle == '')
+              {
+                      alert('{txt_error_input_text} ({txt_title_string})!');
+                      document.adminForm.txtName.focus();
+                      return false;
+              }
+
+              if(txtProject == '')
+              {
+                      alert('{txt_error_input_text} ({txt_Content})!');
+                      document.adminForm.txtProject.focus();
+                      return false;
+              }
+              
+                                                                                                                                     
+            return true;
+
+          }                                                            
+        </script>    
+  <!--[if IE 6]>
+    <script> var HeightE = 240;</script>
+  <![endif]-->
+
+  <!--[if IE 7]>
+    <script> var HeightE = 240;</script>
+  <![endif]-->
+
+  <!--[if IE 8]>
+    <script> var HeightE = 240;</script>
+  <![endif]-->
+
+  <!--[if FF]><!-->
+    <script> var HeightE = 310;</script>
+  <!--<![endif]-->
+
+                                                           
+<td width="100%">
+        <table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+            <!-- TOOLBAR -->
+            <tr width="100%">
+                <td>
+                      <div id="title_panel" style="display: {show_all}">
+                            <div id="title" class="header icon-48-info{trash_icon}">Chỉnh sửa trợ giúp</div>
+
+                                <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                                <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                                
+                                <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?act=info{txt_curent_link_info}');" title="{txt_cancel}"><span class="icon-32-cancel"></span>{txt_cancel}</a></div>
+                                <div style="display: {txt_button_law_save};" id="toolbar_button"><a onclick="javascript: submitForm_NN();" title="{txt_save}"><span class="icon-32-save"></span>{txt_save}</a></div>
+                      </div>
+                     <div id="header_msg_{txt_mess_result}" style="display: {txt_show_error}" onclick="javascript: this.style.display = 'none';">
+                                             {txt_msg_error}
+                     </div>              
+                </td>
+            </tr>
+
+            <!-- VIEW UPDATE -->
+            <tr>
+                    <td height="400" valign="top">
+                        <div id="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="width: 100%; margin: 0 auto;">
+                                     <form  enctype="multipart/form-data" action="./?act={sbj_act}{txt_curent_link_info}{txt_local}" method="post" name="adminForm" onsubmit="return Check_input();">
+                                        <div style="overflow:hidden; width: 1px; height: 1px;">
+                                            <input type="submit" value="{txt_type_button}" name="cmd"/>
+                                        </div>                                                                                              
+
+                                         <table width="100%" border="0" cellpadding="0" cellspacing="1" style="padding-right:20px;">
+                                                <tr>
+                                                    <td height="22" width="180"" class="key" align="right">{txt_title_string}:</td>
+                                                    <td align="left">
+                                                        <input type="hidden" name="id_item" value="{txt_id_item}" size="6">
+                                                        <input type="text" value="{txt_info_namevn}" class="textForm" name="txtNamevn" style=" width: 579px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="22" class="key" align="right">{txt_title_string} [En]:</td>
+                                                    <td align="left">
+                                                    <input type="text" value="{txt_info_nameen}" class="textForm" name="txtNameen" style="width: 579px;"/>
+                                                    </td> 
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="22" class="key" align="right">{txt_des}:</td>
+                                                    <td align="left">
+                                                    <textarea rows="3" name="txtProjectvn" class="textSetting" style="width: 581px; height: 50px;" cols="78">{txt_info_projectvn}</textarea>
+                                                    </td> 
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="22" class="key" align="right">{txt_des}:</td>
+                                                    <td align="left">
+                                                    <textarea rows="3" name="txtProjecten" class="textSetting" style="width: 581px; height: 50px;" cols="78">{txt_info_projecten}</textarea>
+                                                    </td> 
+                                                </tr>
+                                                <tr>
+                                                    <td height="22" class="key" align="right">{txt_Content}:</td>
+                                                    <td align="left">
+                                                            <textarea rows="12" id="txtContentvn" name="txtContentvn" cols="50">{txt_info_desvn}</textarea>
+                                                            <script>
+                                                                  var oEdit1 = new InnovaEditor("oEdit1");
+                                                                  oEdit1.width=800;
+                                                                  oEdit1.height=500;
+                                                                  oEdit1.features=["FullScreen","Preview",
+                                                                  "Cut","Copy","Paste","PasteWord","PasteText",
+                                                                  "Undo","Redo","Hyperlink",                                                                    
+                                                                  "Superscript","Subscript","LTR","RTL",
+                                                                  "Table","Guidelines","Flash","Media","Image",
+                                                                  "Characters","Line","RemoveFormat","ClearAll","XHTMLSource",
+                                                                  "BRK",
+                                                                  "TextFormatting","ListFormatting",
+                                                                  "BoxFormatting","ParagraphFormatting","CssText",
+                                                                  "Paragraph","FontName","FontSize",
+                                                                  "Bold","Italic","Underline","Strikethrough",
+                                                                  "ForeColor","BackColor","StyleAndFormatting",                                                                  
+                                                                  "JustifyLeft","JustifyCenter","JustifyRight","JustifyFull",
+                                                                  "Numbering","Bullets",
+                                                                  ];// => Custom Button Placement
+
+                                                                  oEdit1.css="style/test.css";
+                                                                  oEdit1.cmdAssetManager = "modalDialogShow('../assetmanager/assetmanager.php',640,465)";
+                                                                  oEdit1.REPLACE("txtContentvn");
+                                                              </script>
+                                                    </td>
+                                                </tr>                                                 
+                                                <tr style="display:none;">
+                                                    <td height="22" class="key" align="right">{txt_Content} [En]:</td>
+                                                    <td align="left">
+                                                            <textarea rows="12" id="txtContenten" name="txtContenten" cols="50">{txt_info_desen}</textarea>
+                                                            <!--
+															<script>
+                                                                  var oEdit2 = new InnovaEditor("oEdit2");
+                                                                  oEdit2.width=800;
+                                                                  oEdit2.height=500;
+                                                                  oEdit2.features=["FullScreen","Preview",
+                                                                  "Cut","Copy","Paste","PasteWord","PasteText",
+                                                                  "Undo","Redo","Hyperlink",                                                                    
+                                                                  "Superscript","Subscript","LTR","RTL",
+                                                                  "Table","Guidelines","Flash","Media","Image",
+                                                                  "Characters","Line","RemoveFormat","ClearAll","XHTMLSource",
+                                                                  "BRK",
+                                                                  "TextFormatting","ListFormatting",
+                                                                  "BoxFormatting","ParagraphFormatting","CssText",
+                                                                  "Paragraph","FontName","FontSize",
+                                                                  "Bold","Italic","Underline","Strikethrough",
+                                                                  "ForeColor","BackColor","StyleAndFormatting",                                                                  
+                                                                  "JustifyLeft","JustifyCenter","JustifyRight","JustifyFull",
+                                                                  "Numbering","Bullets",
+                                                                  ];
+
+                                                                  oEdit2.css="style/test.css";
+                                                                  oEdit2.cmdAssetManager = "modalDialogShow('../assetmanager/assetmanager.php',640,465)";
+                                                                  oEdit2.REPLACE("txtContenten");
+                                                              </script>
+															  -->
+                                                    </td>
+                                                </tr>  
+                                                <tr style="display:none;">
+                                                    <td></td>
+													<td class="key" style="width: 265px;" valign="top"> 
+                                                        <!-- accordion_Begin (1 DIV & 1 SCRIPT & 1 CSS)-->
+                                                        <link href="./js/accordion/style.css" rel="stylesheet" type="text/css"/>
+<!--                                                        background-color: #b6c7da; -->
+                                                        <div id="accordion" style="width: 255px; height: auto; background-color: #b6c7da; padding: 3px;"> 
+                                                            <h3 style="background-color: rgb(242, 242, 242); background:transparent url(./images/title.png) repeat-x scroll 0 0; border-top: 1px solid #d0cfcf;" class="toggler introduction"><a style="color: rgb(34, 34, 34);" href="#other-articles" title="{txt_other_info}"><span>{txt_other_info}</span></a></h3>
+                                                            <div style="border: 1px solid #d5d5d5; overflow: hidden; height: 0px; padding-left: 5px; padding-top: 0px; padding-bottom: 0px; background: #fff;" class="accordion">
+                                                                    <table width="100%" border="0" cellpadding="0" cellspacing="1" style="margin-top: 5px; margin-bottom: 5px;">
+                                                                        <tr>
+                                                                            <td align="left">{txt_chooseimg}:</td>
+                                                                            <td>
+                                                                            <input type="file" name="fileSmallImage" size="13" style="height: 20px; font: 9px Tahoma, Arial, sans-serif;" class="textForm"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                            <!-- BEGIN SMALLIMAGE_PREVIEW -->
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td align="left">
+                                                                                <a id="thumb1" href="{SMALLIMAGE_PREVIEW.small_image}" class="highslide" onclick="return hs.expand(this, {captionId: 'caption1'})">
+                                                                                    <img border="0" src="{SMALLIMAGE_PREVIEW.small_image}" title="{txt_preview_to_large}" width="60" height="55"  style="margin-left: 5px;"> 
+                                                                                </a>
+                                                                                <br/>
+                                                                                <input type="checkbox" name="cbRemoveImage" value="1" id="remove small image"><label for="remove small image">{txt_tick_remove}</label>
+                                                                                <input type="hidden" name="txt_img_name" value="{txt_image_name}" size="12">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <!-- END SMALLIMAGE_PREVIEW -->                
+                                                                        <tr>
+                                                                            <td align="left">{txt_source}:</td>
+                                                                            <td style="padding-left: 2px;">
+                                                                            <input type="text" value="{txt_source_info}" class="textForm" name="txtSource"/></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="left">{txt_title_order}:</td>
+                                                                            <td style="padding-left: 2px;">
+                                                                             <input type="text" value="{txt_order_info}" class="textForm" name="txtOrder"/></td>
+                                                                        </tr>                 
+                                                                        <tr>
+                                                                            <td align="left">{txt_title_status}:</td>
+                                                                            <td style="padding-left: 2px;">
+                                                                                  <select size="1" name="cbStatus" id="cbStatus" class="combo_select_group" style="width: 154px;">
+                                                                                    <option value="1"{ActivitySelected}>{txt_cms_active}</option>
+                                                                                    <option value="0"{WaitingSelected}>{txt_cms_unactive}</option>
+                                                                                  </select>                    
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr style="display:none;">
+                                                                            <td align="left">{txt_tite_lang}:</td>
+                                                                            <td style="padding-left: 2px;">
+                                                                                <select size="1" id="lang" name="lang" class="combo_select_group" style="width: 154px;">
+                                                                                  <option selected="selected" value="vn"> -- {txt_chooselang} -- </option>
+                                                                                  <option value="vn" selected {txt_sel_vn}>{txt_vn}</option>
+                                                                                  <option value="en" {txt_sel_en}>{txt_en}</option>                                  
+                                                                                </select>                  
+                                                                            </td>
+                                                                        </tr>  
+                                                                        <tr>
+                                                                            <td align="left">{txt_news}:</td>
+                                                                            <td style="padding-left: 2px;">
+                                                                                <select size="1" id="txtHotnews" name="txtHotnews" class="combo_select_group" style="width: 154px;">
+                                                                                  <option value="1" {txt_hotNew_sel}>{txt_hot_news}</option>
+                                                                                  <option value="0" {txt_hotNom_sel}>{txt_nomal_new}</option>                                  
+                                                                                </select>                  
+                                                                            </td>
+                                                                        </tr>                                                                                 
+                                                                   </table>          
+                                                            </div>
+                                                            
+                                                            <h3 style="background-color: rgb(242, 242, 242); background:transparent url(./images/title.png) repeat-x scroll 0 0; " class="toggler news"><a style="color: rgb(34, 34, 34);" href="#meta-articles"  title="{txt_meta_info}"><span>{txt_meta_info}</span></a></h3>
+                                                            <div style="border: 1px solid #d5d5d5; overflow: hidden; height: 0px; padding-left: 5px; padding-top: 0px; padding-bottom: 0px; background: #fff;" class="accordion">
+                                                                    <table class="admintable" width="100%" border="0" cellpadding="0" cellspacing="1" style="margin-top: 5px; margin-bottom: 5px;">
+                                                                        <tr>
+                                                                            <td align="left">{txt_robots}:</td>
+                                                                            <td style="padding-left: 2px;">
+          <input id="txt_site_robots" name="txt_site_robots" size="30" class="textForm" value="{txtSite_robot}" style="width: 183px; height: 17px; padding-top: 3px;" />                    
+                                                                            </td>
+                                                                        </tr>            
+                                                                        <tr>
+                                                                            <td align="left">{txt_des_page} : </td>
+                                                                            <td style="padding-left: 2px;">
+           <textarea id="metaPage" name="metaPage" class="textSetting" style="width: 185px; height: 100px;">{txt_data_meta_page}</textarea>                    
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="left">{txt_key_meta}:</td>
+                                                                            <td style="padding-left: 2px;">
+           <textarea id="metaKey" name="metaKey" class="textSetting" style="width: 185px; height: 100px;">{txt_data_meta_key}</textarea>                    
+                                                                            </td>
+                                                                        </tr>                                                
+                                                                    </table>
+                                                            </div>
+                                                        </div>   
+                                        
+                                                        <script type="text/javascript">
+
+                                                            //scripts have been put here as a courtesy to you, the sourcecode viewer.
+                                                            
+                                                            //this script uses mootools: http://mootools.net
+                                                            
+                                                            var stretchers = $$('div.accordion');
+                                                            var togglers = $$('h3.toggler');
+
+                                                            stretchers.setStyles({'height': '0', 'overflow': 'hidden'});
+                                                            
+                                                            window.addEvent('load', function(){
+                                                                
+                                                                //initialization of togglers effects
+                                                                
+                                                                togglers.each(function(toggler, i){
+                                                                    toggler.color = toggler.getStyle('background-color');
+                                                                    toggler.$tmp.first = toggler.getFirst();
+                                                                    toggler.$tmp.fx = new Fx.Style(toggler, 'background-color', {'wait': false, 'transition': Fx.Transitions.Quart.easeOut});
+                                                                });
+                                                                
+                                                                //the accordion
+                                                                
+                                                                var myAccordion = new Accordion(togglers, stretchers, {
+                                                                    
+                                                                    'opacity': false,
+                                                                    
+                                                                    'start': false,
+                                                                    
+                                                                    'transition': Fx.Transitions.Quad.easeOut,
+                                                                    
+                                                                    onActive: function(toggler){
+                                                                        toggler.$tmp.fx.start('#dcdada');
+                                                                        toggler.$tmp.first.setStyle('color', '#fff');
+                                                                    },
+                                                                
+                                                                    onBackground: function(toggler){
+                                                                        toggler.$tmp.fx.stop();
+                                                                        toggler.setStyle('background-color', toggler.color).$tmp.first.setStyle('color', '#222');
+                                                                    }
+                                                                });
+                                                                
+                                                                //open the accordion section relative to the url
+                                                                
+                                                                var found = 0;
+                                                                $$('h3.toggler a').each(function(link, i){
+                                                                    if (window.location.hash.test(link.hash)) found = i;
+                                                                });
+                                                                myAccordion.display(found);
+                                                                
+                                                                //the draggable ball
+                                                                
+                                                                var ball = $('header').getElement('h1');
+                                                                var ballfx = new Fx.Styles(ball, {duration: 1000, 'transition': Fx.Transitions.Elastic.easeOut});
+                                                                new Drag.Base(ball, {
+                                                                    onComplete: function(){
+                                                                        ballfx.start({'top': 13, 'left': 358});
+                                                                    }
+                                                                });
+                                                                
+                                                            });
+                                                            
+                                                        </script>                                                         
+                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+												
+                                         </table>                                                                              
+                                     </form>
+                                </div>
+                        </div>
+                    </td>
+            </tr>
+        </table> 
+</td>

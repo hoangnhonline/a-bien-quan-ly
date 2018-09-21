@@ -1,0 +1,786 @@
+<script src="js/accounting.js"></script>
+<link rel="stylesheet" href="js/ui/jquery-ui.css">
+<script src="js/ui/jquery-ui.js"></script>
+<script>
+$(function() {
+//$( "#tabs" ).addClass( "ui-tabs-vertical ui-helper-clearfix" );
+//$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    var index = 'prokey';
+    var dataStore = window.sessionStorage;
+    try {
+        var oldIndex = dataStore.getItem(index);
+    } catch(e) {
+        var oldIndex = 0;
+    }
+    $('#tabs').tabs({
+        //active : oldIndex,
+        //activate : function( event, ui ){
+        //    var newIndex = ui.newTab.parent().children().index(ui.newTab);
+        //    dataStore.setItem( index, newIndex ) 
+        //}
+    }); 
+});
+</script>
+<style>
+.ui-tabs .ui-tabs-panel {background:#F9F9F9;}
+.cpanel {border:none;}
+.ui-corner-all {
+    width: 990px;
+    margin-left: 2px;
+}
+.ui-tabs .ui-tabs-nav {width:985px;padding:0px;}
+</style>
+<script language=JavaScript src="../editor/editor/innovaeditor/scripts/innovaeditor.js"></script>
+<script language="JAVASCRIPT">
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = 0, len = this.length; i < len; i++) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
+function makeRand()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 9; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+  function Check_input()
+  {
+	  var txtTitle_vn   = document.admintable.txtType_Vn.value;
+	  var txtPrice_vn   = document.admintable.txtPrice_vn.value;
+	  var txtpr_order   = document.admintable.txtPriority_Order.value;
+              
+	  if(txtTitle_vn == '')
+	  {
+			  alert("{txt_error_input_text} {txt_title_string} ({txt_lang_vn}))!");
+			  document.admintable.txtType_Vn.focus();
+			  return false;
+	  }
+
+	  if(txtPrice_vn == '')
+	  {
+			  //alert("{txt_error_input_text} ({txtPrice})!");
+			  //document.admintable.txtPrice.focus();
+			  //return false;
+	  }                      
+	  
+	  if(txtpr_order == '')
+	  {
+			  alert("{txt_error_input_text} ({txt_ordertext})!");
+			  document.admintable.txtPriority_Order.focus();
+			  return false;
+	  }
+	return true;
+  }
+function fileclick(v) 
+    {
+    v1 = v.replace("/images_upload/",""); 
+    document.getElementById("fileSmallImage").value = v1;
+	document.getElementById("imgSmallImage").src = "../images_upload/" + v1;
+    }
+function mfileclick(v,target) 
+    {
+	v1 = v.replace("/images_upload/",""); 
+    document.getElementById('SubImageFile-' + target).value = v1;
+	document.getElementById('SubImageSrc-' + target).src = "../images_upload/" + v1;
+    }
+function addSub(addSub) 
+    {
+	v1 = document.getElementById('SubFileForm').innerHTML;
+	r = makeRand();
+	v3 = v1.replace("random",r);
+	v4 = v3.replace("random",r);
+	v5 = v4.replace("random",r);
+	v6 = v5.replace("random",r);
+	v7 = v6.replace("random",r);
+	v2 = document.getElementById('SubFile').innerHTML;
+	document.getElementById('SubFile').innerHTML = v2 + v7;
+    }
+
+</script>
+<td width="100%">
+        <table border="0" width="100%" id="table6" cellspacing="0" bgcolor="#ffffff" cellpadding="0">
+            <!-- TOOLBAR -->
+            <tr width="90%">
+            <td>
+              <a name="view"></a>
+              <div id="title_panel" style="display: {show_all}">
+                    <div id="title" class="header icon-48-product-images">{txt_cms_content} <small><small>[{txt_type_update}]</small></small></div>
+
+                        <div id="toolbar_button"><a onclick="goPage('./?act=help&mod=user_list');" title="{txt_help}"><span class="icon-32-help"></span>{txt_help}</a></div>
+                        <div id="toolbar_button"><a onclick="goPage('./?');" title="{txt_close}"><span class="icon-32-close"></span>{txt_close}</a></div>
+                        
+                        <div style="display: {txt_button_law_cancel};" id="toolbar_button"><a onclick="goPage('./?act=product{txt_curent_link_info}');" title="{txt_cancel}"><span class="icon-32-cancel"></span>{txt_cancel}</a></div>
+                        <div style="display: {txt_button_law_save};" id="toolbar_button"><a  onclick="javascript: if(Check_input()) document.admintable.cmdfF.click();"  title="{txt_save}"><span class="icon-32-save"></span>{txt_save}</a></div>
+              </div>
+            </td>
+			</tr>
+
+            <!-- VIEW UPDATE -->
+            <tr>
+                    <td height="360" valign="top" align="center">
+            <form  enctype="multipart/form-data" action="./?act={sbj_act}{txt_curent_link_info}" method="post" name="admintable" onsubmit="return Check_input();">
+			<div id="tabs">
+				<ul>
+					<li><a href="#tabs-1">Nội dung</a></li>
+					<li><a href="#tabs-2">Hình ảnh</a></li>
+					<li style="display:none;"><a href="#tabs-3">{txt_lang_product_price}</a></li>
+					<li style="display:none;"><a href="#tabs-4">{txt_lang_product_attr}</a></li>
+					<li><a href="#tabs-5">{txt_lang_link}</a></li>
+				</ul>
+				<div id="tabs-1">
+                        <div class="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="border:#000000 solid 0px; width: 950px; height: auto; margin: 5px auto;">
+                                         <table width="100%" border="0" cellpadding="0" cellspacing="10">
+												<tr style="display:none; {notifi_display};">
+													<td width="200" height="10" style="height: 5px;" align="left"> </td>
+													<td align="left" valign="middle">
+													<input type="checkbox" name="notifi" value="ok"/>
+													{txt_send_updateinfo}<br/>
+													<textarea name="notifi_info" style="width:400px; height:130px;">{txt_msgtosend}</textarea>
+													</td>
+												</tr>
+                                                <tr {txt_hide_lang_vn}>
+                                                    <td height="22" class="key" align="left">Tên khách hàng ({txt_lang_vn}):</td>
+                                                    <td>
+                                                        <input type="hidden" name="id_item" value="{txt_ID}" size="6">
+                                                        <input type="text" value="{type_name_vn}" class="textForm" name="txtType_Vn" style="float: left; margin-left: 7px; width: 300px;"  onchange="getVlink(this.value,'txtLink_Vn','{txt_ID}','link_vn','pro');"/>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_en}>
+                                                    <td height="22" class="key" align="left">Tên khách hàng ({txt_lang_en}):</td>
+                                                    <td>
+                                                        <input type="text" value="{type_name_en}" class="textForm" name="txtType_En"  style="float: left; margin-left: 7px; width: 300px;" onchange="getVlink(this.value,'txtLink_En','{txt_ID}','link_en','pro');"/>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_cn}>
+                                                    <td height="22" class="key" align="left">Tên khách hàng ({txt_lang_cn}):</td>
+                                                    <td>
+                                                        <input type="text" value="{type_name_cn}" class="textForm" name="txtType_Cn"  style="float: left; margin-left: 7px; width: 300px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_jp}>
+                                                    <td height="22" class="key" align="left">Tên khách hàng ({txt_lang_jp}):</td>
+                                                    <td>
+                                                        <input type="text" value="{type_name_jp}" class="textForm" name="txtType_Jp"  style="float: left; margin-left: 7px; width: 300px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="22" class="key" align="left">Shortened link ({txt_lang_vn}):</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{type_link_vn}" class="textForm" name="txtLink_Vn" id="txtLink_Vn" style="float: left; margin-left: 7px; width: 300px;" />.html
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="22" class="key" align="left">Shortened link ({txt_lang_en}):</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{type_link_en}" class="textForm" name="txtLink_En" id="txtLink_En" style="float: left; margin-left: 7px; width: 300px;" />.html
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_vn}>
+                                                    <td height="20" class="key" align="left">Nghề nghiệp ({txt_lang_vn}):</td>
+                                                    <td align="left">
+                                                        <textarea name="txtMoreVn" class="textSetting" style="width: 302px; height: 21px; margin-left: 8px;">{type_more_vn}</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_en}>
+                                                    <td height="20" class="key" align="left">Nghề nghiệp ({txt_lang_en}):</td>
+                                                    <td align="left">
+                                                         <textarea name="txtMoreEn" class="textSetting" style="width: 302px; height: 21px; margin-left: 8px;">{type_more_en}</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_cn}>
+                                                    <td height="20" class="key" align="left">Nghề nghiệp ({txt_lang_cn}):</td>
+                                                    <td align="left">
+                                                         <textarea name="txtMoreCn" class="textSetting" style="width: 302px; height: 21px; margin-left: 8px;">{type_more_cn}</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_jp}>
+                                                    <td height="20" class="key" align="left">Nghề nghiệp ({txt_lang_jp}):</td>
+                                                    <td align="left">
+                                                         <textarea name="txtMoreJp" class="textSetting" style="width: 302px; height: 21px; margin-left: 8px;">{type_more_jp}</textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="20" class="key" align="left">Trang web:</td>
+                                                    <td align="left">
+                                                         <input type="text" value="{type_serial}" class="textForm" style="float: left; margin-left: 7px; background-color: #ffffff; width: 350px;" name="txtSerial"/>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_vn}>
+                                                    <td height="22" class="key" align="left">{txt_des} ({txt_lang_vn}):</td>
+													<td align="left">
+															<div  style="float: left; width: 500px; overflow: hidden; margin-left: 8px">
+                                                            <textarea rows="12" id="txtType_Des_vn" name="txtType_Des_vn" cols="60">{type_des_vn}</textarea>
+                                                            </div>
+															<script>
+																	var oEdit1 = new InnovaEditor("oEdit1");
+																	oEdit1.width = 583;
+																	oEdit1.height = 500;
+																	oEdit1.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+																	oEdit1.groups = [
+																		["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+																		["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+																		["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+																		["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+																		["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+																		];
+																	oEdit1.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+																	oEdit1.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+																	oEdit1.fileBrowser = "../../../assetmanager/assetmanager.php";
+																	oEdit1.arrCustomTag = [["First Name", "{%first_name%}"],
+																		["Last Name", "{%last_name%}"],
+																		["Email", "{%email%}"]];
+																	oEdit1.css = "styles/default.css";
+                                                                  oEdit1.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,465)";
+                                                                  oEdit1.REPLACE("txtType_Des_vn");
+                                                              </script>
+                                                    </td>
+                                                </tr>
+                                                <tr {txt_hide_lang_en}>
+                                                    <td height="22" class="key" align="left">{txt_des} ({txt_lang_en}):</td>
+                                                    <td align="left">
+															<div  style="float: left; width: 500px; overflow: hidden; margin-left: 7px">
+                                                            <textarea rows="12" id="txtType_Des_en" name="txtType_Des_en" cols="60">{type_des_en}</textarea>
+	                                                        </div>
+															<script>
+																	var oEdit2 = new InnovaEditor("oEdit2");
+																	oEdit2.width = 583;
+																	oEdit2.height = 500;
+																	oEdit2.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+																	oEdit2.groups = [
+																		["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+																		["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+																		["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+																		["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+																		["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+																		];
+																	oEdit2.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+																	oEdit2.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+																	oEdit2.fileBrowser = "../../../assetmanager/assetmanager.php";
+																	oEdit2.arrCustomTag = [["First Name", "{%first_name%}"],
+																		["Last Name", "{%last_name%}"],
+																		["Email", "{%email%}"]];
+																	oEdit2.css = "styles/default.css";
+                                                                  oEdit2.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,465)";
+                                                                  oEdit2.REPLACE("txtType_Des_en");
+                                                              </script>
+													</td>
+                                                </tr>
+                                                <tr {txt_hide_lang_cn}>
+                                                    <td height="22" class="key" align="left">{txt_des} ({txt_lang_cn}):</td>
+                                                    <td align="left">
+															<div  style="float: left; width: 500px; overflow: hidden; margin-left: 7px">
+                                                            <textarea rows="12" id="txtType_Des_cn" name="txtType_Des_cn" cols="60">{type_des_cn}</textarea>
+                                                             </div> 
+															<script>
+																	var oEdit3 = new InnovaEditor("oEdit3");
+																	oEdit3.width = 583;
+																	oEdit3.height = 500;
+																	oEdit3.arrCustomButtons.push(["MyCustomButton", "alert('Custom Command here..')", "Caption..", "btnCustom1.gif"]);
+																	oEdit3.groups = [
+																		["group1", "", ["FontName", "FontSize", "Superscript", "ForeColor", "BackColor", "FontDialog", "BRK", "Bold", "Italic", "Underline", "Strikethrough", "TextDialog", "Styles", "RemoveFormat"]],
+																		["group2", "", ["JustifyLeft", "JustifyCenter", "JustifyRight", "Paragraph", "BRK", "Bullets", "Numbering", "Indent", "Outdent"]],
+																		["group3", "", ["TableDialog", "Emoticons", "FlashDialog", "BRK", "LinkDialog", "ImageDialog", "YoutubeDialog"]],
+																		["group4", "", ["InternalLink", "CharsDialog", "Line", "BRK", "CustomObject", "CustomTag", "MyCustomButton"]],
+																		["group5", "", ["SearchDialog", "SourceDialog", "BRK", "Undo", "Redo", "FullScreen"]]
+																		];
+																	oEdit3.cmdInternalLink = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom link browser.
+																	oEdit3.cmdCustomObject = "modalDialog('my_custom_dialog.htm',650,350)"; //Command to open your custom file browser.
+																	oEdit3.fileBrowser = "../../../assetmanager/assetmanager.php";
+																	oEdit3.arrCustomTag = [["First Name", "{%first_name%}"],
+																		["Last Name", "{%last_name%}"],
+																		["Email", "{%email%}"]];
+																	oEdit3.css = "styles/default.css";
+                                                                  oEdit3.cmdAssetManager = "modalDialogShow('../innovaeditor/scripts/assetmanager/assetmanager.php',640,465)";
+                                                                  oEdit3.REPLACE("txtType_Des_cn");
+                                                              </script>
+													</td>
+                                                </tr>
+                                                <tr {txt_hide_lang_jp}>
+                                                    <td height="22" class="key" align="left">{txt_des} ({txt_lang_jp}):</td>
+                                                    <td align="left">
+															<div  style="float: left; width: 500px; overflow: hidden;">
+                                                            <textarea rows="12" id="txtType_Des_jp" name="txtType_Des_jp" cols="60">{type_des_jp}</textarea>
+															<script>
+                                                                  var oEdit4 = new InnovaEditor("oEdit4");
+                                                                  oEdit4.width=583;
+                                                                  oEdit4.height=500;
+                                                                  oEdit4.features=["FullScreen","Preview",
+                                                                  "Cut","Copy","Paste","PasteWord","PasteText",
+                                                                  "Undo","Redo","Hyperlink",                                                                    
+                                                                  "Superscript","Subscript","LTR","RTL",
+                                                                  "Table","Guidelines","Flash","Media","Image",
+                                                                  "Characters","Line","RemoveFormat","ClearAll","XHTMLSource",
+                                                                  "BRK",
+                                                                  "TextFormatting","ListFormatting",
+                                                                  "BoxFormatting","ParagraphFormatting","CssText",
+                                                                  "Paragraph","FontName","FontSize",
+                                                                  "Bold","Italic","Underline","Strikethrough",
+                                                                  "ForeColor","BackColor","StyleAndFormatting",                                                                  
+                                                                  "JustifyLeft","JustifyCenter","JustifyRight","JustifyFull",
+                                                                  "Numbering","Bullets",
+                                                                  ];// => Custom Button Placement
+
+                                                                  oEdit4.css="style/test.css";
+                                                                  oEdit4.cmdAssetManager = "modalDialogShow('../assetmanager/assetmanager.php',640,465)";
+                                                                  oEdit4.REPLACE("txtType_Des_jp");
+                                                              </script>
+                                                             </div> 
+													</td>
+                                                </tr>
+                                         </table>                                                                                
+                                </div>
+						</div>
+				</div>
+				<div id="tabs-2">
+                        <div class="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="border:#000000 solid 0px; width: 950px; height: auto; margin: 5px auto;">
+                                         <table width="100%" border="0" cellpadding="0" cellspacing="10">
+										 <tr>
+                                                    <td width="200" height="10" style="height: 5px;" align="left" valign="top">{txt_minhhoa}</td>
+                                                    <td align="left" valign="middle">
+													<div style="width:200px; height:220px; border:#A7A6AA dotted 1px;">
+													<div style="width:195px; height:195px;">
+													<img id="imgSmallImage" src="../images_upload/{type_proimage}" style="max-width:100%; max-height:100%;"/>
+													</div>
+													<input type="hidden" id="fileSmallImage" name="fileSmallImage" value="{type_proimage}" />
+													<input type="button" onclick="modalDialogShow('../editor/editor/assetmanager/assetmanager.php?ffilter=image?ffilter=image',700,450); return false;" value="{txt_chooseimg}">
+													<input type="button" onclick="fileclick('');" value="{txt_cms_delete}">
+													</div>
+													</td>
+                                        </tr>
+										 <tr>
+                                                    <td width="200" height="10" style="height: 5px;" align="left" valign="top">{txt_lang_album}</td>
+													<td align="left" valign="middle" height="1">
+													<div id="SubFileForm" style="visibility:hidden; height:1px; overflow:hidden;">
+													<div id="row-random" style="width:190px; height:245px; float:left; border:#A7A6AA dotted 1px; margin-right:5px; margin-bottom:5px;">
+													<div style="width:185px; height:185px;">
+													<img id="SubImageSrc-random" src="" style="max-width:100%; max-height:100%;"/><br/>
+													</div>
+													<input type="hidden" id="SubImageFile-random" name="SubImageFile[]" value="" style="width:200px;" />
+													<input type="button" onclick="modalDialogShow('../editor/editor/assetmanager/assetmanager1.php?ffilter=image&ffilter=image&target=random',700,450); return false;" value="{txt_chooseimg}"> 
+													<input type="button" onclick="document.getElementById('row-random').remove();" value="{txt_cms_delete}">
+													{txt_title_order}: <input type="text" name="SubImageOrder[]" value="0" style="width:15px;" />
+													<br/>
+													<input type="text" name="SubImageTitle[]" value="{txt_lang_image_title}" style="width:190px;" />
+													</div>
+													</div>
+													<div style="width:635px; overflow:auto; border:#A7A6AA dotted 0px;">
+													<div id="SubFile" style="width:100%;">
+													<!-- BEGIN ALBUM -->
+													<div id="row-{ALBUM.random}" style="width:190px; height:245px; float:left; border:#A7A6AA dotted 1px; margin-right:5px;">
+													<div style="width:185px; height:185px;">
+													<img id="SubImageSrc-{ALBUM.random}" src="../images_upload/{ALBUM.image}" style="max-width:100%; max-height:100%;"/>
+													</div>
+													<input type="hidden" id="SubImageFile-{ALBUM.random}" name="SubImageFile[]" value="{ALBUM.image}" style="width:200px;" />
+													<input type="button" onclick="modalDialogShow('../editor/editor/assetmanager/assetmanager1.php?ffilter=image&ffilter=image&target={ALBUM.random}',700,450); return false;" value="{txt_chooseimg}"> 
+													<input type="button" onclick="document.getElementById('row-{ALBUM.random}').remove();" value="{txt_cms_delete}">
+													{txt_title_order}: <input type="text" name="SubImageOrder[]" value="{ALBUM.priority_order}" style="width:15px;" />
+													<br/>
+													<input type="text" name="SubImageTitle[]" value="{ALBUM.title}" style="width:190px;" />
+													</div>
+													<!-- END ALBUM -->
+													</div>
+													<div id="row-random" style="text-align:center; width:200px; height:245px; float:left; border:#FFCBB2 dotted 1px;">
+													<input type="button" onclick="addSub();" title="Thêm ảnh" value="  +  " style="margin-top:100px; height:70px; font-size:50px;"/>	
+													</div>
+													</div>
+
+													</td>
+												</tr>
+                                         </table>                                                                                
+                                </div>
+						</div>
+				</div>
+				<div id="tabs-3" style="display:none;">
+                        <div class="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="border:#000000 solid 0px; width: 950px; height: auto; margin: 5px auto;">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="10">
+                                                <tr>
+                                                    <td height="20" class="key" align="left" width="200">{txt_lang_sale_product}?<br></td>
+                                                    <td align="left">
+                                                        <input type="radio" name="txthotdeal" value="1" CHECKED>{txt_yes} <input type="radio" name="txthotdeal" value="0" {txt_nohotdeal_check}>{txt_no}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="20" class="key" align="left">{txt_newproduct}?<br></td>
+                                                    <td align="left">
+                                                        <input type="radio" name="txtfancy" value="1" CHECKED>{txt_yes}  <input type="radio" name="txtfancy" value="0" {txt_nofancy_check}>{txt_no}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td height="20" class="key" align="left">{txt_oldprice}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_priceold_vn}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPriceold_vn" onkeyup="$('#txtPriceold_vn_cv').html(accounting.formatMoney(this.value, '', 0, '.', ','));"/> <span id="txtPriceold_vn_cv"></span>đ
+                                                    </td>
+                                                </tr>												
+                                                <tr>
+                                                    <td height="20" class="key" align="left">{txt_price}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_price_vn}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPrice_vn" onkeyup="$('#txtPrice_vn_cv').html(accounting.formatMoney(this.value, '', 0, '.', ','));"/> <span id="txtPrice_vn_cv"></span>đ
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_oldprice}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_priceold_en}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPriceold_en" onkeyup="$('#txtPriceold_en_cv').html(accounting.formatMoney(this.value, '', 2, '.', ','));" /> <span id="txtPriceold_en_cv"></span>đ
+                                                    </td>
+                                                </tr>												
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_price}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_price_en}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPrice_en"  onkeyup="$('#txtPrice_en_cv').html(accounting.formatMoney(this.value, '', 2, '.', ','));" /> <span id="txtPrice_en_cv"></span>đ
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_oldprice}({txt_lang_cn}):</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_priceold_cn}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPriceold_cn"/> KHR (chỉ nhập giá gốc khi có giảm giá)
+                                                    </td>
+                                                </tr>												
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_price}({txt_lang_cn}):</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_price_cn}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPrice_cn"/> KHR 
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_oldprice}({txt_lang_jp}):</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_priceold_jp}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPriceold_jp"/> Kyat (chỉ nhập giá gốc khi có giảm giá)
+                                                    </td>
+                                                </tr>												
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_price}({txt_lang_jp}):</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_price_jp}" style="width: 100px; margin-left: 8px; background-color: #b6ebff" class="textForm" name="txtPrice_jp"/> Kyat 
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">Giảm giá đến ngày:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_time_format}" style="width: 200px; margin-left: 8px;" class="textForm" name="txtExpired"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="20" class="key" align="left">{txt_lang_color}:</td>
+                                                    <td align="left">
+														<input type="hidden" name="txtColor" value="">
+														<table class="border" cellpadding="0" cellspacing="0">
+															<thead>
+															<tr class="headings" style="background:#FFF5CA;">
+																<th class="type-title" width="150">Thông số<span class="required">*</span></th>
+																<th class="type-price" width="150">Giá điều chỉnh</th>
+																<th class="type-type" width="150">Kiểu giá</th>
+																<th class="type-order" width="70">Sắp xếp</th>
+																<th class="type-butt last" width="20">&nbsp;</th>
+															</tr>
+															</thead>
+															<tbody id="select_color_option">
+															<tr><td colspan="5" style="border-bottom:none 0px;"> </td></tr>
+															<!-- BEGIN COLOR -->
+															<tr id="select_color_option_{COLOR.stt}">
+																<td>
+																	<input type="hidden" name="color_option_id[]" value="{COLOR.id}">
+																	<input type="hidden" name="color_option_del[]" id="color_option_del_{COLOR.stt}" value="0">
+																	<input id="" name="color_option_title[]" value="{COLOR.title}" type="text">
+																</td>
+																<td><input id="" name="color_option_price[]" value="{COLOR.price}" type="text"></td>
+																<td><select name="color_option_pricetype[]" id=""><option value="fixed">Cộng thêm</option></select></td>
+																<td><input id="" name="color_option_sort[]" value="{COLOR.order}" type="text" style="width:50px;"></td>
+																<td><a title="Xóa" href="javascript:del_color_Option_Row({COLOR.stt});"><img src="./images/icon-16/icon-16-del.png"></a></td>
+															</tr>
+															<!-- END COLOR -->
+															</tbody>
+															<tfoot>
+															<tr>
+																<td colspan="5" align="right" style="padding:3px;"><button id="add_color_select_row_button" title="Thêm" type="button" onclick="add_color_Option_Row();" style=""><span><span><span>Thêm dòng mới</span></span></span></button></td>
+															</tr>
+															</tfoot>
+														</table>
+														<script type="text/javascript">
+														opt_color_id = {txt_opt_color_id};
+														function add_color_Option_Row(){
+														opt_color_id = opt_color_id + 1;
+														jQuery("#select_color_option").append('\
+															<tr id="select_color_option_' + opt_color_id + '">\
+																<td><input id="" name="color_option_title[]" value="" type="text"><input type="hidden" name="color_option_id[]" value="0"><input type="hidden" name="color_option_del[]" id="color_option_del_' + opt_color_id + '" value="0"></td>\
+																<td><input id="" name="color_option_price[]" value="" type="text"></td>\
+																<td><select name="color_option_pricetype[]" id=""><option value="fixed">Cố định</option></select></td>\
+																<td><input id="" name="color_option_sort[]" value="' + opt_color_id + '" type="text" style="width:50px;"></td>\
+																<td><a title="Xóa" href="javascript:del_color_Option_Row(' + opt_color_id + ');"><img src="./images/icon-16/icon-16-del.png"></a></td>\
+															</tr>\
+														');
+														}
+														function del_color_Option_Row(rid) {
+															jQuery("#color_option_del_" + rid).val('1');
+															jQuery("#select_color_option_" + rid).hide();
+														}
+														</script>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="20" class="key" align="left">{txt_size}:</td>
+                                                    <td align="left">
+														<input type="hidden" name="txtSize" value="">
+														<table class="border" cellpadding="0" cellspacing="0">
+															<thead>
+															<tr class="headings" style="background:#FFF5CA;">
+																<th class="type-title" width="150">Thông số<span class="required">*</span></th>
+																<th class="type-price" width="150">Giá điều chỉnh</th>
+																<th class="type-type" width="150">Kiểu giá</th>
+																<th class="type-order" width="70">Sắp xếp</th>
+																<th class="type-butt last" width="20">&nbsp;</th>
+															</tr>
+															</thead>
+															<tbody id="select_size_option">
+															<tr><td colspan="5" style="border-bottom:none 0px;"> </td></tr>
+															<!-- BEGIN SIZE -->
+															<tr id="select_size_option_{SIZE.stt}">
+																<td>
+																	<input type="hidden" name="size_option_id[]" value="{SIZE.id}">
+																	<input type="hidden" name="size_option_del[]" id="size_option_del_{SIZE.stt}" value="0">
+																	<input id="" name="size_option_title[]" value="{SIZE.title}" type="text">
+																</td>
+																<td><input id="" name="size_option_price[]" value="{SIZE.price}" type="text"></td>
+																<td><select name="size_option_pricetype[]" id=""><option value="fixed">Cộng thêm</option></select></td>
+																<td><input id="" name="size_option_sort[]" value="{SIZE.order}" type="text" style="width:50px;"></td>
+																<td><a title="Xóa" href="javascript:del_size_Option_Row({SIZE.stt});"><img src="./images/icon-16/icon-16-del.png"></a></td>
+															</tr>
+															<!-- END SIZE -->
+															</tbody>
+															<tfoot>
+															<tr>
+																<td colspan="5" align="right" style="padding:3px;"><button id="add_select_row_button" title="Thêm" type="button" onclick="add_size_Option_Row();" style=""><span><span><span>Thêm dòng mới</span></span></span></button></td>
+															</tr>
+															</tfoot>
+														</table>
+														<script type="text/javascript">
+														opt_id = {txt_opt_id};
+														function add_size_Option_Row(){
+														opt_id = opt_id + 1;
+														jQuery("#select_size_option").append('\
+															<tr id="select_size_option_' + opt_id + '">\
+																<td><input id="" name="size_option_title[]" value="" type="text"><input type="hidden" name="size_option_id[]" value="0"><input type="hidden" name="size_option_del[]" id="size_option_del_' + opt_id + '" value="0"></td>\
+																<td><input id="" name="size_option_price[]" value="" type="text"></td>\
+																<td><select name="size_option_pricetype[]" id=""><option value="fixed">Cố định</option></select></td>\
+																<td><input id="" name="size_option_sort[]" value="' + opt_id + '" type="text" style="width:50px;"></td>\
+																<td><a title="Xóa" href="javascript:del_size_Option_Row(' + opt_id + ');"><img src="./images/icon-16/icon-16-del.png"></a></td>\
+															</tr>\
+														');
+														}
+														function del_size_Option_Row(rid) {
+															jQuery("#size_option_del_" + rid).val('1');
+															jQuery("#select_size_option_" + rid).hide();
+														}
+														</script>
+                                                    </td>
+                                                </tr>
+                                         </table>                                                                                
+                                </div>
+						</div>
+				</div>
+				<div id="tabs-4" style="display:none;">
+                        <div class="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="border:#000000 solid 0px; width: 760px; height: auto; margin: 5px;">
+									<table class="border" cellpadding="0" cellspacing="0">
+										<thead>
+										<tr class="headings" style="background:#FFF5CA;">
+											<th class="type-title" width="250">Thông số<span class="required">*</span></th>
+											<th class="type-price" width="150">giá trị</th>
+											<th class="type-order" width="70">Sắp xếp</th>
+											<th class="type-butt last" width="20">&nbsp;</th>
+										</tr>
+										</thead>
+										<tbody id="select_attr">
+										<tr><td colspan="4" style="border-bottom:none 0px;"> </td></tr>
+									
+										<!-- BEGIN CATATTR -->
+										<tr class="add_row" style="background:#FFF5CA; display:none;">
+											<td colspan="4"><b>{CATATTR.name}</b></td>
+										</tr>
+										<!-- BEGIN PROATTR -->
+										<tr id="select_attr_{CATATTR.PROATTR.stt}">
+											<td class="add_row" align="left">
+											<select name="attr_title[]" style="width:90%;">
+											<!-- BEGIN ATTR -->
+											<option value="{CATATTR.PROATTR.ATTR.id}" {CATATTR.PROATTR.ATTR.selected}>{CATATTR.PROATTR.ATTR.name}</option>
+											<!-- END ATTR -->
+											</select>
+											</td>
+											<td class="add_row"><input id="" name="attr_value[]" size="50" value="{CATATTR.PROATTR.value}" type="text"></td>
+											<td class="add_row"><input id="" name="attr_sort[]" value="{CATATTR.PROATTR.order}" type="text" style="width:50px;"></td>
+											<td class="add_row"><a title="Xóa" href="javascript:del_attr_Row({CATATTR.PROATTR.stt});"><img src="./images/icon-16/icon-16-del.png"></a></td>
+										</tr>
+										<!-- END PROATTR -->
+										<!-- END CATATTR -->
+										</tbody>
+										<tfoot>
+										<tr>
+											<td colspan="4" align="right" style="padding:3px;"><button title="Thêm" type="button" onclick="add_attr_Row();" style=""><span><span><span>Thêm dòng mới</span></span></span></button></td>
+										</tr>
+										</tfoot>
+									</table>
+									<script type="text/javascript">
+									attr_max_id = {attr_max_id};
+									function add_attr_Row(){
+									attr_max_id = attr_max_id + 1;
+									jQuery("#select_attr").append('\
+										<tr id="select_attr_' + attr_max_id + '">\
+											<td align="left" class="add_row">\
+											{txt_select_html}\
+											<td class="add_row"><input name="attr_value[]" size="50" value="" type="text"></td>\
+											<td class="add_row"><input id="" name="attr_sort[]" value="' + attr_max_id + '" type="text" style="width:50px;"></td>\
+											<td class="add_row"><a title="Xóa" href="javascript:del_attr_Row(' + attr_max_id + ');"><img src="./images/icon-16/icon-16-del.png"></a></td>\
+										</tr>\
+									');
+									}
+									function del_attr_Row(rid) {
+										jQuery("#select_attr_" + rid).html('');
+										jQuery("#select_attr_" + rid).hide();
+									}
+									</script>
+                                </div>
+                        </div>
+				</div>
+				<div id="tabs-5">
+                        <div class="cpanel" style="text-align: center; display: {show_all};">
+                                <div style="border:#000000 solid 0px; width: 950px; height: auto; margin: 5px auto;">
+                                        <table width="100%" border="0" cellpadding="0" cellspacing="10">
+                                                <tr>
+													<td height="20" class="key" align="left">{txt_catalog}:</td>
+                                                    <td align="left">
+															<select size="1" name="txtgroup" class="combo_group" style="margin-left: 8px; width: 200px;"  onchange="document.frmGroup.submit();"/>
+																<option value="0">{txtSelect}</option>
+																<!-- BEGIN GROUP -->
+																<option value="{GROUP.group_id}"{GROUP._selected}>{GROUP.group}</option>
+																<!-- END GROUP -->
+															</select>
+                                                    </td>
+                                                </tr>  
+	                                            <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">Vị trí</td>
+                                                    <td align="left">
+														  <select size="1" name="txtfilter" class="combo_select_group" style=" margin-left: 8px; width: 200px;">
+														  <!-- BEGIN FILTER -->
+                                                            <option value="{FILTER.id}" {FILTER.selected}>{FILTER.name}</option>
+                                                          <!-- END FILTER -->
+														  </select>
+                                                    </td>
+                                                </tr> 
+                                                <tr  style="display:none;">
+                                                    <td height="22" class="key" align="left">{txt_mode_prod}</td>
+                                                    <td>
+                                                        <input type="text" value="{type_model}" class="textForm" style="float: left; margin-left: 7px; background-color: #ffffff; width: 150px;" name="txtModel"/>
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_manufacture_year}</td>
+                                                    <td align="left">
+                                                         <input type="text" value="{type_manufac_year}" class="textForm" style="float: left; margin-left: 7px; background-color: #ffffff; width: 150px;" name="txtManufac_year"/>
+                                                    </td>
+                                                </tr> 
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_manufacture_country}</td>
+                                                    <td align="left">
+                                                         <input type="text" value="{type_manufac_country}" class="textForm" style="float: left; margin-left: 7px; background-color: #ffffff; width: 300px;" name="txtManufac_country"/>
+                                                    </td>
+                                                </tr> 
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_lang_brand}</td>
+                                                    <td align="left">
+														  <select size="1" name="txtmanufac" class="combo_select_group" style=" margin-left: 8px; width: 200px;">
+                                                          <option value="0">---{txt_choicelang}---</option>
+														  <!-- BEGIN MANUFAC -->
+                                                            <option value="{MANUFAC.id}" {MANUFAC.selected}>{MANUFAC.name}</option>
+                                                          <!-- END MANUFAC -->
+														  </select>
+                                                    </td>
+                                                </tr> 
+
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">Action</td>
+                                                    <td align="left">
+                                                          
+														  <select size="1" name="txtaction" class="combo_select_group" style=" margin-left: 8px; width: 200px;">
+                                                          <option value="0">---{txt_choicelang}---</option>
+														  <!-- BEGIN ACTION -->
+                                                            <option value="{ACTION.id}" {ACTION.selected}>{ACTION.name}</option>
+                                                          <!-- END ACTION -->
+														  </select>
+														  
+                                                    </td>
+                                                </tr>
+
+												<tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_weight}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{type_weight}" style="width: 100px; margin-left: 8px;;" class="textForm" name="txtweight"/>
+                                                    </td>
+                                                </tr> 
+												<tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_quantity}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{type_quantity}" style="width: 100px; margin-left: 8px;;" class="textForm" name="txtquantity"/>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display:none;">
+                                                    <td height="20" class="key" align="left">{txt_pro_special}?<br></td>
+                                                    <td align="left">
+                                                        <input type="radio" name="txtdealinfo" value="1" CHECKED>{txt_yes}  <input type="radio" name="txtdealinfo" value="0" {txt_noshow_check}>{txt_no}
+                                                    </td>
+                                                </tr>
+												<tr>
+                                                    <td height="20" class="key" align="left">{txt_ordertext}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{priority_order}" style="width: 50px; margin-left: 8px;;" class="textForm" name="txtPriority_Order"/>
+                                                    </td>
+                                                </tr> 
+												<tr>
+                                                    <td height="20" class="key" align="left">{txt_lang_tag}:</td>
+                                                    <td align="left">
+                                                        <input type="text" value="{txt_tag}" style="width: 350px; margin-left: 8px;;" class="textForm" name="txtTag"/> (tag1,tag2,tag3...)
+                                                    </td>
+                                                </tr> 
+                                                <tr>
+                                                    <td height="20" class="key" align="left">{txtStatus}:</td>
+                                                    <td align="left">
+                                                          <select size="1" name="cbStatus" id="cbStatus" class="combo_select_group" style=" margin-left: 8px; width: 200px;">
+                                                            <option value="1"{ActivitySelected}>{txt_cms_active}</option>
+                                                            <option value="0"{WaitingSelected}>{txt_cms_unactive}</option>
+                                                          </select>
+                                                    </td>
+                                                </tr>                                                                                              
+                                                <tr style="height: 10px;">
+                                                    <td></td>
+                                                    <td>
+                                                        <div style="overflow:hidden; width: 1px; height: 1px;">
+														<input type="submit" name="cmdfF" value="{txt_type_button}"/>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>    
+                                         </table>                                                                                
+								
+                                </div>
+                        </div>
+				</div>
+				
+			</div>
+			</form>
+                    </td>
+        </tr>
+        </table> 
+</td>

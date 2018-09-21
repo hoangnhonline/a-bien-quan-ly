@@ -1,0 +1,134 @@
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="clearfix"></div>
+                    <div id="left-tree">
+						<div class="ql-bds" style="position: relative;">
+						<button type="button" class="btn btn-success" onclick="window.open('./?act=cat_bds');">Quản lý khu vực</button>
+						</div>
+						<div class="clearfix"></div>
+						<input type="text" name="bds_name" class="form-control" style="width:200px;" placeholder="Tìm kiếm khu vực...">
+						<div class="clearfix"></div>
+						<h2>Chọn khu vực BĐS:</h2>
+						<div id="html" class="demo">
+							<ul>
+								<!-- BEGIN CAT1 -->
+								<li data-jstree='{ "opened" : true }'>{CAT1.title}
+									<ul>
+										<!-- BEGIN CAT2 -->
+										<li><span onclick="alert('{CAT1.CAT2.id}');">{CAT1.CAT2.title}</span>
+											<ul>
+												<!-- BEGIN CAT3 -->
+												<li>{CAT1.CAT2.CAT3.title}</li>
+												<!-- END CAT3 -->
+											</ul>
+										</li>
+										<!-- END CAT2 -->
+									</ul>
+								</li>
+								<!-- END CAT1 -->
+							</ul>
+						</div>
+						<script>
+						$('#html').jstree({'plugins':["_checkbox"]});
+						</script>
+                    </div>
+                </div>
+            </div>
+            <div class="right_col" role="main">
+				<div class="x_panel">
+                                <div class="x_content">
+								<div class="page-title">
+									<div class="title_left">
+										<h3>Danh sách khách hàng</h3>
+									</div>
+								</div>
+								<div class="">
+									<button type="button" id="addProjectButton" class="btn btn-success">Thêm mới dự án</button>
+								
+								</div>
+								<form action="" method="GET">
+								<div class="scroll-view1" style="overflow-x:auto;">
+									<table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title">Thao tác</th>
+                                                <th class="column-title sorting_desc">TT</th>
+                                                <th class="column-title sorting_asc">Tên KH</th>
+                                                <th class="column-title sorting">Khu vực</th>
+                                                <th class="column-title">Ký hiệu</th>
+                                                <th class="column-title">Điện tích</th>
+                                                <th class="column-title">Giá bán</th>
+                                                <th class="column-title">ĐVT</th>
+                                                <th class="column-title">Giá thuê</th>
+                                                <th class="column-title">ĐVT</th>
+                                                <th class="column-title">Nhân viên</th>
+                                                <th class="column-title">Ngày hết HĐ</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+											<tr class="even pointer">
+												<td class="a-center ">
+													<input type="text" name="" class="form-control" style="width:70px;visibility: hidden;">												
+												</td>
+												<td class=" "></td>
+												<td class=" ">
+													<input type="text" name="kh_name" class="form-control" style="width:100px;">
+												</td>
+												<td class=" ">
+													<input type="text" name="cat_name" class="form-control" style="width:130px;">
+												</td>
+												<td class=" ">
+													<input type="text" name="pro_code" class="form-control" style="width:100px;">
+												</td>
+												<td class=" ">
+													<input type="text" name="dt_min" class="form-control" style="width:70px;">
+													<input type="text" name="dt_max" class="form-control" style="width:70px;margin-top:2px;">
+												</td>
+												<td class=" ">
+													<input type="text" name="price_min" class="form-control" style="width:70px;">
+													<input type="text" name="price_max" class="form-control" style="width:70px;margin-top:2px;">
+												</td>
+												<td class=" last">
+													<input type="text" name="price_dvt" class="form-control" style="width:50px;">
+												</td>
+												<td class=" last">
+													<input type="text" name="ren_min" class="form-control" style="width:70px;">
+													<input type="text" name="ren_max" class="form-control" style="width:70px;margin-top:2px;">												
+												</td>
+												<td class=" last">
+													<input type="text" name="ren_dvt" class="form-control" style="width:50px;">
+												</td>
+												<td class=" last">
+													<input type="text" name="admin_name" class="form-control" style="width:80px;">
+												</td>
+												<td class=" last">
+													<input type="text" name="expired" class="form-control" style="width:80px;">
+												</td>
+											</tr>
+											<!-- BEGIN MENULIST -->
+											<tr class="even pointer">
+												<td class="a-center "  width="150">
+													<a style="margin:0px;" title="Thêm dự án tương tự" onclick="dupBDS('{MENULIST.id}');" class="btn btn-primary btn-xs"><li class="fa fa-plus"></li></a>
+													<a style="margin:0px;{MENULIST.show_action}" title="Sửa thông tin dự án" onclick="editBds'{MENULIST.id}');" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></a>
+												</td>
+												<td class=" ">{MENULIST.stt}</td>
+												<td class=" ">{MENULIST.user}</td>
+												<td class=" ">{MENULIST.cat_title}</td>
+												<td class=" ">{MENULIST.code}</td>
+												<td class=" ">{MENULIST.dt} m2</td>
+												<td class="a-right a-right ">{MENULIST.price}</td>
+												<td class=" last">{MENULIST.price_dvt}</td>
+												<td class="a-right a-right ">{MENULIST.ren}</td>
+												<td class=" last">{MENULIST.ren_dvt}</td>
+												<td class=" last">{MENULIST.admin}</td>
+												<td class=" last">{MENULIST.expired}</td>
+											</tr>
+											<!-- END MENULIST -->
+										</tbody>
+                                    </table>
+									
+                                </div>
+								</form>
+                                </div>
+                            </div>

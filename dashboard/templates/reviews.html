@@ -1,0 +1,159 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {show_form0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Reviews manager</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="update();">Update</button></a>
+                                        <li><button type="button" class="btn btn-danger" onclick="deleterows();">Delete</button></a>
+										<li><button type="button" class="btn btn-primary" onclick="publich();">Publish</button></a>
+                                        <li><button type="button" class="btn btn-warning" onclick="unpublish();">Unpublish</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>Add, edit or delete custumer's reviews!</p>
+									<div class="alert alert-{txt_mess_result} alert-dismissible fade in" role="alert" style="display:{txt_show_error};">
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+										</button>
+										{txt_msg_error}
+									</div>
+									<p style="clear:both;"> </p>
+									<form action="" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th width="30">
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th width="120" class="column-title">Custumer</th>
+                                                <th width="150"  class="column-title">Posts</th>
+                                                <th class="column-title">Reviews</th>
+                                                <th width="50" class="column-title">Status</th>
+                                                <th width="120" class="column-title">Create time</th>
+                                                <th width="30" class="column-title">Id</th>
+                                                <th class="bulk-actions" colspan="6">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;"><span class="action-cnt"> </span></a>
+												</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN REVLIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										<input type="checkbox" class="flat" name="cid[]" value="{REVLIST.id}">
+									</td>
+                                    <td class="a-center ">
+										<a href="./?act=users&id=0&dir=asc&trash=1&addnew={REVLIST.uid}" {REVLIST.stop_link}>{REVLIST.uname}</a>
+										<input type="hidden" style="margin-right: 20px;" name="strOrder[]" size="10" value="{REVLIST.uname}" class="textForm_define icon-16-ui">
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{REVLIST.id}" size="6">
+										{REVLIST.pname}
+									</td>
+                                    <td class=" ">
+										<textarea rows="3" name="strName_en[]" class="textForm_define" style="padding-left:5px; height:100px; width:100%;">{REVLIST.content}</textarea>
+									</td>
+                                    <td class=" ">
+										<a {REVLIST.linkStatus}>
+										<label>
+											<input type="checkbox" class="js-switch" {REVLIST.publish} {REVLIST.disable} />
+										</label>
+										</a>
+									</td>
+                                    <td class=" ">
+										{REVLIST.create_time}
+									</td>
+                                    <td class=" ">{REVLIST.id}</td>
+                                </tr>
+								<!-- END REVLIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page}
+</div>
+<script>
+function publich(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	document.adminForm.cmd.value="ON";
+	document.adminForm.submit();
+	}
+}
+function unpublish(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="OFF";
+		document.adminForm.submit();
+		}
+	}
+}
+function deleterows(){
+	if ($(".bulk-actions").css("display")=="none") alert("Please select rows to action!");
+	else {
+	if (confirm('Are you sure want to action?')) {
+		document.adminForm.cmd.value="del";
+		document.adminForm.submit();
+		}
+	}
+}
+function update(){
+	document.adminForm.cmd.value="update";
+	document.adminForm.submit();
+}
+
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

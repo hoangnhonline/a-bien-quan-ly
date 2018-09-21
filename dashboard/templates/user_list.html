@@ -1,0 +1,111 @@
+<script language="JAVASCRIPT">
+
+  //Question when user lick delete
+  function Question_del()
+  {
+	   return confirm('Are you sure want to delete this row?');
+  }
+
+  //Error when user click icon action
+  function Error_law(e)
+  {
+	  if (e=='del')
+	   { alert('You can not perform this action!');
+		return false;
+	   }
+	  if (e=='mod')
+	   { alert('You can not perform this action!');
+		 return false;
+	   }
+  }
+
+  //Effect for Search
+  function focus_search(e)
+  {
+	  if ( e.value == "{txt_enter_key}" )
+	  {
+		  e.value = '';
+		  return false;
+	  }
+  }
+  function moveout_search(e)
+  {
+	  if ( e.value == '')
+	  {
+		  e.value = '{txt_enter_key}';
+		  return false;
+	  }
+  }
+
+</script>
+            <div class="right_col" role="main">
+                <div class="" style="display: {show_form0}">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+								<div class="x_title">
+                                    <h2>Quản lý nhân viên</small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button type="button" class="btn btn-success" onclick="window.location.href='./?act=user_modify';">Thêm mới</button></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <p>Thêm, sửa, xóa nhân viên (khu vực chỉ dành cho Admin tối cao).</p>
+									<p style="clear:both;"> </p>
+									<form action="" method="post" name="adminForm">
+                                    <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title">Tên nhân viên</th>
+                                                <th class="column-title">Email</th>
+                                                <th class="column-title">Phân quyền</th>
+                                                <th class="column-title">Trạng thái</th>
+                                                <th class="column-title no-link last"><span class="nobr">Action</span>
+                                                </th>
+                                                <th class="column-title">Id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BEGIN USERLIST -->
+								<tr class="even pointer">
+                                    <td class="a-center ">
+										{USERLIST.username}
+									</td>
+									<td class=" ">
+										<input type="hidden" name="itemID[]" value="{USERLIST.id}" size="6">
+										{USERLIST.email}
+									</td>
+                                    <td class=" ">
+										{USERLIST.group}
+									</td>
+                                    <td class=" ">
+										<a {USERLIST._linkStatus}>
+										<label>
+											<input type="checkbox" class="js-switch" {USERLIST.publish} {USERLIST.disable} />
+										</label>
+										</a>
+									</td>
+                                    <td class=" ">
+									<a {USERLIST.linkEdit} class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Sửa </a>
+									<a {USERLIST.linkDel} onclick="{USERLIST.checkDel}"  class="btn btn-danger btn-xs"><li class="fa fa-trash-o"></li> Xóa </a>
+									</td>
+                                    <td class=" ">{USERLIST.id}</td>
+                                </tr>
+								<!-- END USERLIST -->
+                            </tbody>
+
+                                    </table>
+									<input name="cmd" value="" type="hidden">
+									</form>
+<div id="example_paginate" class="dataTables_paginate paging_full_numbers">
+{link_page_info}
+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				

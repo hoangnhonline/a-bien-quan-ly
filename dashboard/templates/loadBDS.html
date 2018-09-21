@@ -1,0 +1,23 @@
+											<!-- BEGIN MENULIST -->
+											<tr class="even pointer data" style="background-color:{MENULIST.status_color}" title="Click vào ký hiệu để chỉnh sửa">
+												<td class="a-center bds_tt">
+													<a style="margin:0px;" title="Thêm dự án tương tự" onclick="dupBDS('{MENULIST.id}');" class="btn btn-primary btn-xs"><li class="fa fa-plus"></li></a>
+													<!--<a style="margin:0px;" title="Xem thông tin dự án" onclick="editBds('{MENULIST.id}');" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>-->
+													<a style="margin:0px;{MENULIST.show_del}" title="Xóa dự án" href="./?del={MENULIST.id}" onclick="return confirm('Bạn có chắc chắn muốn xóa dự án này?');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+												</td>
+												<td class="bds_tt" align="center">{MENULIST.stt}</td>
+												<td class="kh_name">{MENULIST.user}</td>
+												<td class="cat_name">{MENULIST.cat_title}</td>
+												<td class="bds_code" onclick="editBds('{MENULIST.id}');">{MENULIST.code} <img src="./images/hot.png" width="20" style="{MENULIST.show_flag}"></td>
+												<td class="bds_dt">{MENULIST.dt} m2</td>
+												<td class="a-right bds_price">{MENULIST.price} {MENULIST.price_dvt}</td>
+												<td class="bds_price_dvt" style="display:none;">{MENULIST.price_dvt}</td>
+												<td class="a-right bds_price">{MENULIST.ren} {MENULIST.ren_dvt}</td>
+												<td class="bds_ren_dvt" style="display:none;">{MENULIST.ren_dvt}</td>
+												<td class="bds_huong">{MENULIST.huong}</td>
+												<td class="admin_name">{MENULIST.admin}</td>
+												<td class=" last a-right ">
+												<span style="display:block;max-width:400px;overflow:hidden;line-height:19px;padidng:0px;margin:0px;white-space:nowrap;text-overflow:ellipsis;">{MENULIST.note}</span>
+												</td>
+											</tr>
+											<!-- END MENULIST -->
