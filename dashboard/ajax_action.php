@@ -347,7 +347,7 @@ if ($act=="addPro" OR $act=="editPro"){
 			'show_addnew'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'])?"display:none;":"",
 			'addnew_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"":"checked",
 			'choise_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"checked":"",
-			'available_update' => (checkExpired($sql_query_rows['update_time']) OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin']) ? '' : 'display:none'
+			'available_update' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : 'display:none'
 		));
 		//ghi chu
 		$sql_query1 = "SELECT * FROM `" . $table_content_note . "` where content_id='".$_GET["id"]."' order by id DESC";
