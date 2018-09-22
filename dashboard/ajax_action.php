@@ -385,7 +385,7 @@ if ($act=="addPro" OR $act=="editPro"){
 	if (isset($_POST["my_kh"])) {
 		$sql_seach.=" AND user_id IN (SELECT id FROM `".$table_u."` WHERE `admin_id`='".$_SESSION['login_id']."')";
 	}
-	$sql_query="Select * from `".$table_content."` where trash=1 ". $sql_seach."  ORDER BY  status ASC,id DESC";
+	$sql_query="Select * from `".$table_content."` where trash=1 ". $sql_seach."  ORDER BY  status ASC,update_time ASC";
 	//exit($sql_query);
 	makeBdsList($sql_query,"MENULIST");
 	$template -> pparse('page');
