@@ -183,7 +183,9 @@ if ($act=="addPro" OR $act=="editPro"){
 															`flag`='".insertData($pro_flag)."',`update_time`=NOW() where id='".insertData($pro_id)."'";
 		} else {
 			//cap nhat che do han che
-			$sql_query  = "update `".$table_content."` SET  `expired`='".insertData($pro_expired)."',
+			$sql_query  = "update `".$table_content."` SET  
+			`admin_id`=".$_SESSION['login_id'].",
+			`expired`='".insertData($pro_expired)."',
 															`status`='".insertData($pro_status)."',
 															`dt`='".insertData($pro_dt)."',
 															`dt_r`='".insertData($pro_dt_r)."',
@@ -345,6 +347,7 @@ if ($act=="addPro" OR $act=="editPro"){
 			'show_addnew'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'])?"display:none;":"",
 			'addnew_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"":"checked",
 			'choise_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"checked":"",
+			'available_update' => (checkExpired($sql_query_rows['update_time']) OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin']) ? '' : 'display:none'
 		));
 		//ghi chu
 		$sql_query1 = "SELECT * FROM `" . $table_content_note . "` where content_id='".$_GET["id"]."' order by id DESC";
