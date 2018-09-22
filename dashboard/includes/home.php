@@ -112,7 +112,7 @@ while($sql_query_rows = mysql_fetch_array($sql_query))
 }
 
 //DS BĐS
-$sql_order=" status ASC,id DESC";
+$sql_order=" status ASC,update_time ASC, id DESC";
 $qr_order = "?order=id&sort=desc";
 $sql_seach="";
 $qr_seach = "";

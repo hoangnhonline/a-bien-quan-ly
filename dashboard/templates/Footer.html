@@ -295,7 +295,8 @@
 			});
 	}
 	function loadBDS() {
-		 var currentPage = jQuery('.paginate_button.current').attr('data-dt-idx');
+		 var currentPage = jQuery('.paginate_button.current').text();
+		 console.log(currentPage);
 		jQuery("#wait_layer").show();
 		jQuery.ajax({
 			   type: "POST",
@@ -312,7 +313,8 @@
 						table = $('#bds_list_table').DataTable().destroy();
 						jQuery("#BdsDataTable").html(data);
 						table = $('#bds_list_table').DataTable({"ordering": false,"pageLength": 25}).draw();
-						jQuery('.paginate_button[data-dt-idx='+ currentPage+']').click();
+						jQuery(".paginate_button:contains('"+currentPage+"')").click();
+						console.log(jQuery(".paginate_button:contains('"+currentPage+"')"));
 				   }
 					
 				   jQuery("#wait_layer").hide();
