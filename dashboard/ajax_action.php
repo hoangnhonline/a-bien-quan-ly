@@ -4,6 +4,17 @@ include($dir_inc.'template.php');
 include($dir_inc.'functions.php');
 include($dir_inc.'function.php');
 $template = new Template();
+$disabled_enter_script = "<script type=\"text/javascript\">
+		$(document).ready(function(){
+			$('#addproForm1').on('keyup keypress', function(e) {
+			  var keyCode = e.keyCode || e.which;
+			  if (keyCode === 13) { 
+			    e.preventDefault();
+			    return false;
+			  }
+			});
+		});
+	</script>";
 /*
 if ($_GET["act"]=="getLog") {
         $sql_define_cat="Select * from `demo1_tbllog` ORDER BY id desc";
@@ -347,7 +358,8 @@ if ($act=="addPro" OR $act=="editPro"){
 			'show_addnew'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'])?"display:none;":"",
 			'addnew_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"":"checked",
 			'choise_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"checked":"",
-			'available_update' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : 'display:none'
+			'available_update' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : 'display:none',
+			'disabled_enter_script' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : $disabled_enter_script,
 		));
 		//ghi chu
 		$sql_query1 = "SELECT * FROM `" . $table_content_note . "` where content_id='".$_GET["id"]."' order by id DESC";
