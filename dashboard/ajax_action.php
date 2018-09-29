@@ -232,6 +232,7 @@ if ($act=="addPro" OR $act=="editPro"){
 		if ($cur_status<>$pro_status) {
 			addLog("Đổi trạng thái thành ".Make_field_values1("title", $table_content_status, $db," where id='".$pro_status."'"), 0, $pro_id,"change_status");
 		}
+		$pro_note = trim($pro_note)<>"" ? $pro_note : "Không có nội dung cập nhật";
 		if(trim($pro_note)<>"") {addNote($pro_note, $pro_id);}
 		exit("--RUN:
 		<script>
