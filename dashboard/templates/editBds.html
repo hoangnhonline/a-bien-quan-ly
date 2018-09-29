@@ -98,3 +98,14 @@
 		</script>
 	
 	</form>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#addproForm1').on('keyup keypress', function(e) {
+			  var keyCode = e.keyCode || e.which;
+			  if (keyCode === 13) {
+			    e.preventDefault();
+			    return false;
+			  }
+			});
+		});
+	</script>
