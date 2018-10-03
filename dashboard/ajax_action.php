@@ -162,72 +162,81 @@ if ($act=="addPro" OR $act=="editPro"){
 		$check_code = (int)Make_field_values1("id", $table_content, $db," where trash=1 and code='".$pro_code."' and id<>'".$pro_id."' and cat2_id='".$pro_cat2."'");
 		if ($check_code>0) exit("Ký hiệu (Mã) BĐS này đã có, vui lòng chọn mã khác.");
 		$pro_admin = Make_field_values1("admin_id", $table_content, $db," where id='".$pro_id."'");
+		$pro_update_time = Make_field_values1("update_time", $table_content, $db," where id='".$pro_id."'");
 		$cur_status = Make_field_values1("status", $table_content, $db," where id='".$pro_id."'");
 		$wait_user = (int)Make_field_values1("wait_user", $table_content, $db," where id='".$pro_id."'");
-		if ($_SESSION['is_admin'] OR $pro_admin == $_SESSION['login_id'] OR $wait_user==1) {
-			//cap nhat che do full			
-			if (strlen($_POST["user_name"])<1) exit("Vui lòng nhập tên khách hàng");
-			if (strlen($_POST["user_mobile1"])<6) exit("Vui lòng nhập số di động");
-			if (trim($_POST["pro_code"])=="") exit("Vui lòng nhập ký hiệu BĐS");
-			if ((int)$_POST["pro_huong"]==0) exit("Vui lòng chọn hướng của dự án");
-			$user_id = (int)Make_field_values1("user_id", $table_content, $db," where id='".$pro_id."'");
-			//cap nhat lai thong tin user			
-			$sql_query  = "UPDATE `".$table_u."` SET `pre`='".insertData($user_pre)."',`name`='".insertData($user_name)."',`mobile1`='".insertData($user_mobile1)."',`mobile2`='".insertData($user_mobile2)."',`phone`='".insertData($user_phone)."',`address`='".insertData($user_address)."' where id='".$user_id."'";
+		
+		if($pro_admin == $_SESSION['login_id'] || $_SESSION['is_admin'] || checkExpired($pro_update_time, 1)){ // kiem tra xem co phai chủ tin hoặc admin hoặc tin đã hết hạn hay ko ?
+
+			if ($_SESSION['is_admin'] OR $pro_admin == $_SESSION['login_id'] OR $wait_user==1) {
+				//cap nhat che do full			
+				if (strlen($_POST["user_name"])<1) exit("Vui lòng nhập tên khách hàng");
+				if (strlen($_POST["user_mobile1"])<6) exit("Vui lòng nhập số di động");
+				if (trim($_POST["pro_code"])=="") exit("Vui lòng nhập ký hiệu BĐS");
+				if ((int)$_POST["pro_huong"]==0) exit("Vui lòng chọn hướng của dự án");
+				$user_id = (int)Make_field_values1("user_id", $table_content, $db," where id='".$pro_id."'");
+				//cap nhat lai thong tin user			
+				$sql_query  = "UPDATE `".$table_u."` SET `pre`='".insertData($user_pre)."',`name`='".insertData($user_name)."',`mobile1`='".insertData($user_mobile1)."',`mobile2`='".insertData($user_mobile2)."',`phone`='".insertData($user_phone)."',`address`='".insertData($user_address)."' where id='".$user_id."'";
+				$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
+				//cap nhat du an
+				$sql_query  = "update `".$table_content."` SET  `cat1_id`='".insertData($pro_cat1)."',
+																`cat2_id`='".insertData($pro_cat2)."',
+																`title`='".insertData("")."',
+																`code`='".insertData($pro_code)."',
+																`expired`='".insertData($pro_expired)."',
+																`status`='".insertData($pro_status)."',
+																`dt`='".insertData($pro_dt)."',
+																`dt_r`='".insertData($pro_dt_r)."',
+																`dt_d`='".insertData($pro_dt_d)."',
+																`price`='".insertData($pro_price)."',
+																`price_dvt`='".insertData($pro_price_dvt)."',
+																`ren`='".insertData($pro_ren)."',
+																`ren_dvt`='".insertData($pro_ren_dvt)."',
+																`soPN`='".insertData($pro_soPN)."',
+																`SoWC`='".insertData($pro_soWC)."',
+																`huong`='".insertData($pro_huong)."',
+																`flag`='".insertData($pro_flag)."',`update_time`=NOW() where id='".insertData($pro_id)."'";
+			} else {
+				//cap nhat che do han che
+				$sql_query  = "update `".$table_content."` SET  
+				`admin_id`=".$_SESSION['login_id'].",
+				`expired`='".insertData($pro_expired)."',
+																`status`='".insertData($pro_status)."',
+																`dt`='".insertData($pro_dt)."',
+																`dt_r`='".insertData($pro_dt_r)."',
+																`dt_d`='".insertData($pro_dt_d)."',
+																`price`='".insertData($pro_price)."',
+																`price_dvt`='".insertData($pro_price_dvt)."',
+																`ren`='".insertData($pro_ren)."',
+																`ren_dvt`='".insertData($pro_ren_dvt)."',
+																`soPN`='".insertData($pro_soPN)."',
+																`SoWC`='".insertData($pro_soWC)."',
+																`huong`='".insertData($pro_huong)."',
+																`flag`='".insertData($pro_flag)."',`update_time`=NOW() where id='".insertData($pro_id)."'";
+			}
+			$query = $sql_query;
 			$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
-			//cap nhat du an
-			$sql_query  = "update `".$table_content."` SET  `cat1_id`='".insertData($pro_cat1)."',
-															`cat2_id`='".insertData($pro_cat2)."',
-															`title`='".insertData("")."',
-															`code`='".insertData($pro_code)."',
-															`expired`='".insertData($pro_expired)."',
-															`status`='".insertData($pro_status)."',
-															`dt`='".insertData($pro_dt)."',
-															`dt_r`='".insertData($pro_dt_r)."',
-															`dt_d`='".insertData($pro_dt_d)."',
-															`price`='".insertData($pro_price)."',
-															`price_dvt`='".insertData($pro_price_dvt)."',
-															`ren`='".insertData($pro_ren)."',
-															`ren_dvt`='".insertData($pro_ren_dvt)."',
-															`soPN`='".insertData($pro_soPN)."',
-															`SoWC`='".insertData($pro_soWC)."',
-															`huong`='".insertData($pro_huong)."',
-															`flag`='".insertData($pro_flag)."',`update_time`=NOW() where id='".insertData($pro_id)."'";
-		} else {
-			//cap nhat che do han che
-			$sql_query  = "update `".$table_content."` SET  
-			`admin_id`=".$_SESSION['login_id'].",
-			`expired`='".insertData($pro_expired)."',
-															`status`='".insertData($pro_status)."',
-															`dt`='".insertData($pro_dt)."',
-															`dt_r`='".insertData($pro_dt_r)."',
-															`dt_d`='".insertData($pro_dt_d)."',
-															`price`='".insertData($pro_price)."',
-															`price_dvt`='".insertData($pro_price_dvt)."',
-															`ren`='".insertData($pro_ren)."',
-															`ren_dvt`='".insertData($pro_ren_dvt)."',
-															`soPN`='".insertData($pro_soPN)."',
-															`SoWC`='".insertData($pro_soWC)."',
-															`huong`='".insertData($pro_huong)."',
-															`flag`='".insertData($pro_flag)."',`update_time`=NOW() where id='".insertData($pro_id)."'";
-		}
-		$query = $sql_query;
-		$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
-		//cap nhat ngay edit gan nhat neu là du an cua nhan vien
-		if ($pro_admin == $_SESSION['login_id']) {
-			$sql_query  = "update `".$table_content."` SET  `admin_update_time`=NOW() where id='".insertData($pro_id)."'";
-			$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
-		}
-		//chuyen nhan vien neu ko phai la admin
-		if ($wait_user==1 AND !$_SESSION['is_admin']) {
-			//update wait_user
-			$sql_query  = "update `".$table_content."` SET  `wait_user`='0',`admin_id`='".$_SESSION['login_id']."',`admin_update_time`=NOW() where id='".insertData($pro_id)."'";
-			$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
-			//chuyen user
-			$sql_query  = "update `".$table_u."` SET  `admin_id`='".$_SESSION['login_id']."' where id='".insertData($user_id)."'";
-			$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
-			//add log
-			addLog("Chuyển dự án cho ".Make_field_values1("admin_user", $table_ad, $db," where admin_id='".$_SESSION['login_id']."'"), 0, $pro_id,"change_use");
-		}
+
+			//cap nhat ngay edit gan nhat neu là du an cua nhan vien
+			if ($pro_admin == $_SESSION['login_id']) {
+				$sql_query  = "update `".$table_content."` SET  `admin_update_time`=NOW() where id='".insertData($pro_id)."'";
+				$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
+			}
+
+			//chuyen nhan vien neu ko phai la admin
+			if ($wait_user==1 AND !$_SESSION['is_admin']) {
+				//update wait_user
+				$sql_query  = "update `".$table_content."` SET  `wait_user`='0',`admin_id`='".$_SESSION['login_id']."',`admin_update_time`=NOW() where id='".insertData($pro_id)."'";
+				$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
+				//chuyen user
+				$sql_query  = "update `".$table_u."` SET  `admin_id`='".$_SESSION['login_id']."' where id='".insertData($user_id)."'";
+				$sql_query = $db -> sql_query($sql_query) or die(mysql_error());
+				//add log
+				addLog("Chuyển dự án cho ".Make_field_values1("admin_user", $table_ad, $db," where admin_id='".$_SESSION['login_id']."'"), 0, $pro_id,"change_use");
+			}
+
+		} // kiem tra xem co phai chủ tin hoặc admin hoặc tin đã hết hạn hay ko ?
+
 		addLog("Cập nhật thông tin", 0, $pro_id,$query);
 		if ($cur_status<>$pro_status) {
 			addLog("Đổi trạng thái thành ".Make_field_values1("title", $table_content_status, $db," where id='".$pro_status."'"), 0, $pro_id,"change_status");
@@ -359,8 +368,10 @@ if ($act=="addPro" OR $act=="editPro"){
 			'show_addnew'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'])?"display:none;":"",
 			'addnew_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"":"checked",
 			'choise_checked'	=>  ($_SESSION['login_id']==$sql_query_rows['admin_id'] OR $_SESSION['is_admin'] OR $act=="editBds")?"checked":"",
-			'available_update' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : 'display:none',
-			'disabled_enter_script' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : $disabled_enter_script,
+			//'available_update' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : 'display:none',
+			//'disabled_enter_script' => (checkExpired($sql_query_rows['update_time']) OR $sql_query_rows['status'] > 1 OR $_SESSION['login_id']== $sql_query_rows['admin_id'] OR $_SESSION['is_admin'] ) ? '' : $disabled_enter_script,
+			'available_update' => '',
+			'disabled_enter_script' => '',
 		));
 		//ghi chu
 		$sql_query1 = "SELECT * FROM `" . $table_content_note . "` where content_id='".$_GET["id"]."' order by id DESC";
